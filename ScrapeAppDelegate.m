@@ -1,19 +1,22 @@
 //
 //  ScrapeAppDelegate.m
-//  Scrape
+//  Documents
 //
-//  Created by Elie Zananiri on 10-02-25.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by Elie Zananiri on 10-02-27.
+//  Copyright 2010 silentlyCrashing::net. All rights reserved.
 //
 
 #import "ScrapeAppDelegate.h"
 
+
 @implementation ScrapeAppDelegate
 
-@synthesize window;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application 
+	// Insert code here to initialize your application
+}
+
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+    return NO;
 }
 
 @end
