@@ -1,5 +1,5 @@
 //
-//  ScrapeDocument.h
+//  ScrapeDocumentWindowController.h
 //  Scrape
 //
 //  Created by Elie Zananiri on 10-02-28.
@@ -7,11 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include "ScrapeDocumentWindowController.h"
 
 
-@interface ScrapeDocument : NSDocument {
-    
+@interface ScrapeDocumentWindowController : NSWindowController {
+
 }
 
 @end
