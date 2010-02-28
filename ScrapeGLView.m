@@ -1,24 +1,32 @@
+//
+//  ScrapeGLView.h
+//  Scrape
+//
+//  Created by Elie Zananiri on 10-02-27.
+//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//
+
 #import "ScrapeGLView.h"
-#include <OpenGL/gl.h>
+
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 // STATIC CONSTANTS
-const int texSize   = 512;
-const int texTarget = GL_TEXTURE_2D;
+static const int texSize   = 512;
+static const int texTarget = GL_TEXTURE_2D;
 
-const GLfloat texCoords[] = {
+static const GLfloat texCoords[] = {
     0, 0,
     1, 0,
     1, 1,
     0, 1
 };
 
-const GLfloat verts[] = {
-    -1, -1,
-     1, -1,
+static const GLfloat verts[] = {
+    -1,  1,
      1,  1,
-    -1,  1
+     1, -1,
+    -1, -1
 };
 
 
@@ -27,7 +35,8 @@ const GLfloat verts[] = {
 @implementation ScrapeGLView
 
 //--------------------------------------------------------------
-- (void) drawRect: (NSRect) bounds {
+- (void)drawRect:(NSRect)bounds {
+    NSLog(@"drawRect");
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     
