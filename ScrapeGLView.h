@@ -1,8 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
-@interface GLView : NSOpenGLView {
-    GLfloat* texCoords;
-    GLfloat* verts;
+@interface ScrapeGLView : NSOpenGLView {
+    
 }
 
 - (void) drawRect: (NSRect) bounds;

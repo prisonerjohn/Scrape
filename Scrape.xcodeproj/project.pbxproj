@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* ScrapeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ScrapeAppDelegate.m */; };
-		27F86FAE1136FA24007D2CD6 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F86FAB1136FA24007D2CD6 /* AppController.m */; };
-		27F86FAF1136FA24007D2CD6 /* GLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F86FAD1136FA24007D2CD6 /* GLView.m */; };
+		274946C3113AAC5800CF9438 /* ScrapeAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274946C0113AAC5800CF9438 /* ScrapeAppController.m */; };
+		274946C4113AAC5800CF9438 /* ScrapeGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274946C2113AAC5800CF9438 /* ScrapeGLView.m */; };
 		27F86FB81136FA95007D2CD6 /* idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F86FB61136FA95007D2CD6 /* idle.png */; };
 		27F86FB91136FA95007D2CD6 /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F86FB71136FA95007D2CD6 /* select.png */; };
-		27F86FC11136FAF0007D2CD6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F86FC01136FAF0007D2CD6 /* OpenGL.framework */; };
 		27F86FC31136FB06007D2CD6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F86FC21136FB06007D2CD6 /* OpenGL.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -28,13 +27,12 @@
 		256AC3D80F4B6AC300CF3369 /* ScrapeAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeAppDelegate.h; sourceTree = "<group>"; };
 		256AC3D90F4B6AC300CF3369 /* ScrapeAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppDelegate.m; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* Scrape_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scrape_Prefix.pch; sourceTree = "<group>"; };
-		27F86FAA1136FA24007D2CD6 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = SOURCE_ROOT; };
-		27F86FAB1136FA24007D2CD6 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = SOURCE_ROOT; };
-		27F86FAC1136FA24007D2CD6 /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = SOURCE_ROOT; };
-		27F86FAD1136FA24007D2CD6 /* GLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLView.m; sourceTree = SOURCE_ROOT; };
+		274946BF113AAC5800CF9438 /* ScrapeAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeAppController.h; sourceTree = SOURCE_ROOT; };
+		274946C0113AAC5800CF9438 /* ScrapeAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppController.m; sourceTree = SOURCE_ROOT; };
+		274946C1113AAC5800CF9438 /* ScrapeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeGLView.h; sourceTree = SOURCE_ROOT; };
+		274946C2113AAC5800CF9438 /* ScrapeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeGLView.m; sourceTree = SOURCE_ROOT; };
 		27F86FB61136FA95007D2CD6 /* idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idle.png; sourceTree = SOURCE_ROOT; };
 		27F86FB71136FA95007D2CD6 /* select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select.png; sourceTree = SOURCE_ROOT; };
-		27F86FC01136FAF0007D2CD6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		27F86FC21136FB06007D2CD6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -49,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				27F86FC11136FAF0007D2CD6 /* OpenGL.framework in Frameworks */,
 				27F86FC31136FB06007D2CD6 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,12 +57,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				27F86FAA1136FA24007D2CD6 /* AppController.h */,
-				27F86FAB1136FA24007D2CD6 /* AppController.m */,
-				27F86FAC1136FA24007D2CD6 /* GLView.h */,
-				27F86FAD1136FA24007D2CD6 /* GLView.m */,
+				274946BF113AAC5800CF9438 /* ScrapeAppController.h */,
+				274946C0113AAC5800CF9438 /* ScrapeAppController.m */,
 				256AC3D80F4B6AC300CF3369 /* ScrapeAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ScrapeAppDelegate.m */,
+				274946C1113AAC5800CF9438 /* ScrapeGLView.h */,
+				274946C2113AAC5800CF9438 /* ScrapeGLView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -206,8 +203,8 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* ScrapeAppDelegate.m in Sources */,
-				27F86FAE1136FA24007D2CD6 /* AppController.m in Sources */,
-				27F86FAF1136FA24007D2CD6 /* GLView.m in Sources */,
+				274946C3113AAC5800CF9438 /* ScrapeAppController.m in Sources */,
+				274946C4113AAC5800CF9438 /* ScrapeGLView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

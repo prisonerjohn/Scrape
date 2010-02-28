@@ -1,6 +1,6 @@
-#import "AppController.h"
+#import "ScrapeAppController.h"
 
-@implementation AppController
+@implementation ScrapeAppController
 
 @synthesize window;
 

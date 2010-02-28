@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface AppController : NSObject {
+@interface ScrapeAppController : NSObject {
     NSWindow* window;
     
     IBOutlet NSMenu*    statusMenu;
