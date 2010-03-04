@@ -7,10 +7,23 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ScrapeGLView.h"
 
 
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
 @interface ScrapeDocumentWindowController : NSWindowController {
-
+#else
+@interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate> {
+#endif
+    IBOutlet NSPopUpButton *modeDropDown;
+    IBOutlet ScrapeGLView  *glView;
+    
+    NSDate *scrapeDate;
 }
+
+- (IBAction)doRefresh:(id)sender;
+- (IBAction)doSave:(id)sender;
+- (IBAction)doUpload:(id)sender;
+- (IBAction)doChangeMode:(id)sender;
 
 @end
