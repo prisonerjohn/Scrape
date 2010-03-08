@@ -7,12 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include <OpenGL/gl.h>
+#import <OpenGL/gl.h>
+
+#define NUM_TEXTURES 5
 
 
 @interface ScrapeGLView : NSOpenGLView {
-
+    int             currHandle;
+    GLuint          *texHandles;
+    GLint           texFormat;
 }
+
+- (void)refresh;
+- (void)setFormat:(GLint)format;
 
 - (void)drawRect:(NSRect)bounds;
 

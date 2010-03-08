@@ -15,7 +15,7 @@
 #else
 @interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate> {
 #endif
-    IBOutlet NSPopUpButton *modeDropDown;
+    IBOutlet NSPopUpButton *formatDropDown;
     IBOutlet ScrapeGLView  *glView;
     
     NSDate *scrapeDate;
@@ -24,6 +24,6 @@
 - (IBAction)doRefresh:(id)sender;
 - (IBAction)doSave:(id)sender;
 - (IBAction)doUpload:(id)sender;
-- (IBAction)doChangeMode:(id)sender;
+- (IBAction)doChangeFormat:(id)sender;
 
 @end

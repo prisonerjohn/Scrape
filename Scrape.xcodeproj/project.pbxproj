@@ -32,7 +32,7 @@
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2564AD2C0F5327BB00F57823 /* Scrape_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scrape_Prefix.pch; sourceTree = "<group>"; };
 		27494666113AA70A00CF9438 /* ScrapeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeGLView.h; sourceTree = SOURCE_ROOT; };
-		27494667113AA70A00CF9438 /* ScrapeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeGLView.m; sourceTree = SOURCE_ROOT; };
+		27494667113AA70A00CF9438 /* ScrapeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeGLView.m; sourceTree = "<group>"; };
 		2749466D113AA77500CF9438 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		27494671113AA7D000CF9438 /* ScrapeAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeAppController.h; sourceTree = SOURCE_ROOT; };
 		27494672113AA7D000CF9438 /* ScrapeAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppController.m; sourceTree = SOURCE_ROOT; };

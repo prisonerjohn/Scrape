@@ -9,18 +9,36 @@
 #import "ScrapeDocumentWindowController.h"
 
 
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+// STATIC CONSTANTS
+static const GLint formats[] = {
+    GL_RGB, 
+    GL_R3_G3_B2, 
+    GL_RGBA, 
+    GL_LUMINANCE,
+    GL_LUMINANCE_ALPHA,
+    GL_DEPTH_COMPONENT
+};
+
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 @implementation ScrapeDocumentWindowController
 
+//--------------------------------------------------------------
 - (id)init {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
     return self;
 }
 
+//--------------------------------------------------------------
 - (void)dealloc {
     [scrapeDate release];
     [super dealloc];
 }
 
+//--------------------------------------------------------------
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
     scrapeDate = [[NSDate date] retain];
     NSDateFormatter *inputFormatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -31,12 +49,15 @@
     return title;
 }
 
+//--------------------------------------------------------------
 - (IBAction)doRefresh:(id)sender {
-    NSLog(@"Refresh!");
+    NSLog(@"Refreshing");
+    [glView refresh];
 }
 
+//--------------------------------------------------------------
 - (IBAction)doSave:(id)sender {
-    NSLog(@"Saving Image!");
+    NSLog(@"Saving image");
     
     unsigned char* planes[1];
     NSSize size;
@@ -81,12 +102,15 @@
     }
 }
 
+//--------------------------------------------------------------
 - (IBAction)doUpload:(id)sender {
     NSLog(@"Upload!");
 }
 
-- (IBAction)doChangeMode:(id)sender {
-    NSLog(@"Change Mode %d!", [modeDropDown indexOfSelectedItem]);
+//--------------------------------------------------------------
+- (IBAction)doChangeFormat:(id)sender {
+    NSLog(@"Changing format to %@", [formatDropDown titleOfSelectedItem]);
+    [glView setFormat:formats[[formatDropDown indexOfSelectedItem]]];
 }
 
 @end
