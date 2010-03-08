@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100167"/>
+			<integer value="5"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -36,7 +36,7 @@
 				<string key="NSClassName">FirstResponder</string>
 			</object>
 			<object class="NSWindowTemplate" id="275939982">
-				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{133, 136}, {512, 512}}</string>
 				<int key="NSWTFlags">1618477056</int>
@@ -116,14 +116,15 @@
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">925F0178-C761-4720-9DAD-8469F73CA124</characters>
 								</object>
-								<string key="NSToolbarItemLabel">Mode</string>
-								<string key="NSToolbarItemPaletteLabel">Mode</string>
+								<string key="NSToolbarItemLabel">Format</string>
+								<string key="NSToolbarItemPaletteLabel">Format</string>
 								<string key="NSToolbarItemToolTip">Select Data Interpretation Mode</string>
 								<object class="NSPopUpButton" key="NSToolbarItemView" id="95899870">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {100, 25}}</string>
 									<reference key="NSSuperview"/>
+									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSPopUpButtonCell" key="NSCell" id="207372278">
 										<int key="NSCellFlags">-2076049856</int>
@@ -164,6 +165,17 @@
 											<object class="NSMutableArray" key="NSMenuItems">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<reference ref="323659429"/>
+												<object class="NSMenuItem" id="514844206">
+													<reference key="NSMenu" ref="538170895"/>
+													<string key="NSTitle">Color (3:3:2)</string>
+													<string key="NSKeyEquiv"/>
+													<int key="NSKeyEquivModMask">1048576</int>
+													<int key="NSMnemonicLoc">2147483647</int>
+													<reference key="NSOnImage" ref="575293441"/>
+													<reference key="NSMixedImage" ref="952699052"/>
+													<string key="NSAction">_popUpItemAction:</string>
+													<reference key="NSTarget" ref="207372278"/>
+												</object>
 												<object class="NSMenuItem" id="507122025">
 													<reference key="NSMenu" ref="538170895"/>
 													<string key="NSTitle">Color w/ Alpha</string>
@@ -428,11 +440,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">modeDropDown</string>
+						<string key="label">glView</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="988926875"/>
+					</object>
+					<int key="connectionID">100208</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">doChangeFormat:</string>
 						<reference key="source" ref="512844837"/>
 						<reference key="destination" ref="95899870"/>
 					</object>
-					<int key="connectionID">100203</int>
+					<int key="connectionID">100209</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -440,15 +460,7 @@
 						<reference key="source" ref="512844837"/>
 						<reference key="destination" ref="986598449"/>
 					</object>
-					<int key="connectionID">100204</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">doChangeMode:</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="95899870"/>
-					</object>
-					<int key="connectionID">100205</int>
+					<int key="connectionID">100210</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -456,7 +468,7 @@
 						<reference key="source" ref="512844837"/>
 						<reference key="destination" ref="961497905"/>
 					</object>
-					<int key="connectionID">100206</int>
+					<int key="connectionID">100211</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -464,15 +476,15 @@
 						<reference key="source" ref="512844837"/>
 						<reference key="destination" ref="251131453"/>
 					</object>
-					<int key="connectionID">100207</int>
+					<int key="connectionID">100212</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">glView</string>
+						<string key="label">formatDropDown</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="988926875"/>
+						<reference key="destination" ref="95899870"/>
 					</object>
-					<int key="connectionID">100208</int>
+					<int key="connectionID">100213</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -580,6 +592,7 @@
 							<reference ref="177238693"/>
 							<reference ref="756312489"/>
 							<reference ref="507122025"/>
+							<reference ref="514844206"/>
 						</object>
 						<reference key="parent" ref="207372278"/>
 					</object>
@@ -643,6 +656,11 @@
 						<reference key="object" ref="251131453"/>
 						<reference key="parent" ref="413853922"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100215</int>
+						<reference key="object" ref="514844206"/>
+						<reference key="parent" ref="538170895"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -668,6 +686,7 @@
 					<string>100194.IBPluginDependency</string>
 					<string>100196.IBPluginDependency</string>
 					<string>100197.IBPluginDependency</string>
+					<string>100215.IBPluginDependency</string>
 					<string>5.IBEditorWindowLastContentRect</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.IBWindowTemplateEditedContentRect</string>
@@ -683,25 +702,26 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>ScrapeGLView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{150, 770}, {616, 227}}</string>
+					<string>{{36, 679}, {616, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{184, 699}, {206, 103}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{112, 498}, {206, 123}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{202, 485}, {512, 512}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{202, 485}, {512, 512}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{47, 141}, {512, 512}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{47, 141}, {512, 512}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
@@ -726,7 +746,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100208</int>
+			<int key="maxID">100218</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -734,35 +754,9 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">ScrapeDocumentWindowController</string>
 					<string key="superclassName">NSWindowController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>doChangeMode:</string>
-							<string>doRefresh:</string>
-							<string>doSave:</string>
-							<string>doUpload:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>glView</string>
-							<string>modeDropDown</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>ScrapeGLView</string>
-							<string>NSPopUpButton</string>
-						</object>
+						<string key="NS.key.0">glView</string>
+						<string key="NS.object.0">ScrapeGLView</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
