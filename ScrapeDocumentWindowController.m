@@ -29,6 +29,8 @@ static const GLint formats[] = {
 //--------------------------------------------------------------
 - (id)init {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
+    [NSApp activateIgnoringOtherApps:YES];
+    //[NSApp arrangeInFront:self];
     return self;
 }
 
