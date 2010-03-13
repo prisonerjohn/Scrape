@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* ScrapeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* ScrapeDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
-		27494668113AA70A00CF9438 /* ScrapeGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494667113AA70A00CF9438 /* ScrapeGLView.m */; };
+		271CEFF8114ACF4C0050A2A0 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271CEFF6114ACF4C0050A2A0 /* Preferences.xib */; };
+		271CF036114AE11F0050A2A0 /* ScrapePrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271CF035114AE11F0050A2A0 /* ScrapePrefsController.m */; };
 		2749466E113AA77500CF9438 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2749466D113AA77500CF9438 /* OpenGL.framework */; };
 		27494673113AA7D000CF9438 /* ScrapeAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494672113AA7D000CF9438 /* ScrapeAppController.m */; };
 		27494677113AA7F300CF9438 /* idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 27494675113AA7F300CF9438 /* idle.png */; };
 		27494678113AA7F300CF9438 /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 27494676113AA7F300CF9438 /* select.png */; };
 		27494681113AA8C100CF9438 /* ScrapeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */; };
+		27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27759E6C114496F60063C4A9 /* ScrapeGLView.mm */; };
 		27911BE1113ADB440062742A /* Scrape-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27911BE0113ADB440062742A /* Scrape-Icon.icns */; };
 		27C68088113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
@@ -31,8 +33,10 @@
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ScrapeDocument.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2564AD2C0F5327BB00F57823 /* Scrape_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scrape_Prefix.pch; sourceTree = "<group>"; };
+		271CEFF7114ACF4C0050A2A0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
+		271CF034114AE11F0050A2A0 /* ScrapePrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapePrefsController.h; sourceTree = "<group>"; };
+		271CF035114AE11F0050A2A0 /* ScrapePrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapePrefsController.m; sourceTree = "<group>"; };
 		27494666113AA70A00CF9438 /* ScrapeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeGLView.h; sourceTree = SOURCE_ROOT; };
-		27494667113AA70A00CF9438 /* ScrapeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeGLView.m; sourceTree = "<group>"; };
 		2749466D113AA77500CF9438 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		27494671113AA7D000CF9438 /* ScrapeAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeAppController.h; sourceTree = SOURCE_ROOT; };
 		27494672113AA7D000CF9438 /* ScrapeAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppController.m; sourceTree = SOURCE_ROOT; };
@@ -40,6 +44,7 @@
 		27494676113AA7F300CF9438 /* select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select.png; sourceTree = SOURCE_ROOT; };
 		2749467F113AA8C100CF9438 /* ScrapeAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		27759E6C114496F60063C4A9 /* ScrapeGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScrapeGLView.mm; sourceTree = "<group>"; };
 		27911BE0113ADB440062742A /* Scrape-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scrape-Icon.icns"; sourceTree = "<group>"; };
 		27C68086113AC5AC0004A3D7 /* ScrapeDocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeDocumentWindowController.h; sourceTree = "<group>"; };
 		27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeDocumentWindowController.m; sourceTree = "<group>"; };
@@ -127,7 +132,9 @@
 				27C68086113AC5AC0004A3D7 /* ScrapeDocumentWindowController.h */,
 				27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */,
 				27494666113AA70A00CF9438 /* ScrapeGLView.h */,
-				27494667113AA70A00CF9438 /* ScrapeGLView.m */,
+				27759E6C114496F60063C4A9 /* ScrapeGLView.mm */,
+				271CF034114AE11F0050A2A0 /* ScrapePrefsController.h */,
+				271CF035114AE11F0050A2A0 /* ScrapePrefsController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -149,6 +156,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				27911BE0113ADB440062742A /* Scrape-Icon.icns */,
 				1DDD58280DA1D0D100B32029 /* ScrapeDocument.xib */,
+				271CEFF6114ACF4C0050A2A0 /* Preferences.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 			);
 			name = Resources;
@@ -213,6 +221,7 @@
 				27494677113AA7F300CF9438 /* idle.png in Resources */,
 				27494678113AA7F300CF9438 /* select.png in Resources */,
 				27911BE1113ADB440062742A /* Scrape-Icon.icns in Resources */,
+				271CEFF8114ACF4C0050A2A0 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,10 +234,11 @@
 			files = (
 				8D15AC310486D014006FF6A4 /* ScrapeDocument.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
-				27494668113AA70A00CF9438 /* ScrapeGLView.m in Sources */,
 				27494673113AA7D000CF9438 /* ScrapeAppController.m in Sources */,
 				27494681113AA8C100CF9438 /* ScrapeAppDelegate.m in Sources */,
 				27C68088113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m in Sources */,
+				27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */,
+				271CF036114AE11F0050A2A0 /* ScrapePrefsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +267,14 @@
 				1DDD582B0DA1D0D100B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		271CEFF6114ACF4C0050A2A0 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				271CEFF7114ACF4C0050A2A0 /* English */,
+			);
+			name = Preferences.xib;
 			sourceTree = "<group>";
 		};
 		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
