@@ -79,7 +79,6 @@ static const GLfloat verts[] = {
 
 //--------------------------------------------------------------
 - (void)dealloc {
-    NSLog(@"Cleaning up");
     glDeleteTextures(NUM_TEXTURES, texHandles);
     delete [] texHandles;
     [super dealloc];
@@ -99,8 +98,6 @@ static const GLfloat verts[] = {
 
 //--------------------------------------------------------------
 - (void)drawRect:(NSRect)bounds {
-    NSLog(@"Drawing");
-    
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     

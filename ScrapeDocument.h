@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include "ScrapeDocumentWindowController.h"
 
 
 @interface ScrapeDocument : NSDocument {

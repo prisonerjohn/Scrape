@@ -7,10 +7,14 @@
 //
 
 #import "ScrapeDocument.h"
+#import "ScrapeDocumentWindowController.h"
 
 
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 @implementation ScrapeDocument
 
+//--------------------------------------------------------------
 - (id)init {
     self = [super init];
     if (self) {
@@ -20,17 +24,20 @@
     return self;
 }
 
+//--------------------------------------------------------------
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
 }
 
+//--------------------------------------------------------------
 - (void)makeWindowControllers {
     ScrapeDocumentWindowController *winController = [[ScrapeDocumentWindowController alloc] init];
     [winController autorelease];
     [self addWindowController:winController];
 }
 
+//--------------------------------------------------------------
 - (NSData *)dataOfType:(NSString *)typeName 
                  error:(NSError **)outError {
     // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
@@ -47,6 +54,7 @@
 	return nil;
 }
 
+//--------------------------------------------------------------
 - (BOOL)readFromData:(NSData *)data 
               ofType:(NSString *)typeName 
                error:(NSError **)outError {

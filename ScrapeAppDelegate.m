@@ -9,12 +9,22 @@
 #import "ScrapeAppDelegate.h"
 
 
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 @implementation ScrapeAppDelegate
 
+//--------------------------------------------------------------
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application
+//    [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask 
+//                                           handler:^(NSEvent *event) {
+//        if ([event modifierFlags] & NSControlKeyMask) {
+//            NSLog(@"SSSSS!");
+//        }
+//    }];
 }
 
+//--------------------------------------------------------------
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
     return NO;
 }
