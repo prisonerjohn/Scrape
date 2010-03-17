@@ -7,12 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ASIFormDataRequest.h"
 
 
 extern NSString *ScrapeAutomaticSettingsChanged;
 extern NSString *ScrapeAutomaticToggleKey;
 extern NSString *ScrapeAutomaticMinKey;
 extern NSString *ScrapeAutomaticMaxKey;
+
+extern NSString *SiteRoot;
 
 
 @interface ScrapePrefsController : NSWindowController {
@@ -21,6 +24,13 @@ extern NSString *ScrapeAutomaticMaxKey;
     IBOutlet NSStepper      *automaticMaxStepper;
     IBOutlet NSTextField    *automaticMinLabel;
     IBOutlet NSTextField    *automaticMaxLabel;
+    
+    IBOutlet NSTextField        *usernameInput;
+    IBOutlet NSSecureTextField  *passwordInput;
+    IBOutlet NSButton           *loginButton;
+    IBOutlet NSButton           *signupButton;
+    IBOutlet NSTextField        *successLabel;
+    IBOutlet NSTextField        *errorLabel;
 }
 
 - (IBAction)setAutomaticToggle:(id)sender;
@@ -28,5 +38,11 @@ extern NSString *ScrapeAutomaticMaxKey;
 - (IBAction)setAutomaticMaxFromStepper:(id)sender;
 - (IBAction)setAutomaticMinFromTextField:(id)sender;
 - (IBAction)setAutomaticMaxFromTextField:(id)sender;
+
+- (IBAction)loginToScrape:(id)sender;
+- (IBAction)signupForScrape:(id)sender;
+
+- (void)requestFinished:(ASIHTTPRequest *)request;
+- (void)requestFailed:(ASIHTTPRequest *)request;
 
 @end

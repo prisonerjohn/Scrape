@@ -26,4 +26,7 @@
 
 - (IBAction)showPrefsWindow:(id)sender;
 
++ (void)setLoggedIn:(BOOL)val;
++ (BOOL)isLoggedIn;
+
 @end

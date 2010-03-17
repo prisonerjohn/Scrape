@@ -12,6 +12,11 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+static BOOL loggedIn = NO;
+
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 @implementation ScrapeAppController
 
 //--------------------------------------------------------------
@@ -52,7 +57,7 @@
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(updateTimer:) 
-                                                 name:ScrapeAutomaticSettingsChanged 
+                                                 name:ScrapeAutomaticSettingsChanged
                                                object:nil];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -122,6 +127,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
+}
+
+//--------------------------------------------------------------
++ (void)setLoggedIn:(BOOL)val {
+    loggedIn = val;
+}
+
+//--------------------------------------------------------------
++ (BOOL)isLoggedIn {
+    return loggedIn;
 }
 
 @end

@@ -15,6 +15,7 @@
 #else
 @interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate> {
 #endif
+    IBOutlet NSToolbarItem *uploadButton;
     IBOutlet NSPopUpButton *formatDropDown;
     IBOutlet ScrapeGLView  *glView;
     

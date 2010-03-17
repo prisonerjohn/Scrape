@@ -7,6 +7,7 @@
 //
 
 #import "ScrapeDocumentWindowController.h"
+#import "ScrapeAppController.h"
 
 
 //--------------------------------------------------------------
@@ -49,6 +50,14 @@ static const GLint formats[] = {
     title = [title stringByAppendingString:[inputFormatter stringFromDate:scrapeDate]];
     
     return title;
+}
+
+//--------------------------------------------------------------
+- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
+    if (toolbarItem == uploadButton && ([ScrapeAppController isLoggedIn] == NO)) {
+        return NO;
+    }
+	return YES;
 }
 
 //--------------------------------------------------------------

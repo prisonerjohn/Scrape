@@ -7,6 +7,7 @@
 //
 
 #import "ScrapePrefsController.h"
+#import "ScrapeAppController.h"
 
 
 //--------------------------------------------------------------
@@ -15,6 +16,8 @@ NSString *ScrapeAutomaticSettingsChanged = @"Automatic Settings Changed";
 NSString *ScrapeAutomaticToggleKey       = @"Automatic Toggle";
 NSString *ScrapeAutomaticMinKey          = @"Automatic Min";
 NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
+
+NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 
 
 //--------------------------------------------------------------
@@ -32,6 +35,10 @@ NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
 
 //--------------------------------------------------------------
 - (void)windowDidLoad {
+    // hide status labels
+    [successLabel setHidden:YES];
+    [errorLabel   setHidden:YES];
+    
     // set saved preferences
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
@@ -43,6 +50,24 @@ NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
     [automaticMinLabel   setEnabled:[automaticSwitch state]];
     [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
     [automaticMaxLabel   setEnabled:[automaticSwitch state]];
+    
+    // try to load the credentials from the keychain
+    NSString *username;
+    NSString *password;
+    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
+    NSURLCredential *authenticationCredentials = [ASIHTTPRequest savedCredentialsForHost:[url host] port:[[url port] intValue] protocol:[url scheme] realm:nil];
+    if (authenticationCredentials) {
+        username = [authenticationCredentials user];
+        password = [authenticationCredentials password];
+        
+        if (username && password) {
+            NSLog(@"Successfully retrieved credentials from keychain", username, password);
+            [usernameInput setStringValue:username];
+            [passwordInput setStringValue:password];
+            
+            [self loginToScrape:nil];
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -116,6 +141,59 @@ NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
                                                         object:self];
+}
+
+//--------------------------------------------------------------
+- (IBAction)loginToScrape:(id)sender {
+    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request addRequestHeader:@"User-Agent" value:@"Scrape-User-Agent-1.0"];
+    [request setPostValue:[usernameInput stringValue] 
+                   forKey:@"username"];
+    [request setPostValue:[passwordInput stringValue] 
+                   forKey:@"password"];
+    [request setDelegate:self];
+    [request startAsynchronous];
+}
+
+//--------------------------------------------------------------
+- (IBAction)signupForScrape:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"register.php"]]];
+}
+
+//--------------------------------------------------------------
+- (void)requestFinished:(ASIHTTPRequest *)request {
+    NSString *responseString = [request responseString];
+    if ([responseString compare:@"OK"] == NSOrderedSame) {
+        NSLog(@"Successfully logged in");
+        [successLabel setHidden:NO];
+        [errorLabel   setHidden:YES];
+        
+        // add the saved username and password to the keychain
+        NSMutableDictionary *credentials = [[[NSMutableDictionary alloc] init] autorelease];
+        [credentials setObject:[usernameInput stringValue] 
+                        forKey:(NSString *)kCFHTTPAuthenticationUsername];
+		[credentials setObject:[passwordInput stringValue] 
+                        forKey:(NSString *)kCFHTTPAuthenticationPassword];
+        [request saveCredentialsToKeychain:credentials];
+        
+        // tell the app controller we are logged in
+        [ScrapeAppController setLoggedIn:YES];
+        
+    } else {
+        NSLog(@"Error logging in");
+        [successLabel setHidden:YES];
+        [errorLabel   setHidden:NO];
+        
+        // tell the app controller we are NOT logged in
+        [ScrapeAppController setLoggedIn:NO];
+    }
+}
+
+//--------------------------------------------------------------
+- (void)requestFailed:(ASIHTTPRequest *)request {
+    NSError *error = [request error];
+    NSLog(@"%@", [error localizedDescription]);
 }
 
 @end
