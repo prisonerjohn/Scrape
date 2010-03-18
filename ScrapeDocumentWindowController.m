@@ -33,7 +33,7 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 + (void)initialize {
     if (!formatNames) {
-        formatNames = [[NSArray arrayWithObjects:@"rgb", @"r3g3b2", @"rgba", @"lum", @"luma", @"depth", nil] retain];
+        formatNames = [[NSArray arrayWithObjects:@".rgb", @".r3g3b2", @".rgba", @".lum", @".luma", @".depth", nil] retain];
     }
 }
 
@@ -73,9 +73,9 @@ static NSArray *formatNames = nil;
 - (NSString *)makeFilename {
     NSDateFormatter *inputFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [inputFormatter setDateFormat:@".yyyyMMdd.HHmmss"];
-    NSString *name = @"scrape.";
-    name = [name stringByAppendingString:[formatNames objectAtIndex:[formatDropDown indexOfSelectedItem]]];
+    NSString *name = @"scrape";
     name = [name stringByAppendingString:[inputFormatter stringFromDate:scrapeDate]];
+    name = [name stringByAppendingString:[formatNames objectAtIndex:[formatDropDown indexOfSelectedItem]]];
     return name;
 }
 
@@ -185,6 +185,8 @@ static NSArray *formatNames = nil;
                    forKey:@"username"];
     [request setPostValue:KeychainPassword
                    forKey:@"password"];
+    [request setPostValue:[self makeFilename]
+                   forKey:@"filename"];
     [request setData:tiffData 
         withFileName:[[self makeFilename] stringByAppendingString:@".tiff"] 
       andContentType:@"image/tiff" 
