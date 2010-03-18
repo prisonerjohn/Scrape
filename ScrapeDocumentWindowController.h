@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ScrapeGLView.h"
+#import "ASIFormDataRequest.h"
 
 
 #if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
@@ -22,9 +23,14 @@
     NSDate *scrapeDate;
 }
 
+- (NSString *)makeFilename;
+
 - (IBAction)doRefresh:(id)sender;
+- (IBAction)doChangeFormat:(id)sender;
 - (IBAction)doSave:(id)sender;
 - (IBAction)doUpload:(id)sender;
-- (IBAction)doChangeFormat:(id)sender;
+    
+- (void)requestFinished:(ASIHTTPRequest *)request;
+- (void)requestFailed:(ASIHTTPRequest *)request;
 
 @end

@@ -12,12 +12,10 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-NSString *ScrapeAutomaticSettingsChanged = @"Automatic Settings Changed";
-NSString *ScrapeAutomaticToggleKey       = @"Automatic Toggle";
-NSString *ScrapeAutomaticMinKey          = @"Automatic Min";
-NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
+static BOOL loggedIn = NO;
 
-NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
+NSString *KeychainUsername = nil;
+NSString *KeychainPassword = nil;
 
 
 //--------------------------------------------------------------
@@ -28,6 +26,26 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 - (id)init {
     self = [super initWithWindowNibName:@"Preferences"];
     if (self) {
+        [self loadWindow];
+        NSLog(@"%@", usernameInput);
+        
+        // try to load the credentials from the keychain
+        NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
+        NSURLCredential *authenticationCredentials = [ASIHTTPRequest savedCredentialsForHost:[url host] port:[[url port] intValue] protocol:[url scheme] realm:nil];
+        if (authenticationCredentials) {
+            KeychainUsername = [authenticationCredentials user];
+            KeychainPassword = [authenticationCredentials password];
+            
+            if (KeychainUsername && KeychainPassword) {
+                NSLog(@"Successfully retrieved credentials from keychain");
+                // update input fields
+                [usernameInput setStringValue:KeychainUsername];
+                [passwordInput setStringValue:KeychainPassword];
+                // try logging in
+                [self loginToScrape:nil];
+            }
+        }
+        
         return self;
     }
     return nil;
@@ -50,24 +68,6 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
     [automaticMinLabel   setEnabled:[automaticSwitch state]];
     [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
     [automaticMaxLabel   setEnabled:[automaticSwitch state]];
-    
-    // try to load the credentials from the keychain
-    NSString *username;
-    NSString *password;
-    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
-    NSURLCredential *authenticationCredentials = [ASIHTTPRequest savedCredentialsForHost:[url host] port:[[url port] intValue] protocol:[url scheme] realm:nil];
-    if (authenticationCredentials) {
-        username = [authenticationCredentials user];
-        password = [authenticationCredentials password];
-        
-        if (username && password) {
-            NSLog(@"Successfully retrieved credentials from keychain", username, password);
-            [usernameInput setStringValue:username];
-            [passwordInput setStringValue:password];
-            
-            [self loginToScrape:nil];
-        }
-    }
 }
 
 //--------------------------------------------------------------
@@ -177,16 +177,18 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
                         forKey:(NSString *)kCFHTTPAuthenticationPassword];
         [request saveCredentialsToKeychain:credentials];
         
-        // tell the app controller we are logged in
-        [ScrapeAppController setLoggedIn:YES];
+        // save the keychain values in static variables for easy access
+        KeychainUsername = [usernameInput stringValue];
+        KeychainPassword = [passwordInput stringValue];
+        
+        [ScrapePrefsController setLoggedIn:YES];
         
     } else {
         NSLog(@"Error logging in");
         [successLabel setHidden:YES];
         [errorLabel   setHidden:NO];
         
-        // tell the app controller we are NOT logged in
-        [ScrapeAppController setLoggedIn:NO];
+        [ScrapePrefsController setLoggedIn:NO];
     }
 }
 
@@ -194,6 +196,16 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 - (void)requestFailed:(ASIHTTPRequest *)request {
     NSError *error = [request error];
     NSLog(@"%@", [error localizedDescription]);
+}
+
+//--------------------------------------------------------------
++ (void)setLoggedIn:(BOOL)val {
+    loggedIn = val;
+}
+
+//--------------------------------------------------------------
++ (BOOL)isLoggedIn {
+    return loggedIn;
 }
 
 @end

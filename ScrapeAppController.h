@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+extern NSString *ScrapeAutomaticSettingsChanged;
+extern NSString *ScrapeAutomaticToggleKey;
+extern NSString *ScrapeAutomaticMinKey;
+extern NSString *ScrapeAutomaticMaxKey;
+
+extern NSString *SiteRoot;
+
 @class ScrapePrefsController;
 
 @interface ScrapeAppController : NSObject {
@@ -25,8 +33,5 @@
 - (void)updateTimer:(NSNotification *)notification;
 
 - (IBAction)showPrefsWindow:(id)sender;
-
-+ (void)setLoggedIn:(BOOL)val;
-+ (BOOL)isLoggedIn;
 
 @end

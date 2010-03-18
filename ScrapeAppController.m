@@ -12,7 +12,12 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-static BOOL loggedIn = NO;
+NSString *ScrapeAutomaticSettingsChanged = @"Automatic Settings Changed";
+NSString *ScrapeAutomaticToggleKey       = @"Automatic Toggle";
+NSString *ScrapeAutomaticMinKey          = @"Automatic Min";
+NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
+
+NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 
 
 //--------------------------------------------------------------
@@ -53,6 +58,9 @@ static BOOL loggedIn = NO;
     [statusItem setToolTip:@"Scrape"];
     
     [statusItem setMenu:statusMenu];
+    
+    // create the preferences window
+    prefsController = [[ScrapePrefsController alloc] init];
     
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -109,9 +117,6 @@ static BOOL loggedIn = NO;
 
 //--------------------------------------------------------------
 - (IBAction)showPrefsWindow:(id)sender {
-	if (!prefsController) {
-		prefsController = [[ScrapePrefsController alloc] init];
-	}
 	[prefsController showWindow:self];
 }
 
@@ -127,16 +132,6 @@ static BOOL loggedIn = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
-}
-
-//--------------------------------------------------------------
-+ (void)setLoggedIn:(BOOL)val {
-    loggedIn = val;
-}
-
-//--------------------------------------------------------------
-+ (BOOL)isLoggedIn {
-    return loggedIn;
 }
 
 @end

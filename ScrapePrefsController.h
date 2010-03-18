@@ -10,12 +10,8 @@
 #import "ASIFormDataRequest.h"
 
 
-extern NSString *ScrapeAutomaticSettingsChanged;
-extern NSString *ScrapeAutomaticToggleKey;
-extern NSString *ScrapeAutomaticMinKey;
-extern NSString *ScrapeAutomaticMaxKey;
-
-extern NSString *SiteRoot;
+extern NSString *KeychainUsername;
+extern NSString *KeychainPassword;
 
 
 @interface ScrapePrefsController : NSWindowController {
@@ -44,5 +40,8 @@ extern NSString *SiteRoot;
 
 - (void)requestFinished:(ASIHTTPRequest *)request;
 - (void)requestFailed:(ASIHTTPRequest *)request;
+
++ (void)setLoggedIn:(BOOL)val;
++ (BOOL)isLoggedIn;
 
 @end
