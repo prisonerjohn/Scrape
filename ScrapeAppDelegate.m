@@ -15,18 +15,38 @@
 
 //--------------------------------------------------------------
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application
-//    [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask 
-//                                           handler:^(NSEvent *event) {
-//        if ([event modifierFlags] & NSControlKeyMask) {
-//            NSLog(@"SSSSS!");
-//        }
-//    }];
+    // init Growl
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *growlPath = [[bundle privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
+	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+    if (growlBundle && [growlBundle load]) {
+        NSLog(@"Growl loaded");
+        [GrowlApplicationBridge setGrowlDelegate:self];
+    }
 }
 
 //--------------------------------------------------------------
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
     return NO;
+}
+
+//--------------------------------------------------------------
+- (void)growlNotificationWasClicked:(id)clickContext {
+    if ([(NSString *)clickContext compare:@"FRONT"] == NSOrderedSame) {
+        // bring Scrape to front
+        [NSApp activateIgnoringOtherApps:YES];
+    } else {
+        NSLog(@"%@", clickContext);
+        NSRange textRange = [(NSString *)clickContext rangeOfString:@"http"];
+        if (textRange.location == NSNotFound) {
+            // assume we received a file path and reveal it in the Finder
+            [[NSWorkspace sharedWorkspace] selectFile:(NSString *)clickContext 
+                             inFileViewerRootedAtPath:@""];
+        } else {
+            // assume we received a URL and open it
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:clickContext]];
+        }
+    }
 }
 
 @end

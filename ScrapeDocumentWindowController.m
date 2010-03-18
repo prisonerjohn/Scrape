@@ -9,6 +9,7 @@
 #import "ScrapeDocumentWindowController.h"
 #import "ScrapeAppController.h"
 #import "ScrapePrefsController.h"
+#import <Growl/Growl.h>
 
 
 //--------------------------------------------------------------
@@ -41,6 +42,7 @@ static NSArray *formatNames = nil;
 - (id)init {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
     uploading = NO;
+   
     return self;
 }
 
@@ -126,13 +128,22 @@ static NSArray *formatNames = nil;
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setTitle:@"Save Image As:"];
     [savePanel setRequiredFileType:@"tiff"];
+    [savePanel setExtensionHidden:NO];
     
-    [savePanel setNameFieldStringValue:[self makeFilename]];
+    [savePanel setNameFieldStringValue:[[self makeFilename] stringByAppendingString:@".tiff"]];
     
     if ([savePanel runModal] == NSFileHandlingPanelOKButton) {
         NSData *tiffData = [image TIFFRepresentation];
         [tiffData writeToFile:[savePanel filename] atomically:YES];
     }
+    
+    [GrowlApplicationBridge notifyWithTitle:@"Image Saved!"
+                                description:nil
+                           notificationName:@"Save"
+                                   iconData:nil
+                                   priority:0
+                                   isSticky:NO
+                               clickContext:[[savePanel URL] path]];
 }
 
 //--------------------------------------------------------------
@@ -210,10 +221,25 @@ static NSArray *formatNames = nil;
     [uploadButton validate];
     
     NSString *responseString = [request responseString];
-    if ([responseString compare:@"OK"] == NSOrderedSame) {
+    NSRange textRange = [responseString rangeOfString:@"ERROR"];
+    if (textRange.location == NSNotFound) {
         NSLog(@"Successfully uploaded");
+        [GrowlApplicationBridge notifyWithTitle:@"Upload Complete!"
+                                    description:@"Your data has been uploaded to the Scrape server"
+                               notificationName:@"Upload Success"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:responseString];
     } else {
         NSLog(@"Error uploading");
+        [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
+                                    description:@"There was an error uploading your data to the Scrape server"
+                               notificationName:@"Upload Fail"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:nil];
     }
 }
 
@@ -224,6 +250,13 @@ static NSArray *formatNames = nil;
     
     NSError *error = [request error];
     NSLog(@"%@", [error localizedDescription]);
+    [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
+                                description:@"There was an error uploading your data to the Scrape server"
+                           notificationName:@"Upload Fail"
+                                   iconData:nil
+                                   priority:0
+                                   isSticky:NO
+                               clickContext:nil];
 }
 
 @end

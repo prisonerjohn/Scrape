@@ -8,6 +8,7 @@
 
 #import "ScrapePrefsController.h"
 #import "ScrapeAppController.h"
+#import <Growl/Growl.h>
 
 
 //--------------------------------------------------------------
@@ -178,6 +179,14 @@ NSString *KeychainPassword = nil;
         KeychainPassword = [passwordInput stringValue];
         
         [ScrapePrefsController setLoggedIn:YES];
+        
+        [GrowlApplicationBridge notifyWithTitle:@"Logged in to Scrape"
+                                    description:nil
+                               notificationName:@"Login"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:nil];
         
     } else {
         NSLog(@"Error logging in");

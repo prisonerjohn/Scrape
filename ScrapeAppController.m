@@ -8,6 +8,7 @@
 
 #import "ScrapeAppController.h"
 #import "ScrapePrefsController.h"
+#import <Growl/Growl.h>
 
 
 //--------------------------------------------------------------
@@ -93,6 +94,14 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 - (void)doScrape {
     NSLog(@"Automatic scrape");
     [[NSDocumentController sharedDocumentController] newDocument:self];
+    
+    [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
+                                description:@"A new data Scrape has been generated"
+                           notificationName:@"New"
+                                   iconData:nil
+                                   priority:0
+                                   isSticky:NO
+                               clickContext:@"FRONT"];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
