@@ -40,8 +40,6 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (id)init {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
-    [NSApp activateIgnoringOtherApps:YES];
-    //[NSApp arrangeInFront:self];
     return self;
 }
 
