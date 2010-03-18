@@ -40,6 +40,7 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (id)init {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
+    uploading = NO;
     return self;
 }
 
@@ -62,7 +63,7 @@ static NSArray *formatNames = nil;
 
 //--------------------------------------------------------------
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
-    if (toolbarItem == uploadButton && ([ScrapePrefsController isLoggedIn] == NO)) {
+    if (toolbarItem == uploadButton && ([ScrapePrefsController isLoggedIn] == NO || uploading == YES)) {
         return NO;
     }
 	return YES;
@@ -87,6 +88,7 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (IBAction)doChangeFormat:(id)sender {
     NSLog(@"Changing format to %@", [formatDropDown titleOfSelectedItem]);
+    [uploadProgressIndicator setDoubleValue:0];
     [glView setFormat:formats[[formatDropDown indexOfSelectedItem]]];
 }
 
@@ -192,11 +194,19 @@ static NSArray *formatNames = nil;
       andContentType:@"image/png" 
               forKey:@"pngData"];
     [request setDelegate:self];
+    [request setUploadProgressDelegate:uploadProgressIndicator];
     [request startAsynchronous];
+    
+    uploading = YES;
+    [uploadProgressIndicator setDoubleValue:0];
+    [uploadButton validate];
 }
 
 //--------------------------------------------------------------
 - (void)requestFinished:(ASIHTTPRequest *)request {
+    uploading = NO;
+    [uploadButton validate];
+    
     NSString *responseString = [request responseString];
     if ([responseString compare:@"OK"] == NSOrderedSame) {
         NSLog(@"Successfully uploaded");
@@ -207,6 +217,9 @@ static NSArray *formatNames = nil;
 
 //--------------------------------------------------------------
 - (void)requestFailed:(ASIHTTPRequest *)request {
+    uploading = NO;
+    [uploadButton validate];
+    
     NSError *error = [request error];
     NSLog(@"%@", [error localizedDescription]);
 }

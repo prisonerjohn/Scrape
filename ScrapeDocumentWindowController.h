@@ -16,11 +16,13 @@
 #else
 @interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate> {
 #endif
-    IBOutlet NSToolbarItem *uploadButton;
-    IBOutlet NSPopUpButton *formatDropDown;
-    IBOutlet ScrapeGLView  *glView;
+    IBOutlet NSToolbarItem          *uploadButton;
+    IBOutlet NSPopUpButton          *formatDropDown;
+    IBOutlet ScrapeGLView           *glView;
+    IBOutlet NSProgressIndicator    *uploadProgressIndicator;
     
     NSDate *scrapeDate;
+    BOOL    uploading;
 }
 
 - (NSString *)makeFilename;
