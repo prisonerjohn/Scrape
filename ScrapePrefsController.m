@@ -27,7 +27,22 @@ NSString *KeychainPassword = nil;
     self = [super initWithWindowNibName:@"Preferences"];
     if (self) {
         [self loadWindow];
-        NSLog(@"%@", usernameInput);
+        
+        // hide status labels
+        [successLabel setHidden:YES];
+        [errorLabel   setHidden:YES];
+        
+        // set saved preferences
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
+        [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
+        [automaticMinStepper setEnabled:[automaticSwitch state]];
+        [automaticMaxStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
+        [automaticMaxStepper setEnabled:[automaticSwitch state]];
+        [automaticMinLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
+        [automaticMinLabel   setEnabled:[automaticSwitch state]];
+        [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
+        [automaticMaxLabel   setEnabled:[automaticSwitch state]];
         
         // try to load the credentials from the keychain
         NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
@@ -49,25 +64,6 @@ NSString *KeychainPassword = nil;
         return self;
     }
     return nil;
-}
-
-//--------------------------------------------------------------
-- (void)windowDidLoad {
-    // hide status labels
-    [successLabel setHidden:YES];
-    [errorLabel   setHidden:YES];
-    
-    // set saved preferences
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
-    [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
-    [automaticMinStepper setEnabled:[automaticSwitch state]];
-    [automaticMaxStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
-    [automaticMaxStepper setEnabled:[automaticSwitch state]];
-    [automaticMinLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
-    [automaticMinLabel   setEnabled:[automaticSwitch state]];
-    [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
-    [automaticMaxLabel   setEnabled:[automaticSwitch state]];
 }
 
 //--------------------------------------------------------------
