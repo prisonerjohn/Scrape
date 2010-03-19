@@ -19,6 +19,7 @@
 		27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27759E6C114496F60063C4A9 /* ScrapeGLView.mm */; };
 		278C293F1152BB980055F5F8 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 278C29261152B9FC0055F5F8 /* Growl Registration Ticket.growlRegDict */; };
 		278C29631152C28B0055F5F8 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C29621152C28B0055F5F8 /* Growl.framework */; };
+		278C2A021153151D0055F5F8 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 278C29621152C28B0055F5F8 /* Growl.framework */; };
 		27911BE1113ADB440062742A /* Scrape-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27911BE0113ADB440062742A /* Scrape-Icon.icns */; };
 		27C68088113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */; };
 		27DBCF9911501F7200D448D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DBCF9811501F7200D448D5 /* SystemConfiguration.framework */; };
@@ -43,6 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				278C2A021153151D0055F5F8 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +368,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Growl-1.2.1-Framework\"",
@@ -390,7 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

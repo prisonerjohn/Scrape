@@ -84,6 +84,8 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (IBAction)doRefresh:(id)sender {
     NSLog(@"Refreshing");
+    if (scrapeDate) [scrapeDate release];
+    [[self window] setTitle:[self windowTitleForDocumentDisplayName:nil]];
     [glView refresh];
 }
 
