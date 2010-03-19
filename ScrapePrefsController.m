@@ -7,7 +7,7 @@
 //
 
 #import "ScrapePrefsController.h"
-#import "ScrapeAppController.h"
+#import "ScrapeAppDelegate.h"
 #import <Growl/Growl.h>
 
 
@@ -97,6 +97,9 @@ NSString *KeychainPassword = nil;
     
     [automaticMinLabel setIntValue:[sender intValue]];
     
+    [automaticMaxStepper setMinValue:([sender intValue] + 1)];
+    [[automaticMaxLabel formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
                                                         object:self];
 }
@@ -109,6 +112,9 @@ NSString *KeychainPassword = nil;
     [defaults synchronize];
     
     [automaticMinStepper setIntValue:[sender intValue]];
+    
+    [automaticMaxStepper setMinValue:([sender intValue] + 1)];
+    [[automaticMaxLabel formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
                                                         object:self];
@@ -123,6 +129,9 @@ NSString *KeychainPassword = nil;
     
     [automaticMaxLabel setIntValue:[sender intValue]];
     
+    [automaticMinStepper setMaxValue:([sender intValue] - 1)];
+    [[automaticMinLabel formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
                                                         object:self];
 }
@@ -135,6 +144,9 @@ NSString *KeychainPassword = nil;
     [defaults synchronize];
     
     [automaticMaxStepper setIntValue:[sender intValue]];
+    
+    [automaticMinStepper setMaxValue:([sender intValue] - 1)];
+    [[automaticMinLabel formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
                                                         object:self];

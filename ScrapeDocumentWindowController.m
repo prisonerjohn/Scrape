@@ -7,7 +7,7 @@
 //
 
 #import "ScrapeDocumentWindowController.h"
-#import "ScrapeAppController.h"
+#import "ScrapeAppDelegate.h"
 #import "ScrapePrefsController.h"
 #import <Growl/Growl.h>
 
