@@ -85,19 +85,34 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
     int delay = rand()%(max - min) + min;
     NSLog(@"Next automatic scrape scheduled in %d minutes", delay);
     
-    [self performSelector:@selector(doScrape)
+    [self performSelector:@selector(newAutoScrape)
                withObject:nil
                afterDelay:(delay * 60)];
 }
 
 //--------------------------------------------------------------
-- (void)doScrape {
+- (void)updateTimer:(NSNotification *)notification {
+    // cancel the last scheduled automatic scrape
+    [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                             selector:@selector(newAutoScrape)
+                                               object:nil];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
+        // schedule a new automatic scrape
+        [self scheduleAutomaticScrape];
+    }
+}
+
+//--------------------------------------------------------------
+- (void)newAutoScrape {
     NSLog(@"Automatic scrape");
+    
     [[NSDocumentController sharedDocumentController] newDocument:self];
     
     [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
                                 description:@"A new data Scrape has been generated"
-                           notificationName:@"New"
+                           notificationName:@"New Auto"
                                    iconData:nil
                                    priority:0
                                    isSticky:NO
@@ -111,22 +126,37 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)updateTimer:(NSNotification *)notification {
-    // cancel the last scheduled automatic scrape
-    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(doScrape)
-                                               object:nil];
+- (IBAction)newManualScrape:(id)sender {
+    NSLog(@"Scrape");
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
-        // schedule a new automatic scrape
-        [self scheduleAutomaticScrape];
-    }
+    // bring app to front
+    [NSApp activateIgnoringOtherApps:YES];
+    
+    [[NSDocumentController sharedDocumentController] newDocument:self];
+    
+    [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
+                                description:@"A new data Scrape has been generated"
+                           notificationName:@"New Manual"
+                                   iconData:nil
+                                   priority:0
+                                   isSticky:NO
+                               clickContext:nil];
+}
+
+//--------------------------------------------------------------
+- (IBAction)showAboutWindow:(id)sender {
+    // bring application to front
+    [NSApp activateIgnoringOtherApps:YES];
+    
+    [NSApp orderFrontStandardAboutPanel:sender];
 }
 
 //--------------------------------------------------------------
 - (IBAction)showPrefsWindow:(id)sender {
-	[prefsController showWindow:self];
+    // bring application to front
+    [NSApp activateIgnoringOtherApps:YES];
+    
+    [prefsController showWindow:self];
 }
 
 //--------------------------------------------------------------

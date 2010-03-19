@@ -29,9 +29,11 @@ extern NSString *SiteRoot;
 }
 
 - (void)scheduleAutomaticScrape;
-- (void)doScrape;
 - (void)updateTimer:(NSNotification *)notification;
+- (void)newAutoScrape;
 
+- (IBAction)newManualScrape:(id)sender;
+- (IBAction)showAboutWindow:(id)sender;
 - (IBAction)showPrefsWindow:(id)sender;
 
 @end
