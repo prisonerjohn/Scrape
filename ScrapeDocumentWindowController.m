@@ -137,15 +137,15 @@ static NSArray *formatNames = nil;
     if ([savePanel runModal] == NSFileHandlingPanelOKButton) {
         NSData *tiffData = [image TIFFRepresentation];
         [tiffData writeToFile:[savePanel filename] atomically:YES];
+        
+        [GrowlApplicationBridge notifyWithTitle:@"Image Saved!"
+                                    description:nil
+                               notificationName:@"Save"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:[[savePanel URL] path]];
     }
-    
-    [GrowlApplicationBridge notifyWithTitle:@"Image Saved!"
-                                description:nil
-                           notificationName:@"Save"
-                                   iconData:nil
-                                   priority:0
-                                   isSticky:NO
-                               clickContext:[[savePanel URL] path]];
 }
 
 //--------------------------------------------------------------
