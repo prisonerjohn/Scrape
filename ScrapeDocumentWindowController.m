@@ -42,8 +42,14 @@ static NSArray *formatNames = nil;
 - (id)init {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
     uploading = NO;
-   
+    
     return self;
+}
+
+//--------------------------------------------------------------
+- (void)windowDidLoad {
+    [uploadSuccessOverlay setAlphaValue:0.0];
+    [uploadErrorOverlay   setAlphaValue:0.0];
 }
 
 //--------------------------------------------------------------
@@ -92,7 +98,6 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (IBAction)doChangeFormat:(id)sender {
     NSLog(@"Changing format to %@", [formatDropDown titleOfSelectedItem]);
-    [uploadProgressIndicator setDoubleValue:0];
     [glView setFormat:formats[[formatDropDown indexOfSelectedItem]]];
 }
 
@@ -220,12 +225,15 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (void)requestFinished:(ASIHTTPRequest *)request {
     uploading = NO;
+    [uploadProgressIndicator setDoubleValue:0];
     [uploadButton validate];
     
     NSString *responseString = [request responseString];
     NSRange textRange = [responseString rangeOfString:@"ERROR"];
     if (textRange.location == NSNotFound) {
         NSLog(@"Successfully uploaded");
+        
+        // display a Growl notification
         [GrowlApplicationBridge notifyWithTitle:@"Upload Complete!"
                                     description:@"Your data has been uploaded to the Scrape server"
                                notificationName:@"Upload Success"
@@ -233,23 +241,34 @@ static NSArray *formatNames = nil;
                                        priority:0
                                        isSticky:NO
                                    clickContext:responseString];
+        
+        // display the success overlay 
+        [uploadSuccessOverlay setHidden:NO];
+        NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
+        [animParams setObject:uploadSuccessOverlay 
+                       forKey:NSViewAnimationTargetKey];
+        [animParams setObject:NSViewAnimationFadeInEffect 
+                       forKey:NSViewAnimationEffectKey];
+        NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
+        [overlayAnimation setDuration:1.0];
+        [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+        [overlayAnimation startAnimation];
+        [overlayAnimation release];
+        
     } else {
-        NSLog(@"Error uploading");
-        [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
-                                    description:@"There was an error uploading your data to the Scrape server"
-                               notificationName:@"Upload Fail"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:nil];
+        [self requestFailed:request];
     }
 }
 
 //--------------------------------------------------------------
 - (void)requestFailed:(ASIHTTPRequest *)request {
+    NSLog(@"Error uploading");
+    
     uploading = NO;
+    [uploadProgressIndicator setDoubleValue:0];
     [uploadButton validate];
     
+    // display a Growl notification
     NSError *error = [request error];
     NSLog(@"%@", [error localizedDescription]);
     [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
@@ -259,6 +278,19 @@ static NSArray *formatNames = nil;
                                    priority:0
                                    isSticky:NO
                                clickContext:nil];
+    
+    // display the error overlay
+    [uploadErrorOverlay setHidden:NO];
+    NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
+    [animParams setObject:uploadErrorOverlay 
+                   forKey:NSViewAnimationTargetKey];
+    [animParams setObject:NSViewAnimationFadeInEffect 
+                   forKey:NSViewAnimationEffectKey];
+    NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
+    [overlayAnimation setDuration:1.0];
+    [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+    [overlayAnimation startAnimation];
+    [overlayAnimation release];
 }
 
 @end

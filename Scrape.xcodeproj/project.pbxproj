@@ -29,6 +29,8 @@
 		27DBCFC81150207400D448D5 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC11150207400D448D5 /* ASIInputStream.m */; };
 		27DBCFC91150207400D448D5 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC31150207400D448D5 /* ASINetworkQueue.m */; };
 		27DBCFCA1150207400D448D5 /* ASINSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */; };
+		27DF3269115D153600DCF1C1 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3267115D153600DCF1C1 /* error.png */; };
+		27DF326A115D153600DCF1C1 /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3268115D153600DCF1C1 /* success.png */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* ScrapeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* ScrapeDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -85,6 +87,8 @@
 		27DBCFC31150207400D448D5 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASINetworkQueue.m; path = lib/ASIHTTPRequest/Classes/ASINetworkQueue.m; sourceTree = SOURCE_ROOT; };
 		27DBCFC41150207400D448D5 /* ASINSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASINSStringAdditions.h; path = lib/ASIHTTPRequest/Classes/ASINSStringAdditions.h; sourceTree = SOURCE_ROOT; };
 		27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASINSStringAdditions.m; path = lib/ASIHTTPRequest/Classes/ASINSStringAdditions.m; sourceTree = SOURCE_ROOT; };
+		27DF3267115D153600DCF1C1 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = SOURCE_ROOT; };
+		27DF3268115D153600DCF1C1 /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = SOURCE_ROOT; };
 		2A37F4ACFDCFA73011CA2CEA /* ScrapeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* ScrapeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeDocument.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 			children = (
 				27494675113AA7F300CF9438 /* idle.png */,
 				27494676113AA7F300CF9438 /* select.png */,
+				27DF3267115D153600DCF1C1 /* error.png */,
+				27DF3268115D153600DCF1C1 /* success.png */,
 			);
 			name = Images;
 			sourceTree = SOURCE_ROOT;
@@ -287,6 +293,8 @@
 				27494678113AA7F300CF9438 /* select.png in Resources */,
 				27911BE1113ADB440062742A /* Scrape-Icon.icns in Resources */,
 				271CEFF8114ACF4C0050A2A0 /* Preferences.xib in Resources */,
+				27DF3269115D153600DCF1C1 /* error.png in Resources */,
+				27DF326A115D153600DCF1C1 /* success.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,7 +370,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Growl-1.2.1-Framework\"",
@@ -386,7 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

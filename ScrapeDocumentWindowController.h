@@ -20,6 +20,8 @@
     IBOutlet NSPopUpButton          *formatDropDown;
     IBOutlet ScrapeGLView           *glView;
     IBOutlet NSProgressIndicator    *uploadProgressIndicator;
+    IBOutlet NSImageView            *uploadSuccessOverlay;
+    IBOutlet NSImageView            *uploadErrorOverlay;
     
     NSDate *scrapeDate;
     BOOL    uploading;
