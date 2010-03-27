@@ -12,10 +12,11 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+NSString *ScrapeHasLaunchedBeforeKey     = @"ScrapeHasLaunchedBefore";
+NSString *ScrapeAutomaticToggleKey       = @"DoAutomaticScrapes";
+NSString *ScrapeAutomaticMinKey          = @"AutomaticScrapesMinInterval";
+NSString *ScrapeAutomaticMaxKey          = @"AutomaticScrapesMaxInterval";
 NSString *ScrapeAutomaticSettingsChanged = @"Automatic Settings Changed";
-NSString *ScrapeAutomaticToggleKey       = @"Automatic Toggle";
-NSString *ScrapeAutomaticMinKey          = @"Automatic Min";
-NSString *ScrapeAutomaticMaxKey          = @"Automatic Max";
 
 NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 
@@ -31,6 +32,8 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
     
     // register preferences
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
+    [defaultValues setObject:[NSNumber numberWithBool:NO]
+                      forKey:ScrapeHasLaunchedBeforeKey];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
                       forKey:ScrapeAutomaticToggleKey];
     [defaultValues setObject:[NSNumber numberWithInt:1]
@@ -86,10 +89,20 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
                                                object:nil];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults boolForKey:ScrapeHasLaunchedBeforeKey] == NO) {
+        // show the preferences window
+        [self showPrefsWindow:nil];
+    }
+    
     if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
         // schedule the first automatic scrape
         [self scheduleAutomaticScrape];
     }
+    
+    [defaults setBool:YES
+               forKey:ScrapeHasLaunchedBeforeKey];
+    [defaults synchronize];
 }
 
 //--------------------------------------------------------------

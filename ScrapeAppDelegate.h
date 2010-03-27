@@ -10,6 +10,7 @@
 #import <Growl/Growl.h>
 
 
+extern NSString *ScrapeHasLaunchedBefore;
 extern NSString *ScrapeAutomaticSettingsChanged;
 extern NSString *ScrapeAutomaticToggleKey;
 extern NSString *ScrapeAutomaticMinKey;
