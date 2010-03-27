@@ -176,6 +176,15 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
+- (IBAction)launchScrapeWebsite:(id)sender {
+    if ([ScrapePrefsController isLoggedIn] == YES) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"home.php"]]];
+    } else {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"index.php"]]];
+    }
+}
+
+//--------------------------------------------------------------
 - (void)growlNotificationWasClicked:(id)clickContext {
     if ([(NSString *)clickContext compare:@"FRONT"] == NSOrderedSame) {
         // bring Scrape to front

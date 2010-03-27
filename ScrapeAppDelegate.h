@@ -41,5 +41,6 @@ extern NSString *SiteRoot;
 - (IBAction)newManualScrape:(id)sender;
 - (IBAction)showAboutWindow:(id)sender;
 - (IBAction)showPrefsWindow:(id)sender;
+- (IBAction)launchScrapeWebsite:(id)sender;
 
 @end
