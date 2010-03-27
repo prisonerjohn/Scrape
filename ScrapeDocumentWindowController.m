@@ -262,17 +262,26 @@ static NSArray *formatNames = nil;
 
 //--------------------------------------------------------------
 - (void)requestFailed:(ASIHTTPRequest *)request {
-    NSLog(@"Error uploading");
+    NSString *responseString = [request responseString];
+    NSLog(@"Error uploading: %@", responseString);
+    
+    NSString *descString;
+    NSRange textRange = [responseString rangeOfString:@"Duplicate"];
+    if (textRange.location == NSNotFound) {
+        descString = @"There was an error uploading your data to the Scrape server";
+    } else {
+        descString = @"You have already uploaded this scrape to the server";
+    }
     
     uploading = NO;
     [uploadProgressIndicator setDoubleValue:0];
     [uploadButton validate];
-    
+        
     // display a Growl notification
     NSError *error = [request error];
     NSLog(@"%@", [error localizedDescription]);
     [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
-                                description:@"There was an error uploading your data to the Scrape server"
+                                description:descString
                            notificationName:@"Upload Fail"
                                    iconData:nil
                                    priority:0
