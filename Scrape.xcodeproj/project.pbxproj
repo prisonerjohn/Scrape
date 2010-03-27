@@ -6,6 +6,20 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		27F87D3C115D4A9B00FB2391 /* Distribution */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 27F87D46115D4AA700FB2391 /* Build configuration list for PBXAggregateTarget "Distribution" */;
+			buildPhases = (
+				27F87D3B115D4A9B00FB2391 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Distribution;
+			productName = Distribution;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* ScrapeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* ScrapeDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
@@ -31,6 +45,9 @@
 		27DBCFCA1150207400D448D5 /* ASINSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */; };
 		27DF3269115D153600DCF1C1 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3267115D153600DCF1C1 /* error.png */; };
 		27DF326A115D153600DCF1C1 /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3268115D153600DCF1C1 /* success.png */; };
+		27F87D17115D479300FB2391 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F87D16115D479300FB2391 /* Sparkle.framework */; };
+		27F87D2F115D47F900FB2391 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 27F87D16115D479300FB2391 /* Sparkle.framework */; };
+		27F87D35115D4A0E00FB2391 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 27F87D34115D4A0E00FB2391 /* dsa_pub.pem */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* ScrapeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* ScrapeDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -45,6 +62,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				27F87D2F115D47F900FB2391 /* Sparkle.framework in CopyFiles */,
 				278C2A021153151D0055F5F8 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +107,8 @@
 		27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASINSStringAdditions.m; path = lib/ASIHTTPRequest/Classes/ASINSStringAdditions.m; sourceTree = SOURCE_ROOT; };
 		27DF3267115D153600DCF1C1 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = SOURCE_ROOT; };
 		27DF3268115D153600DCF1C1 /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = SOURCE_ROOT; };
+		27F87D16115D479300FB2391 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		27F87D34115D4A0E00FB2391 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		2A37F4ACFDCFA73011CA2CEA /* ScrapeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* ScrapeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeDocument.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -110,6 +130,7 @@
 				27DBCF9D11501F8C00D448D5 /* libz.1.2.3.dylib in Frameworks */,
 				27DBCF9F11501F9900D448D5 /* CoreServices.framework in Frameworks */,
 				278C29631152C28B0055F5F8 /* Growl.framework in Frameworks */,
+				27F87D17115D479300FB2391 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +140,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27F87D16115D479300FB2391 /* Sparkle.framework */,
 				278C29621152C28B0055F5F8 /* Growl.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				2749466D113AA77500CF9438 /* OpenGL.framework */,
@@ -227,6 +249,7 @@
 				271CEFF6114ACF4C0050A2A0 /* Preferences.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				278C29261152B9FC0055F5F8 /* Growl Registration Ticket.growlRegDict */,
+				27F87D34115D4A0E00FB2391 /* dsa_pub.pem */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -275,6 +298,7 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* Scrape */,
+				27F87D3C115D4A9B00FB2391 /* Distribution */,
 			);
 		};
 /* End PBXProject section */
@@ -295,10 +319,27 @@
 				271CEFF8114ACF4C0050A2A0 /* Preferences.xib in Resources */,
 				27DF3269115D153600DCF1C1 /* error.png in Resources */,
 				27DF326A115D153600DCF1C1 /* success.png in Resources */,
+				27F87D35115D4A0E00FB2391 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27F87D3B115D4A9B00FB2391 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nBUILD=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nDOWNLOAD_BASE_URL=\"http://github.com/downloads/prisonerjohn/Scrape\"\nRELEASENOTES_URL=\"http://labs.silentlycrashing.net/scrape/notes.php#v$VERSION\"\"b$BUILD\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME\"_\"v$VERSION\"\"b$BUILD.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key for Scrape\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(LC_TIME=en_US date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION (build $BUILD)</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$BUILD\"\n\t\t\t\tsparkle:shortVersionString=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D15AC300486D014006FF6A4 /* Sources */ = {
@@ -365,12 +406,33 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		27F87D3D115D4A9B00FB2391 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Distribution;
+			};
+			name = Debug;
+		};
+		27F87D3E115D4A9B00FB2391 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Distribution;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Growl-1.2.1-Framework\"",
@@ -394,7 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -441,6 +503,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		27F87D46115D4AA700FB2391 /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27F87D3D115D4A9B00FB2391 /* Debug */,
+				27F87D3E115D4A9B00FB2391 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Scrape" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

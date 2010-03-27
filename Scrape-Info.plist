@@ -40,9 +40,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>14</string>
+	<string>31</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSMainNibFile</key>
@@ -53,5 +53,9 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>2010 Elie Zananiri</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
+	<key>SUFeedURL</key>
+	<string>http://labs.silentlycrashing.net/scrape/appcast.xml</string>
 </dict>
 </plist>
