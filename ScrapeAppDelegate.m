@@ -12,6 +12,7 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+NSString *ScrapeEnableDockIcon           = @"ScrapeEnableDockIcon";
 NSString *ScrapeHasLaunchedBeforeKey     = @"ScrapeHasLaunchedBefore";
 NSString *ScrapeAutomaticToggleKey       = @"DoAutomaticScrapes";
 NSString *ScrapeAutomaticMinKey          = @"AutomaticScrapesMinInterval";
@@ -32,6 +33,8 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
     
     // register preferences
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
+    [defaultValues setObject:[NSNumber numberWithBool:YES]
+                      forKey:ScrapeEnableDockIcon];
     [defaultValues setObject:[NSNumber numberWithBool:NO]
                       forKey:ScrapeHasLaunchedBeforeKey];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
@@ -40,9 +43,40 @@ NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
                       forKey:ScrapeAutomaticMinKey];
     [defaultValues setObject:[NSNumber numberWithInt:120]
                       forKey:ScrapeAutomaticMaxKey];
+    [defaultValues setObject:[NSNumber numberWithInt:120]
+                      forKey:ScrapeAutomaticMaxKey];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:defaultValues];
+}
+
+//--------------------------------------------------------------
+- (id)init {
+    self = [super init];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:ScrapeEnableDockIcon] == YES) {
+        [self showDockIcon];
+    }
+    
+    return self;
+}
+
+//--------------------------------------------------------------
+- (void)showDockIcon {
+    // CocoaDev magic: http://www.cocoadev.com/index.pl?TransformProcessType
+    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+    OSStatus returnCode = TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    if( returnCode == 0) {
+        // bring the app to the front (no idea what's going on here...)
+        ProcessSerialNumber psnx = { 0, kNoProcess };
+        GetNextProcess(&psnx);
+        SetFrontProcess(&psnx);
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        SetFrontProcess(&psn);	
+    } else {
+        NSLog(@"Could not bring the application to front. Error %d", returnCode);
+    }
 }
 
 //--------------------------------------------------------------

@@ -35,6 +35,7 @@ NSString *KeychainPassword = nil;
         
         // set saved preferences
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [showDockSwitch      setState:[defaults boolForKey:ScrapeEnableDockIcon]];
         [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
         [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
         [automaticMinStepper setEnabled:[automaticSwitch state]];
@@ -70,6 +71,14 @@ NSString *KeychainPassword = nil;
 //--------------------------------------------------------------
 - (void)dealloc {
     [super dealloc];
+}
+
+//--------------------------------------------------------------
+- (IBAction)setShowDock:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:[sender state]
+               forKey:ScrapeEnableDockIcon];
+    [defaults synchronize];
 }
 
 //--------------------------------------------------------------

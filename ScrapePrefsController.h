@@ -15,6 +15,8 @@ extern NSString *KeychainPassword;
 
 
 @interface ScrapePrefsController : NSWindowController {
+    IBOutlet NSButton       *showDockSwitch;
+    
     IBOutlet NSButton       *automaticSwitch;
     IBOutlet NSStepper      *automaticMinStepper;
     IBOutlet NSStepper      *automaticMaxStepper;
@@ -28,6 +30,8 @@ extern NSString *KeychainPassword;
     IBOutlet NSTextField        *successLabel;
     IBOutlet NSTextField        *errorLabel;
 }
+
+- (IBAction)setShowDock:(id)sender;
 
 - (IBAction)setAutomaticToggle:(id)sender;
 - (IBAction)setAutomaticMinFromStepper:(id)sender;
