@@ -250,7 +250,7 @@ static NSArray *formatNames = nil;
         [animParams setObject:NSViewAnimationFadeInEffect 
                        forKey:NSViewAnimationEffectKey];
         NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
-        [overlayAnimation setDuration:1.0];
+        [overlayAnimation setDuration:1.5];
         [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
         [overlayAnimation startAnimation];
         [overlayAnimation release];
@@ -296,7 +296,7 @@ static NSArray *formatNames = nil;
     [animParams setObject:NSViewAnimationFadeInEffect 
                    forKey:NSViewAnimationEffectKey];
     NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
-    [overlayAnimation setDuration:1.0];
+    [overlayAnimation setDuration:1.5];
     [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
     [overlayAnimation startAnimation];
     [overlayAnimation release];
