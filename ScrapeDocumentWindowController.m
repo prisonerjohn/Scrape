@@ -196,6 +196,10 @@ static NSArray *formatNames = nil;
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:tiffData];
     NSData *pngData = [imageRep representationUsingType:NSPNGFileType properties:dictionary];
+    [imageRep release];
+    
+    [bitmap release];
+    [image release];
     
     // upload both representations to the server
     NSLog(@"Uploading with keychain credentials");
@@ -223,9 +227,6 @@ static NSArray *formatNames = nil;
     uploading = YES;
     [uploadProgressIndicator setDoubleValue:0];
     [uploadButton validate];
-    
-    [bitmap release];
-    [image release];
 }
 
 //--------------------------------------------------------------
