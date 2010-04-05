@@ -151,6 +151,9 @@ static NSArray *formatNames = nil;
                                        isSticky:NO
                                    clickContext:[[savePanel URL] path]];
     }
+    
+    [bitmap release];
+    [image release];
 }
 
 //--------------------------------------------------------------
@@ -220,6 +223,9 @@ static NSArray *formatNames = nil;
     uploading = YES;
     [uploadProgressIndicator setDoubleValue:0];
     [uploadButton validate];
+    
+    [bitmap release];
+    [image release];
 }
 
 //--------------------------------------------------------------
