@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/gl.h>
 
-#define NUM_TEXTURES 5
+#define NUM_TEXTURES 32
 
 
 @interface ScrapeGLView : NSOpenGLView {
