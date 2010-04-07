@@ -19,7 +19,7 @@ NSString *ScrapeAutomaticMinKey          = @"AutomaticScrapesMinInterval";
 NSString *ScrapeAutomaticMaxKey          = @"AutomaticScrapesMaxInterval";
 NSString *ScrapeAutomaticSettingsChanged = @"Automatic Settings Changed";
 
-NSString *SiteRoot = @"http://labs.silentlycrashing.net/scrape/";
+NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 
 
 //--------------------------------------------------------------
