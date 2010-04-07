@@ -40,7 +40,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>45</string>
+	<string>46</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.3</string>
 	<key>LSMinimumSystemVersion</key>
@@ -56,6 +56,6 @@
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>SUFeedURL</key>
-	<string>http://labs.silentlycrashing.net/scrape/appcast.xml</string>
+	<string>http://www.silentlycrashing.net/scrape/appcast.xml</string>
 </dict>
 </plist>
