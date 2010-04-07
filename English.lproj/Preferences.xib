@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="200"/>
+			<integer value="36"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -131,7 +131,7 @@
 											<object class="NSTextFieldCell" key="NSCell" id="740242449">
 												<int key="NSCellFlags">68288064</int>
 												<int key="NSCellFlags2">272630784</int>
-												<string key="NSContents">username</string>
+												<string key="NSContents">Username</string>
 												<reference key="NSSupport" ref="270368852"/>
 												<reference key="NSControlView" ref="50789190"/>
 												<object class="NSColor" key="NSBackgroundColor" id="207616622">
@@ -160,7 +160,7 @@
 											<object class="NSTextFieldCell" key="NSCell" id="211729329">
 												<int key="NSCellFlags">68288064</int>
 												<int key="NSCellFlags2">272630784</int>
-												<string key="NSContents">password</string>
+												<string key="NSContents">Password</string>
 												<reference key="NSSupport" ref="270368852"/>
 												<reference key="NSControlView" ref="26633664"/>
 												<reference key="NSBackgroundColor" ref="207616622"/>
@@ -196,7 +196,7 @@
 											<object class="NSButtonCell" key="NSCell" id="791030639">
 												<int key="NSCellFlags">67239424</int>
 												<int key="NSCellFlags2">134217728</int>
-												<string key="NSContents">Sign up for a Scrape Account</string>
+												<string key="NSContents">Sign up for a Scrape account</string>
 												<reference key="NSSupport" ref="270368852"/>
 												<reference key="NSControlView" ref="326654028"/>
 												<int key="NSButtonFlags">-2038284033</int>
@@ -1241,9 +1241,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{321, 212}, {510, 277}}</string>
+					<string>{{654, 229}, {510, 277}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{321, 212}, {510, 277}}</string>
+					<string>{{654, 229}, {510, 277}}</string>
 					<boolean value="YES"/>
 					<boolean value="NO"/>
 					<string>{213, 10}</string>
