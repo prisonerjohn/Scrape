@@ -36,8 +36,9 @@ static const GLfloat verts[] = {
 
 //--------------------------------------------------------------
 - (void)awakeFromNib {
-    texFormat    = GL_RGB;
+    texFormat  = GL_RGB;
     texHandles = new GLuint[NUM_TEXTURES];
+    currHandle = 0;
 }
 
 //--------------------------------------------------------------
