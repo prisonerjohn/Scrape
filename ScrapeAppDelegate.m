@@ -12,12 +12,13 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-NSString *ScrapeEnableDockIcon           = @"ScrapeEnableDockIcon";
-NSString *ScrapeHasLaunchedBeforeKey     = @"ScrapeHasLaunchedBefore";
-NSString *ScrapeAutomaticToggleKey       = @"DoAutomaticScrapes";
-NSString *ScrapeAutomaticMinKey          = @"AutomaticScrapesMinInterval";
-NSString *ScrapeAutomaticMaxKey          = @"AutomaticScrapesMaxInterval";
-NSString *ScrapeAutomaticSettingsChanged = @"Automatic Settings Changed";
+NSString *ScrapeEnableDockIconKey           = @"ScrapeEnableDockIcon";
+NSString *ScrapeHasLaunchedBeforeKey        = @"ScrapeHasLaunchedBefore";
+NSString *ScrapeLastLaunchVersionKey        = @"ScrapeLastLaunchVersion";
+NSString *ScrapeAutomaticToggleKey          = @"DoAutomaticScrapes";
+NSString *ScrapeAutomaticMinKey             = @"AutomaticScrapesMinInterval";
+NSString *ScrapeAutomaticMaxKey             = @"AutomaticScrapesMaxInterval";
+NSString *ScrapeAutomaticSettingsChangedKey = @"Automatic Settings Changed";
 
 NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 
@@ -34,9 +35,11 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     // register preferences
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
-                      forKey:ScrapeEnableDockIcon];
+                      forKey:ScrapeEnableDockIconKey];
     [defaultValues setObject:[NSNumber numberWithBool:NO]
                       forKey:ScrapeHasLaunchedBeforeKey];
+    [defaultValues setObject:[NSNumber numberWithInt:0]
+                      forKey:ScrapeLastLaunchVersionKey];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
                       forKey:ScrapeAutomaticToggleKey];
     [defaultValues setObject:[NSNumber numberWithInt:1]
@@ -55,7 +58,7 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     self = [super init];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:ScrapeEnableDockIcon] == YES) {
+    if ([defaults boolForKey:ScrapeEnableDockIconKey] == YES) {
         [self showDockIcon];
     }
     
@@ -119,14 +122,19 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(updateTimer:) 
-                                                 name:ScrapeAutomaticSettingsChanged
+                                                 name:ScrapeAutomaticSettingsChangedKey
                                                object:nil];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int currVersion = [[[bundle infoDictionary] objectForKey:@"CFBundleVersion"] intValue];
     
-    if ([defaults boolForKey:ScrapeHasLaunchedBeforeKey] == NO) {
+    if ([defaults integerForKey:ScrapeLastLaunchVersionKey] != currVersion) {
         // show the preferences window
         [self showPrefsWindow:nil];
+        
+        [defaults setInteger:currVersion
+                      forKey:ScrapeLastLaunchVersionKey];
+        [defaults synchronize];
     }
     
     if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
@@ -237,7 +245,6 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
         // bring Scrape to front
         [NSApp activateIgnoringOtherApps:YES];
     } else {
-        NSLog(@"%@", clickContext);
         NSRange textRange = [(NSString *)clickContext rangeOfString:@"http"];
         if (textRange.location == NSNotFound) {
             // assume we received a file path and reveal it in the Finder

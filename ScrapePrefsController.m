@@ -35,7 +35,7 @@ NSString *KeychainPassword = nil;
         
         // set saved preferences
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [showDockSwitch      setState:[defaults boolForKey:ScrapeEnableDockIcon]];
+        [showDockSwitch      setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
         [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
         [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
         [automaticMinStepper setEnabled:[automaticSwitch state]];
@@ -77,7 +77,7 @@ NSString *KeychainPassword = nil;
 - (IBAction)setShowDock:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
-               forKey:ScrapeEnableDockIcon];
+               forKey:ScrapeEnableDockIconKey];
     [defaults synchronize];
 }
 
@@ -93,7 +93,7 @@ NSString *KeychainPassword = nil;
     [automaticMinStepper setEnabled:[sender state]];
     [automaticMaxStepper setEnabled:[sender state]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
+    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
 }
 
@@ -109,7 +109,7 @@ NSString *KeychainPassword = nil;
     [automaticMaxStepper setMinValue:([sender intValue] + 1)];
     [[automaticMaxLabel formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
+    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
 }
          
@@ -125,7 +125,7 @@ NSString *KeychainPassword = nil;
     [automaticMaxStepper setMinValue:([sender intValue] + 1)];
     [[automaticMaxLabel formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
+    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
 }
 
@@ -141,7 +141,7 @@ NSString *KeychainPassword = nil;
     [automaticMinStepper setMaxValue:([sender intValue] - 1)];
     [[automaticMinLabel formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
+    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
 }
 
@@ -157,7 +157,7 @@ NSString *KeychainPassword = nil;
     [automaticMinStepper setMaxValue:([sender intValue] - 1)];
     [[automaticMinLabel formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChanged 
+    [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
 }
 

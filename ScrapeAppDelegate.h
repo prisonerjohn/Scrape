@@ -10,9 +10,10 @@
 #import <Growl/Growl.h>
 
 
-extern NSString *ScrapeEnableDockIcon;
-extern NSString *ScrapeHasLaunchedBefore;
-extern NSString *ScrapeAutomaticSettingsChanged;
+extern NSString *ScrapeEnableDockIconKey;
+extern NSString *ScrapeHasLaunchedBeforeKey;
+extern NSString *ScrapeLastLaunchVersionKey;
+extern NSString *ScrapeAutomaticSettingsChangedKey;
 extern NSString *ScrapeAutomaticToggleKey;
 extern NSString *ScrapeAutomaticMinKey;
 extern NSString *ScrapeAutomaticMaxKey;
