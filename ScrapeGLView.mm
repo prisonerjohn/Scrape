@@ -7,6 +7,7 @@
 //
 
 #import "ScrapeGLView.h"
+#import "ScrapeAppDelegate.h"
 
 
 //--------------------------------------------------------------
@@ -34,30 +35,68 @@ static const GLfloat verts[] = {
 //--------------------------------------------------------------
 @implementation ScrapeGLView
 
+static NSBitmapImageRep *destroyData;
+
+//--------------------------------------------------------------
++ (void)initialize {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSImage *destroyImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"destroy" 
+                                                                                     ofType:@"png"]];
+    NSSize imgSize = [destroyImage size];
+    
+    [destroyImage lockFocus];
+    destroyData = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0.0, 0.0, imgSize.width, imgSize.height)];
+    [destroyImage unlockFocus];
+    
+    [destroyImage release];
+}
+
 //--------------------------------------------------------------
 - (void)awakeFromNib {
     texFormat  = GL_RGB;
-    texHandles = new GLuint[NUM_TEXTURES];
-    currHandle = 0;
+    texHandle  = 0;
 }
 
 //--------------------------------------------------------------
 - (void)dealloc {
-    glDeleteTextures(NUM_TEXTURES, texHandles);
-    delete [] texHandles;
+    glDeleteTextures(1, &texHandle);
     [super dealloc];
 }
 
 //--------------------------------------------------------------
 - (void)refresh {
-    currHandle = (currHandle+1)%NUM_TEXTURES;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:ScrapeDestroyDataOnReleaseKey] == YES) {
+        // destroy the current texture data before moving over to the next one
+        [self destroyCurrentData];
+    }
+    
+    [self allocateData];
     [self display];
 }
 
 //--------------------------------------------------------------
 - (void)setFormat:(GLint)format {
     texFormat = format;
+    [self allocateData];
     [self display];   
+}
+
+//--------------------------------------------------------------
+- (void)allocateData {
+    NSLog(@"Allocating data");
+    
+    // alloc
+    glGenTextures(1, &texHandle);
+    
+    glEnable(texTarget);
+    {
+        glBindTexture(texTarget, texHandle);
+
+        // init
+        glTexImage2D(texTarget, 0, texFormat, texSize, texSize, 0, (texFormat == GL_R3_G3_B2)? GL_RGBA:texFormat, GL_UNSIGNED_BYTE, 0);
+    }
+    glDisable(texTarget);
 }
 
 //--------------------------------------------------------------
@@ -65,14 +104,14 @@ static const GLfloat verts[] = {
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    // alloc
-    glGenTextures(1, &texHandles[currHandle]);
+    if (texHandle == 0) {
+        NSLog(@"here now");
+        [self allocateData];
+    }
+    
     glEnable(texTarget);
     {
-        glBindTexture(texTarget, texHandles[currHandle]);
-        
-        // init
-        glTexImage2D(texTarget, 0, texFormat, texSize, texSize, 0, (texFormat == GL_R3_G3_B2)? GL_RGBA:texFormat, GL_UNSIGNED_BYTE, 0);
+        glBindTexture(texTarget, texHandle);
         
         glTexParameterf(texTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameterf(texTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -88,6 +127,26 @@ static const GLfloat verts[] = {
     glDisable(texTarget);
     
     glFlush();
+}
+
+//--------------------------------------------------------------
+- (void)destroyCurrentData {
+    if (texHandle == 0) {
+        // texture handle is null, ignore it
+        return;
+    }
+    
+    NSLog(@"Destroying current data");
+    glEnable(texTarget);
+    {
+        glBindTexture(texTarget, texHandle);
+        
+        glTexParameteri(texTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameterf(texTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        
+        glTexSubImage2D(texTarget, 0, 0, 0, [destroyData pixelsWide], [destroyData pixelsHigh], GL_RGBA, GL_UNSIGNED_BYTE, [destroyData bitmapData]);            
+    }
+    glDisable(texTarget);
 }
 
 @end

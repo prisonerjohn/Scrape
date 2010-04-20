@@ -36,6 +36,7 @@ NSString *KeychainPassword = nil;
         // set saved preferences
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [showDockSwitch      setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
+        [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
         [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
         [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
         [automaticMinStepper setEnabled:[automaticSwitch state]];
@@ -78,6 +79,14 @@ NSString *KeychainPassword = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeEnableDockIconKey];
+    [defaults synchronize];
+}
+
+//--------------------------------------------------------------
+- (IBAction)setDestroyData:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:[sender state]
+               forKey:ScrapeDestroyDataOnReleaseKey];
     [defaults synchronize];
 }
 

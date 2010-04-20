@@ -11,6 +11,7 @@
 
 
 extern NSString *ScrapeEnableDockIconKey;
+extern NSString *ScrapeDestroyDataOnReleaseKey;
 extern NSString *ScrapeHasLaunchedBeforeKey;
 extern NSString *ScrapeLastLaunchVersionKey;
 extern NSString *ScrapeAutomaticSettingsChangedKey;

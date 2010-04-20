@@ -13,6 +13,7 @@
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 NSString *ScrapeEnableDockIconKey           = @"ScrapeEnableDockIcon";
+NSString *ScrapeDestroyDataOnReleaseKey     = @"ScrapeDestroyDataOnRelease";
 NSString *ScrapeHasLaunchedBeforeKey        = @"ScrapeHasLaunchedBefore";
 NSString *ScrapeLastLaunchVersionKey        = @"ScrapeLastLaunchVersion";
 NSString *ScrapeAutomaticToggleKey          = @"DoAutomaticScrapes";
@@ -36,6 +37,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
                       forKey:ScrapeEnableDockIconKey];
+    [defaultValues setObject:[NSNumber numberWithBool:NO]
+                      forKey:ScrapeDestroyDataOnReleaseKey];
     [defaultValues setObject:[NSNumber numberWithBool:NO]
                       forKey:ScrapeHasLaunchedBeforeKey];
     [defaultValues setObject:[NSNumber numberWithInt:0]

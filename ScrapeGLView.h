@@ -13,13 +13,15 @@
 
 
 @interface ScrapeGLView : NSOpenGLView {
-    int             currHandle;
-    GLuint          *texHandles;
-    GLint           texFormat;
+    GLuint  texHandle;
+    GLint   texFormat;
 }
 
 - (void)refresh;
 - (void)setFormat:(GLint)format;
+
+- (void)allocateData;
+- (void)destroyCurrentData;
 
 - (void)drawRect:(NSRect)bounds;
 
