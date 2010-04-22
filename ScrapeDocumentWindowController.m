@@ -143,13 +143,16 @@ static NSArray *formatNames = nil;
         NSData *tiffData = [image TIFFRepresentation];
         [tiffData writeToFile:[savePanel filename] atomically:YES];
         
-        [GrowlApplicationBridge notifyWithTitle:@"Image Saved!"
-                                    description:nil
-                               notificationName:@"Save"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:[[savePanel URL] path]];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
+            [GrowlApplicationBridge notifyWithTitle:@"Image Saved!"
+                                        description:nil
+                                   notificationName:@"Save"
+                                           iconData:nil
+                                           priority:0
+                                           isSticky:NO
+                                       clickContext:[[savePanel URL] path]];
+        }
     }
     
     [bitmap release];
@@ -240,14 +243,17 @@ static NSArray *formatNames = nil;
     if (textRange.location == NSNotFound) {
         NSLog(@"Successfully uploaded");
         
-        // display a Growl notification
-        [GrowlApplicationBridge notifyWithTitle:@"Upload Complete!"
-                                    description:@"Your data has been uploaded to the Scrape server"
-                               notificationName:@"Upload Success"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:responseString];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
+            // display a Growl notification
+            [GrowlApplicationBridge notifyWithTitle:@"Upload Complete!"
+                                        description:@"Your data has been uploaded to the Scrape server"
+                                   notificationName:@"Upload Success"
+                                           iconData:nil
+                                           priority:0
+                                           isSticky:NO
+                                       clickContext:responseString];
+        }
         
         // display the success overlay 
         [uploadSuccessOverlay setHidden:NO];
@@ -284,16 +290,19 @@ static NSArray *formatNames = nil;
     [uploadProgressIndicator setDoubleValue:0];
     [uploadButton validate];
         
-    // display a Growl notification
-    NSError *error = [request error];
-    NSLog(@"%@", [error localizedDescription]);
-    [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
-                                description:descString
-                           notificationName:@"Upload Fail"
-                                   iconData:nil
-                                   priority:0
-                                   isSticky:NO
-                               clickContext:nil];
+    NSLog(@"%@", [[request error] localizedDescription]);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
+        // display a Growl notification
+        [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
+                                    description:descString
+                               notificationName:@"Upload Fail"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:nil];
+    }
     
     // display the error overlay
     [uploadErrorOverlay setHidden:NO];

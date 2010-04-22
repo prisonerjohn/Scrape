@@ -15,14 +15,17 @@ extern NSString *KeychainPassword;
 
 
 @interface ScrapePrefsController : NSWindowController {
-    IBOutlet NSButton       *showDockSwitch;
-    IBOutlet NSButton       *destroyDataSwitch;
+    IBOutlet NSButton           *automaticSwitch;
+    IBOutlet NSStepper          *automaticMinStepper;
+    IBOutlet NSStepper          *automaticMaxStepper;
+    IBOutlet NSTextField        *automaticMinLabel;
+    IBOutlet NSTextField        *automaticMaxLabel;
+    IBOutlet NSButton           *destroyDataSwitch;
     
-    IBOutlet NSButton       *automaticSwitch;
-    IBOutlet NSStepper      *automaticMinStepper;
-    IBOutlet NSStepper      *automaticMaxStepper;
-    IBOutlet NSTextField    *automaticMinLabel;
-    IBOutlet NSTextField    *automaticMaxLabel;
+    IBOutlet NSButton           *startAtLoginSwitch;
+    IBOutlet NSButton           *showInDockSwitch;
+    IBOutlet NSButton           *showInMenuBarSwitch;
+    IBOutlet NSButton           *showGrowlNotificationsSwitch;
     
     IBOutlet NSTextField        *usernameInput;
     IBOutlet NSSecureTextField  *passwordInput;
@@ -32,14 +35,18 @@ extern NSString *KeychainPassword;
     IBOutlet NSTextField        *errorLabel;
 }
 
-- (IBAction)setShowDock:(id)sender;
-- (IBAction)setDestroyData:(id)sender;
+- (IBAction)setStartAtLogin:(id)sender;
+- (IBAction)setShowInDock:(id)sender;
+- (IBAction)setShowInMenuBar:(id)sender;
+- (IBAction)setShowGrowlNotifications:(id)sender;
 
 - (IBAction)setAutomaticToggle:(id)sender;
 - (IBAction)setAutomaticMinFromStepper:(id)sender;
 - (IBAction)setAutomaticMaxFromStepper:(id)sender;
 - (IBAction)setAutomaticMinFromTextField:(id)sender;
 - (IBAction)setAutomaticMaxFromTextField:(id)sender;
+
+- (IBAction)setDestroyData:(id)sender;
 
 - (IBAction)loginToScrape:(id)sender;
 - (IBAction)signupForScrape:(id)sender;
@@ -49,5 +56,9 @@ extern NSString *KeychainPassword;
 
 + (void)setLoggedIn:(BOOL)val;
 + (BOOL)isLoggedIn;
+
+- (void)enableLoginItem:(LSSharedFileListRef)loginItemsListRef;
+- (void)disableLoginItem:(LSSharedFileListRef)loginItemsListRef;
+- (BOOL)loginItemExists:(LSSharedFileListRef)loginItemsListRef;
 
 @end

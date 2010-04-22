@@ -12,13 +12,16 @@
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-NSString *ScrapeEnableDockIconKey           = @"ScrapeEnableDockIcon";
-NSString *ScrapeDestroyDataOnReleaseKey     = @"ScrapeDestroyDataOnRelease";
-NSString *ScrapeHasLaunchedBeforeKey        = @"ScrapeHasLaunchedBefore";
-NSString *ScrapeLastLaunchVersionKey        = @"ScrapeLastLaunchVersion";
-NSString *ScrapeAutomaticToggleKey          = @"DoAutomaticScrapes";
-NSString *ScrapeAutomaticMinKey             = @"AutomaticScrapesMinInterval";
-NSString *ScrapeAutomaticMaxKey             = @"AutomaticScrapesMaxInterval";
+NSString *ScrapeHasLaunchedBeforeKey        = @"Has Launched Before";
+NSString *ScrapeLastLaunchVersionKey        = @"Last Launch Version";
+NSString *ScrapeEnableDockIconKey           = @"Enable Dock Icon";
+NSString *ScrapeEnableMenuBarIconKey        = @"Enable Menu Bar Icon";
+NSString *ScrapeShowGrowlNotificationsKey   = @"Show Growl Notifications";
+
+NSString *ScrapeDestroyDataOnReleaseKey     = @"Destroy Data On Release";
+NSString *ScrapeAutomaticToggleKey          = @"Do Automatic Scrapes";
+NSString *ScrapeAutomaticMinKey             = @"Automatic Scrapes Min Interval";
+NSString *ScrapeAutomaticMaxKey             = @"Automatic Scrapes Max Interval";
 NSString *ScrapeAutomaticSettingsChangedKey = @"Automatic Settings Changed";
 
 NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
@@ -35,14 +38,20 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     
     // register preferences
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
-    [defaultValues setObject:[NSNumber numberWithBool:YES]
-                      forKey:ScrapeEnableDockIconKey];
-    [defaultValues setObject:[NSNumber numberWithBool:NO]
-                      forKey:ScrapeDestroyDataOnReleaseKey];
     [defaultValues setObject:[NSNumber numberWithBool:NO]
                       forKey:ScrapeHasLaunchedBeforeKey];
     [defaultValues setObject:[NSNumber numberWithInt:0]
                       forKey:ScrapeLastLaunchVersionKey];
+    
+    [defaultValues setObject:[NSNumber numberWithBool:YES]
+                      forKey:ScrapeEnableDockIconKey];
+    [defaultValues setObject:[NSNumber numberWithBool:YES]
+                      forKey:ScrapeEnableMenuBarIconKey];
+    [defaultValues setObject:[NSNumber numberWithBool:YES]
+                      forKey:ScrapeShowGrowlNotificationsKey];
+    
+    [defaultValues setObject:[NSNumber numberWithBool:NO]
+                      forKey:ScrapeDestroyDataOnReleaseKey];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
                       forKey:ScrapeAutomaticToggleKey];
     [defaultValues setObject:[NSNumber numberWithInt:1]
@@ -104,20 +113,24 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 
 //--------------------------------------------------------------
 - (void)awakeFromNib {
-    // create the status bar item
-    statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
     NSBundle *bundle = [NSBundle mainBundle];
-    idleImage   = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"idle" 
-                                                                           ofType:@"png"]];
-    selectImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"select" 
-                                                                           ofType:@"png"]];
-    [statusItem setImage:idleImage];
-    [statusItem setAlternateImage:selectImage];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [statusItem setHighlightMode:YES];
-    [statusItem setToolTip:@"Scrape"];
-    
-    [statusItem setMenu:statusMenu];
+    if ([defaults boolForKey:ScrapeEnableMenuBarIconKey] == YES || [defaults boolForKey:ScrapeEnableDockIconKey] == NO) {
+        // create the status bar item
+        statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
+        idleImage   = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"idle" 
+                                                                               ofType:@"png"]];
+        selectImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"select" 
+                                                                               ofType:@"png"]];
+        [statusItem setImage:idleImage];
+        [statusItem setAlternateImage:selectImage];
+        
+        [statusItem setHighlightMode:YES];
+        [statusItem setToolTip:@"Scrape"];
+        
+        [statusItem setMenu:statusMenu];
+    }
     
     // create the preferences window
     prefsController = [[ScrapePrefsController alloc] init];
@@ -128,9 +141,7 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
                                                  name:ScrapeAutomaticSettingsChangedKey
                                                object:nil];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     int currVersion = [[[bundle infoDictionary] objectForKey:@"CFBundleVersion"] intValue];
-    
     if ([defaults integerForKey:ScrapeLastLaunchVersionKey] != currVersion) {
         // show the preferences window
         [self showPrefsWindow:nil];
@@ -184,15 +195,17 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     
     [[NSDocumentController sharedDocumentController] newDocument:self];
     
-    [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
-                                description:@"A new data Scrape has been generated"
-                           notificationName:@"New Auto"
-                                   iconData:nil
-                                   priority:0
-                                   isSticky:NO
-                               clickContext:@"FRONT"];
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
+        [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
+                                    description:@"A new data Scrape has been generated"
+                               notificationName:@"New Auto"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:@"FRONT"];
+    }
+    
     if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
         // schedule a new automatic scrape
         [self scheduleAutomaticScrape];
@@ -208,13 +221,16 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     
     [[NSDocumentController sharedDocumentController] newDocument:self];
     
-    [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
-                                description:@"A new data Scrape has been generated"
-                           notificationName:@"New Manual"
-                                   iconData:nil
-                                   priority:0
-                                   isSticky:NO
-                               clickContext:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
+        [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
+                                    description:@"A new data Scrape has been generated"
+                               notificationName:@"New Manual"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:nil];
+    }
 }
 
 //--------------------------------------------------------------

@@ -33,10 +33,27 @@ NSString *KeychainPassword = nil;
         [successLabel setHidden:YES];
         [errorLabel   setHidden:YES];
         
-        // set saved preferences
+        // set login item preference
+        LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+        if ([self loginItemExists:loginItems]) {
+            [startAtLoginSwitch setState:NSOnState];
+        } else {
+            [startAtLoginSwitch setState:NSOffState];
+        }
+        CFRelease(loginItems);
+        
+        // set other saved preferences
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [showDockSwitch      setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
-        [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
+        [showInDockSwitch               setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
+        if ([showInDockSwitch state] == NSOffState) {
+            // if the dock icon is hidden, force the menu bar icon
+            [showInMenuBarSwitch setState:NSOnState];
+            [showInMenuBarSwitch setEnabled:NO];
+        } else {
+            [showInMenuBarSwitch setState:[defaults boolForKey:ScrapeEnableMenuBarIconKey]];
+        }
+        [showGrowlNotificationsSwitch   setState:[defaults boolForKey:ScrapeShowGrowlNotificationsKey]];
+        
         [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
         [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
         [automaticMinStepper setEnabled:[automaticSwitch state]];
@@ -46,6 +63,7 @@ NSString *KeychainPassword = nil;
         [automaticMinLabel   setEnabled:[automaticSwitch state]];
         [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
         [automaticMaxLabel   setEnabled:[automaticSwitch state]];
+        [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
         
         // try to load the credentials from the keychain
         NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
@@ -75,18 +93,48 @@ NSString *KeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setShowDock:(id)sender {
+- (IBAction)setStartAtLogin:(id)sender {
+    // based on: http://github.com/carpeaqua/Shared-File-List-Example
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+	if (loginItems) {
+		if ([sender state] == NSOnState) {
+            [self enableLoginItem:loginItems];
+        } else {
+            [self disableLoginItem:loginItems];
+        }	
+	}
+	CFRelease(loginItems);
+}
+
+//--------------------------------------------------------------
+- (IBAction)setShowInDock:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeEnableDockIconKey];
     [defaults synchronize];
+    
+    if ([sender state] == NSOffState) {
+        // if the dock icon is hidden, force the menu bar icon
+        [showInMenuBarSwitch setState:NSOnState];
+        [showInMenuBarSwitch setEnabled:NO];
+    } else {
+        [showInMenuBarSwitch setEnabled:YES];
+    }
 }
 
 //--------------------------------------------------------------
-- (IBAction)setDestroyData:(id)sender {
+- (IBAction)setShowInMenuBar:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
-               forKey:ScrapeDestroyDataOnReleaseKey];
+               forKey:ScrapeEnableMenuBarIconKey];
+    [defaults synchronize];
+}
+
+//--------------------------------------------------------------
+- (IBAction)setShowGrowlNotifications:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:[sender state]
+               forKey:ScrapeShowGrowlNotificationsKey];
     [defaults synchronize];
 }
 
@@ -171,6 +219,14 @@ NSString *KeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
+- (IBAction)setDestroyData:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:[sender state]
+               forKey:ScrapeDestroyDataOnReleaseKey];
+    [defaults synchronize];
+}
+
+//--------------------------------------------------------------
 - (IBAction)loginToScrape:(id)sender {
     NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
@@ -210,13 +266,16 @@ NSString *KeychainPassword = nil;
         
         [ScrapePrefsController setLoggedIn:YES];
         
-        [GrowlApplicationBridge notifyWithTitle:@"Logged in to Scrape"
-                                    description:nil
-                               notificationName:@"Login"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:nil];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
+            [GrowlApplicationBridge notifyWithTitle:@"Logged in to Scrape"
+                                        description:nil
+                                   notificationName:@"Login"
+                                           iconData:nil
+                                           priority:0
+                                           isSticky:NO
+                                       clickContext:nil];
+        }
         
     } else {
         NSLog(@"Error logging in");
@@ -241,6 +300,63 @@ NSString *KeychainPassword = nil;
 //--------------------------------------------------------------
 + (BOOL)isLoggedIn {
     return loggedIn;
+}
+
+//--------------------------------------------------------------
+- (void)enableLoginItem:(LSSharedFileListRef)loginItemsListRef {
+    // based on: http://github.com/carpeaqua/Shared-File-List-Example
+    CFURLRef url = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+	LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItemsListRef, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);		
+	if (item) {
+        CFRelease(item);
+    }	
+}
+
+//--------------------------------------------------------------
+- (void)disableLoginItem:(LSSharedFileListRef)loginItemsListRef {
+    // based on: http://github.com/carpeaqua/Shared-File-List-Example
+    UInt32 seedValue;
+	CFURLRef thePath;
+	
+    // grab the contents of the shared file list and iterate through it to find our item
+	CFArrayRef loginItemsArray = LSSharedFileListCopySnapshot(loginItemsListRef, &seedValue);
+	for (id item in (NSArray *)loginItemsArray) {		
+		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
+		if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &thePath, NULL) == noErr) {
+			if ([[(NSURL *)thePath path] hasPrefix:[[NSBundle mainBundle] bundlePath]]) {
+                // delete the item
+				LSSharedFileListItemRemove(loginItemsListRef, itemRef);
+			}
+			
+            CFRelease(thePath);
+		}		
+	}
+	CFRelease(loginItemsArray);
+}
+
+//--------------------------------------------------------------
+- (BOOL)loginItemExists:(LSSharedFileListRef)loginItemsListRef {
+    // based on: http://github.com/carpeaqua/Shared-File-List-Example
+    BOOL found = NO;  
+	UInt32 seedValue;
+	CFURLRef thePath;
+    
+	// grab the contents of the shared file list and iterate through it to find our item
+	CFArrayRef loginItemsArray = LSSharedFileListCopySnapshot(loginItemsListRef, &seedValue);
+	for (id item in (NSArray *)loginItemsArray) {    
+		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
+		if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &thePath, NULL) == noErr) {
+			if ([[(NSURL *)thePath path] hasPrefix:[[NSBundle mainBundle] bundlePath]]) {
+				found = YES;
+				break;
+			}
+		}
+		
+        CFRelease(thePath);
+	}
+	CFRelease(loginItemsArray);
+    
+	return found;
 }
 
 @end
