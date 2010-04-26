@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100245"/>
+			<integer value="5"/>
 			<integer value="100262"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -96,8 +96,8 @@
 									<characters key="NS.bytes">5A27CF3D-F623-4A93-AEAC-AECE8082BB8C</characters>
 								</object>
 								<string key="NSToolbarItemLabel">Save</string>
-								<string key="NSToolbarItemPaletteLabel">Save To Disk</string>
-								<string key="NSToolbarItemToolTip">Save To Disk</string>
+								<string key="NSToolbarItemPaletteLabel">Save to Disk</string>
+								<string key="NSToolbarItemToolTip">Save Image to Disk</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -125,6 +125,7 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {100, 25}}</string>
 									<reference key="NSSuperview"/>
+									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSPopUpButtonCell" key="NSCell" id="207372278">
 										<int key="NSCellFlags">-2076049856</int>
@@ -245,13 +246,14 @@
 									<characters key="NS.bytes">A9E4FA35-68CF-4482-95EA-D5935EE2DBBD</characters>
 								</object>
 								<string key="NSToolbarItemLabel">Upload</string>
-								<string key="NSToolbarItemPaletteLabel">Upload To Server</string>
-								<nil key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemPaletteLabel">Upload to Server</string>
+								<string key="NSToolbarItemToolTip">Upload Image to the Scrape Server</string>
 								<object class="NSPopUpButton" key="NSToolbarItemView" id="241133432">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{29, 14}, {41, 28}}</string>
+									<string key="NSFrame">{{28, 14}, {41, 28}}</string>
 									<reference key="NSSuperview"/>
+									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSPopUpButtonCell" key="NSCell" id="274333859">
 										<int key="NSCellFlags">-2076049856</int>
@@ -260,6 +262,10 @@
 										<reference key="NSControlView" ref="241133432"/>
 										<int key="NSButtonFlags">-2044182273</int>
 										<int key="NSButtonFlags2">66</int>
+										<object class="NSCustomResource" key="NSNormalImage" id="896125883">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">upload</string>
+										</object>
 										<string key="NSAlternateContents"/>
 										<string key="NSKeyEquivalent"/>
 										<int key="NSPeriodicDelay">400</int>
@@ -272,10 +278,7 @@
 											<int key="NSKeyEquivModMask">1048576</int>
 											<int key="NSMnemonicLoc">2147483647</int>
 											<int key="NSState">1</int>
-											<object class="NSCustomResource" key="NSImage" id="329539479">
-												<string key="NSClassName">NSImage</string>
-												<string key="NSResourceName">upload</string>
-											</object>
+											<reference key="NSImage" ref="896125883"/>
 											<reference key="NSOnImage" ref="575293441"/>
 											<reference key="NSMixedImage" ref="952699052"/>
 											<string key="NSAction">_popUpItemAction:</string>
@@ -296,7 +299,7 @@
 										<bool key="NSAltersState">YES</bool>
 									</object>
 								</object>
-								<reference key="NSToolbarItemImage" ref="329539479"/>
+								<reference key="NSToolbarItemImage" ref="896125883"/>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
 								<string key="NSToolbarItemMinSize">{39, 27}</string>
@@ -545,7 +548,7 @@
 						<string key="NSTitle"/>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSImage" ref="329539479"/>
+						<reference key="NSImage" ref="896125883"/>
 						<reference key="NSOnImage" ref="575293441"/>
 						<reference key="NSMixedImage" ref="952699052"/>
 					</object>
@@ -1013,7 +1016,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>ScrapeGLView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{347, 500}, {616, 227}}</string>
+					<string>{{347, 727}, {616, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1040,7 +1043,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{42, 781}, {163, 75}}</string>
+					<string>{{42, 683}, {204, 173}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
