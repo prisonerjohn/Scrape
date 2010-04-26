@@ -71,10 +71,12 @@ static NSArray *formatNames = nil;
 
 //--------------------------------------------------------------
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
-    if (toolbarItem == uploadButton && ([ScrapePrefsController isLoggedIn] == NO || uploading == YES)) {
-        return NO;
+    if ([ScrapePrefsController isLoggedIn] == NO || uploading == YES) {
+        [uploadButton setEnabled:NO];
+    } else {
+        [uploadButton setEnabled:YES];
     }
-	return YES;
+    return YES;
 }
 
 //--------------------------------------------------------------
@@ -160,7 +162,17 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)doUpload:(id)sender {
+- (IBAction)doUploadOnly:(id)sender {
+    [self doUpload:NO];
+}
+
+//--------------------------------------------------------------
+- (IBAction)doUploadAndPost:(id)sender {
+    [self doUpload:YES];
+}
+
+//--------------------------------------------------------------
+- (void)doUpload:(BOOL)andPost {
     NSLog(@"Uploading image");
     
     unsigned char* planes[1];
@@ -209,6 +221,8 @@ static NSArray *formatNames = nil;
     NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"upload.php"]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"User-Agent" value:@"Scrape-User-Agent-1.0"];
+    [request setPostValue:((andPost == YES)? @"1":@"0")
+                   forKey:@"post"];
     [request setPostValue:KeychainUsername
                    forKey:@"username"];
     [request setPostValue:KeychainPassword
@@ -229,14 +243,14 @@ static NSArray *formatNames = nil;
     
     uploading = YES;
     [uploadProgressIndicator setDoubleValue:0];
-    [uploadButton validate];
+    [uploadButton setEnabled:NO];
 }
 
 //--------------------------------------------------------------
 - (void)requestFinished:(ASIHTTPRequest *)request {
     uploading = NO;
     [uploadProgressIndicator setDoubleValue:0];
-    [uploadButton validate];
+    [uploadButton setEnabled:YES];
     
     NSString *responseString = [request responseString];
     NSRange textRange = [responseString rangeOfString:@"ERROR"];
@@ -288,8 +302,8 @@ static NSArray *formatNames = nil;
     
     uploading = NO;
     [uploadProgressIndicator setDoubleValue:0];
-    [uploadButton validate];
-        
+    [uploadButton setEnabled:YES];
+    
     NSLog(@"%@", [[request error] localizedDescription]);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

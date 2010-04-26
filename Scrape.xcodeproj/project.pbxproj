@@ -25,15 +25,15 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		271CEFF8114ACF4C0050A2A0 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271CEFF6114ACF4C0050A2A0 /* Preferences.xib */; };
 		271CF036114AE11F0050A2A0 /* ScrapePrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271CF035114AE11F0050A2A0 /* ScrapePrefsController.m */; };
+		273A032111853F520083A35E /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 273A031E11853F520083A35E /* refresh.png */; };
+		273A032211853F520083A35E /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 273A031F11853F520083A35E /* save.png */; };
+		273A032311853F520083A35E /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 273A032011853F520083A35E /* upload.png */; };
 		2749466E113AA77500CF9438 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2749466D113AA77500CF9438 /* OpenGL.framework */; };
 		27494677113AA7F300CF9438 /* idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 27494675113AA7F300CF9438 /* idle.png */; };
 		27494678113AA7F300CF9438 /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 27494676113AA7F300CF9438 /* select.png */; };
 		27494681113AA8C100CF9438 /* ScrapeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */; };
 		27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27759E6C114496F60063C4A9 /* ScrapeGLView.mm */; };
 		277BCE6F11736E05007ADCE2 /* destroy.png in Resources */ = {isa = PBXBuildFile; fileRef = 277BCE6E11736E05007ADCE2 /* destroy.png */; };
-		277BCE7811737117007ADCE2 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 277BCE7511737117007ADCE2 /* refresh.png */; };
-		277BCE7911737117007ADCE2 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 277BCE7611737117007ADCE2 /* save.png */; };
-		277BCE7A11737117007ADCE2 /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 277BCE7711737117007ADCE2 /* upload.png */; };
 		278C293F1152BB980055F5F8 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 278C29261152B9FC0055F5F8 /* Growl Registration Ticket.growlRegDict */; };
 		278C29631152C28B0055F5F8 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C29621152C28B0055F5F8 /* Growl.framework */; };
 		278C2A021153151D0055F5F8 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 278C29621152C28B0055F5F8 /* Growl.framework */; };
@@ -83,6 +83,9 @@
 		271CEFF7114ACF4C0050A2A0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		271CF034114AE11F0050A2A0 /* ScrapePrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapePrefsController.h; sourceTree = "<group>"; };
 		271CF035114AE11F0050A2A0 /* ScrapePrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapePrefsController.m; sourceTree = "<group>"; };
+		273A031E11853F520083A35E /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		273A031F11853F520083A35E /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = SOURCE_ROOT; };
+		273A032011853F520083A35E /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.png; sourceTree = SOURCE_ROOT; };
 		27494666113AA70A00CF9438 /* ScrapeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeGLView.h; sourceTree = SOURCE_ROOT; };
 		2749466D113AA77500CF9438 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		27494675113AA7F300CF9438 /* idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idle.png; sourceTree = SOURCE_ROOT; };
@@ -91,9 +94,6 @@
 		27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		27759E6C114496F60063C4A9 /* ScrapeGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScrapeGLView.mm; sourceTree = "<group>"; };
 		277BCE6E11736E05007ADCE2 /* destroy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = destroy.png; sourceTree = SOURCE_ROOT; };
-		277BCE7511737117007ADCE2 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = SOURCE_ROOT; };
-		277BCE7611737117007ADCE2 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = SOURCE_ROOT; };
-		277BCE7711737117007ADCE2 /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.png; sourceTree = SOURCE_ROOT; };
 		278C29261152B9FC0055F5F8 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		278C29621152C28B0055F5F8 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = SOURCE_ROOT; };
 		27911BE0113ADB440062742A /* Scrape-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scrape-Icon.icns"; sourceTree = "<group>"; };
@@ -180,14 +180,14 @@
 		27494674113AA7F300CF9438 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				273A031E11853F520083A35E /* refresh.png */,
+				273A031F11853F520083A35E /* save.png */,
+				273A032011853F520083A35E /* upload.png */,
 				27494675113AA7F300CF9438 /* idle.png */,
 				27494676113AA7F300CF9438 /* select.png */,
 				27DF3267115D153600DCF1C1 /* error.png */,
 				27DF3268115D153600DCF1C1 /* success.png */,
 				277BCE6E11736E05007ADCE2 /* destroy.png */,
-				277BCE7511737117007ADCE2 /* refresh.png */,
-				277BCE7611737117007ADCE2 /* save.png */,
-				277BCE7711737117007ADCE2 /* upload.png */,
 			);
 			name = Images;
 			sourceTree = SOURCE_ROOT;
@@ -333,9 +333,9 @@
 				27DF326A115D153600DCF1C1 /* success.png in Resources */,
 				27F87D35115D4A0E00FB2391 /* dsa_pub.pem in Resources */,
 				277BCE6F11736E05007ADCE2 /* destroy.png in Resources */,
-				277BCE7811737117007ADCE2 /* refresh.png in Resources */,
-				277BCE7911737117007ADCE2 /* save.png in Resources */,
-				277BCE7A11737117007ADCE2 /* upload.png in Resources */,
+				273A032111853F520083A35E /* refresh.png in Resources */,
+				273A032211853F520083A35E /* save.png in Resources */,
+				273A032311853F520083A35E /* upload.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +448,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Growl-1.2.1-Framework\"",
@@ -472,7 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

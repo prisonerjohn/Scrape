@@ -105,7 +105,6 @@ static NSBitmapImageRep *destroyData;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     if (texHandle == 0) {
-        NSLog(@"here now");
         [self allocateData];
     }
     

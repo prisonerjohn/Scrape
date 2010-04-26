@@ -16,7 +16,7 @@
 #else
 @interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate> {
 #endif
-    IBOutlet NSToolbarItem          *uploadButton;
+    IBOutlet NSPopUpButton          *uploadButton;
     IBOutlet NSPopUpButton          *formatDropDown;
     IBOutlet ScrapeGLView           *glView;
     IBOutlet NSProgressIndicator    *uploadProgressIndicator;
@@ -32,7 +32,10 @@
 - (IBAction)doRefresh:(id)sender;
 - (IBAction)doChangeFormat:(id)sender;
 - (IBAction)doSave:(id)sender;
-- (IBAction)doUpload:(id)sender;
+    
+- (IBAction)doUploadOnly:(id)sender;
+- (IBAction)doUploadAndPost:(id)sender;
+- (void)doUpload:(BOOL)andPost;
     
 - (void)requestFinished:(ASIHTTPRequest *)request;
 - (void)requestFailed:(ASIHTTPRequest *)request;
