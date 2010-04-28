@@ -8,6 +8,7 @@
 
 #import "ScrapePrefsController.h"
 #import "ScrapeAppDelegate.h"
+#import "sCLoginItemsManager.h"
 #import <Growl/Growl.h>
 
 
@@ -28,63 +29,66 @@ NSString *KeychainPassword = nil;
     self = [super initWithWindowNibName:@"Preferences"];
     if (self) {
         [self loadWindow];
-        
-        // hide status labels
-        [successLabel setHidden:YES];
-        [errorLabel   setHidden:YES];
-        
-        // set login item preference
-        LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-        if ([self loginItemExists:loginItems]) {
-            [startAtLoginSwitch setState:NSOnState];
-        } else {
-            [startAtLoginSwitch setState:NSOffState];
-        }
-        CFRelease(loginItems);
-        
-        // set other saved preferences
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [showInDockSwitch               setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
-        if ([showInDockSwitch state] == NSOffState) {
-            // if the dock icon is hidden, force the menu bar icon
-            [showInMenuBarSwitch setState:NSOnState];
-            [showInMenuBarSwitch setEnabled:NO];
-        } else {
-            [showInMenuBarSwitch setState:[defaults boolForKey:ScrapeEnableMenuBarIconKey]];
-        }
-        [showGrowlNotificationsSwitch   setState:[defaults boolForKey:ScrapeShowGrowlNotificationsKey]];
-        
-        [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
-        [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
-        [automaticMinStepper setEnabled:[automaticSwitch state]];
-        [automaticMaxStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
-        [automaticMaxStepper setEnabled:[automaticSwitch state]];
-        [automaticMinLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
-        [automaticMinLabel   setEnabled:[automaticSwitch state]];
-        [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
-        [automaticMaxLabel   setEnabled:[automaticSwitch state]];
-        [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
-        
-        // try to load the credentials from the keychain
-        NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
-        NSURLCredential *authenticationCredentials = [ASIHTTPRequest savedCredentialsForHost:[url host] port:[[url port] intValue] protocol:[url scheme] realm:nil];
-        if (authenticationCredentials) {
-            KeychainUsername = [authenticationCredentials user];
-            KeychainPassword = [authenticationCredentials password];
-            
-            if (KeychainUsername && KeychainPassword) {
-                NSLog(@"Successfully retrieved credentials from keychain");
-                // update input fields
-                [usernameInput setStringValue:KeychainUsername];
-                [passwordInput setStringValue:KeychainPassword];
-                // try logging in
-                [self loginToScrape:nil];
-            }
-        }
-        
         return self;
     }
     return nil;
+}
+
+//--------------------------------------------------------------
+- (void)awakeFromNib {
+    NSLog(@"Loading Preferences");
+    
+    // hide status labels
+    [successLabel setHidden:YES];
+    [errorLabel   setHidden:YES];
+    
+    // set login item preference
+    //if ([sCLoginItemsManager loginItemExistsForAppPath:[[NSBundle mainBundle] bundlePath]]) {
+    if ([sCLoginItemsManager willStartAtLogin:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]] == YES) {
+        [startAtLoginSwitch setState:NSOnState];
+    } else {
+        [startAtLoginSwitch setState:NSOffState];
+    }
+    
+    // set other saved preferences
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [showInDockSwitch               setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
+    if ([showInDockSwitch state] == NSOffState) {
+        // if the dock icon is hidden, force the menu bar icon
+        [showInMenuBarSwitch setState:NSOnState];
+        [showInMenuBarSwitch setEnabled:NO];
+    } else {
+        [showInMenuBarSwitch setState:[defaults boolForKey:ScrapeEnableMenuBarIconKey]];
+    }
+    [showGrowlNotificationsSwitch   setState:[defaults boolForKey:ScrapeShowGrowlNotificationsKey]];
+    
+    [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
+    [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
+    [automaticMinStepper setEnabled:[automaticSwitch state]];
+    [automaticMaxStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
+    [automaticMaxStepper setEnabled:[automaticSwitch state]];
+    [automaticMinLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
+    [automaticMinLabel   setEnabled:[automaticSwitch state]];
+    [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
+    [automaticMaxLabel   setEnabled:[automaticSwitch state]];
+    [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
+    
+    // try to load the credentials from the keychain
+    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
+    NSURLCredential *authenticationCredentials = [ASIHTTPRequest savedCredentialsForHost:[url host] port:[[url port] intValue] protocol:[url scheme] realm:nil];
+    if (authenticationCredentials) {
+        KeychainUsername = [authenticationCredentials user];
+        KeychainPassword = [authenticationCredentials password];
+        
+        if (KeychainUsername && KeychainPassword) {
+            NSLog(@"Successfully retrieved credentials from keychain");
+            // update input fields
+            [usernameInput setStringValue:KeychainUsername];
+            [passwordInput setStringValue:KeychainPassword];
+            // try logging in
+            [self loginToScrape:nil];
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -94,16 +98,13 @@ NSString *KeychainPassword = nil;
 
 //--------------------------------------------------------------
 - (IBAction)setStartAtLogin:(id)sender {
-    // based on: http://github.com/carpeaqua/Shared-File-List-Example
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-	if (loginItems) {
-		if ([sender state] == NSOnState) {
-            [self enableLoginItem:loginItems];
-        } else {
-            [self disableLoginItem:loginItems];
-        }	
-	}
-	CFRelease(loginItems);
+    [sCLoginItemsManager setStartAtLogin:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]] 
+                                 enabled:[sender state]];
+//    if ([sender state] == NSOnState) {
+//        [sCLoginItemsManager enableLoginItemForAppPath:[[NSBundle mainBundle] bundlePath]];
+//    } else {
+//        [sCLoginItemsManager disableLoginItemForAppPath:[[NSBundle mainBundle] bundlePath]];
+//    }
 }
 
 //--------------------------------------------------------------
@@ -300,63 +301,6 @@ NSString *KeychainPassword = nil;
 //--------------------------------------------------------------
 + (BOOL)isLoggedIn {
     return loggedIn;
-}
-
-//--------------------------------------------------------------
-- (void)enableLoginItem:(LSSharedFileListRef)loginItemsListRef {
-    // based on: http://github.com/carpeaqua/Shared-File-List-Example
-    CFURLRef url = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-	LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItemsListRef, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);		
-	if (item) {
-        CFRelease(item);
-    }	
-}
-
-//--------------------------------------------------------------
-- (void)disableLoginItem:(LSSharedFileListRef)loginItemsListRef {
-    // based on: http://github.com/carpeaqua/Shared-File-List-Example
-    UInt32 seedValue;
-	CFURLRef thePath;
-	
-    // grab the contents of the shared file list and iterate through it to find our item
-	CFArrayRef loginItemsArray = LSSharedFileListCopySnapshot(loginItemsListRef, &seedValue);
-	for (id item in (NSArray *)loginItemsArray) {		
-		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
-		if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &thePath, NULL) == noErr) {
-			if ([[(NSURL *)thePath path] hasPrefix:[[NSBundle mainBundle] bundlePath]]) {
-                // delete the item
-				LSSharedFileListItemRemove(loginItemsListRef, itemRef);
-			}
-			
-            CFRelease(thePath);
-		}		
-	}
-	CFRelease(loginItemsArray);
-}
-
-//--------------------------------------------------------------
-- (BOOL)loginItemExists:(LSSharedFileListRef)loginItemsListRef {
-    // based on: http://github.com/carpeaqua/Shared-File-List-Example
-    BOOL found = NO;  
-	UInt32 seedValue;
-	CFURLRef thePath;
-    
-	// grab the contents of the shared file list and iterate through it to find our item
-	CFArrayRef loginItemsArray = LSSharedFileListCopySnapshot(loginItemsListRef, &seedValue);
-	for (id item in (NSArray *)loginItemsArray) {    
-		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
-		if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &thePath, NULL) == noErr) {
-			if ([[(NSURL *)thePath path] hasPrefix:[[NSBundle mainBundle] bundlePath]]) {
-				found = YES;
-				break;
-			}
-		}
-		
-        CFRelease(thePath);
-	}
-	CFRelease(loginItemsArray);
-    
-	return found;
 }
 
 @end

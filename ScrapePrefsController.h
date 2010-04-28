@@ -57,8 +57,4 @@ extern NSString *KeychainPassword;
 + (void)setLoggedIn:(BOOL)val;
 + (BOOL)isLoggedIn;
 
-- (void)enableLoginItem:(LSSharedFileListRef)loginItemsListRef;
-- (void)disableLoginItem:(LSSharedFileListRef)loginItemsListRef;
-- (BOOL)loginItemExists:(LSSharedFileListRef)loginItemsListRef;
-
 @end

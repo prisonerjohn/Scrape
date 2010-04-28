@@ -34,6 +34,7 @@
 		27494681113AA8C100CF9438 /* ScrapeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */; };
 		27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27759E6C114496F60063C4A9 /* ScrapeGLView.mm */; };
 		277BCE6F11736E05007ADCE2 /* destroy.png in Resources */ = {isa = PBXBuildFile; fileRef = 277BCE6E11736E05007ADCE2 /* destroy.png */; };
+		2787620F11876964007B6D88 /* sCLoginItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2787620E11876964007B6D88 /* sCLoginItemsManager.m */; };
 		278C293F1152BB980055F5F8 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 278C29261152B9FC0055F5F8 /* Growl Registration Ticket.growlRegDict */; };
 		278C29631152C28B0055F5F8 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C29621152C28B0055F5F8 /* Growl.framework */; };
 		278C2A021153151D0055F5F8 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 278C29621152C28B0055F5F8 /* Growl.framework */; };
@@ -94,6 +95,8 @@
 		27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		27759E6C114496F60063C4A9 /* ScrapeGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScrapeGLView.mm; sourceTree = "<group>"; };
 		277BCE6E11736E05007ADCE2 /* destroy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = destroy.png; sourceTree = SOURCE_ROOT; };
+		2787620D11876964007B6D88 /* sCLoginItemsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sCLoginItemsManager.h; sourceTree = "<group>"; };
+		2787620E11876964007B6D88 /* sCLoginItemsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sCLoginItemsManager.m; sourceTree = "<group>"; };
 		278C29261152B9FC0055F5F8 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		278C29621152C28B0055F5F8 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = SOURCE_ROOT; };
 		27911BE0113ADB440062742A /* Scrape-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scrape-Icon.icns"; sourceTree = "<group>"; };
@@ -192,6 +195,15 @@
 			name = Images;
 			sourceTree = SOURCE_ROOT;
 		};
+		2787620B1187693C007B6D88 /* silentlyCrashing */ = {
+			isa = PBXGroup;
+			children = (
+				2787620D11876964007B6D88 /* sCLoginItemsManager.h */,
+				2787620E11876964007B6D88 /* sCLoginItemsManager.m */,
+			);
+			name = silentlyCrashing;
+			sourceTree = "<group>";
+		};
 		27DBCFAF1150203100D448D5 /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +238,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2787620B1187693C007B6D88 /* silentlyCrashing */,
 				27DBCFAF1150203100D448D5 /* ASIHTTPRequest */,
 				2749467F113AA8C100CF9438 /* ScrapeAppDelegate.h */,
 				27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */,
@@ -353,7 +366,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nBUILD=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nDOWNLOAD_BASE_URL=\"http://github.com/downloads/prisonerjohn/Scrape\"\nRELEASENOTES_URL=\"http://labs.silentlycrashing.net/scrape/notes.php#v$VERSION\"\"b$BUILD\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME\"_\"v$VERSION\"\"b$BUILD.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key for Scrape\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(LC_TIME=en_US date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION (build $BUILD)</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$BUILD\"\n\t\t\t\tsparkle:shortVersionString=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
+			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nBUILD=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nDOWNLOAD_BASE_URL=\"http://github.com/downloads/prisonerjohn/Scrape\"\nRELEASENOTES_URL=\"http://www.silentlycrashing.net/scrape/notes.php#v$VERSION\"\"b$BUILD\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME\"_\"v$VERSION\"\"b$BUILD.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key for Scrape\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(LC_TIME=en_US date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION (build $BUILD)</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$BUILD\"\n\t\t\t\tsparkle:shortVersionString=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -373,6 +386,7 @@
 				27DBCFC81150207400D448D5 /* ASIInputStream.m in Sources */,
 				27DBCFC91150207400D448D5 /* ASINetworkQueue.m in Sources */,
 				27DBCFCA1150207400D448D5 /* ASINSStringAdditions.m in Sources */,
+				2787620F11876964007B6D88 /* sCLoginItemsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +462,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Downloads/Growl-1.2.1-Framework\"",
@@ -472,7 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
