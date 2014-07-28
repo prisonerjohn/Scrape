@@ -121,11 +121,9 @@
 								<string key="NSToolbarItemPaletteLabel">Format</string>
 								<string key="NSToolbarItemToolTip">Select Data Interpretation Mode</string>
 								<object class="NSPopUpButton" key="NSToolbarItemView" id="95899870">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {100, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSPopUpButtonCell" key="NSCell" id="207372278">
 										<int key="NSCellFlags">-2076049856</int>
@@ -249,11 +247,9 @@
 								<string key="NSToolbarItemPaletteLabel">Upload to Server</string>
 								<string key="NSToolbarItemToolTip">Upload Image to the Scrape Server</string>
 								<object class="NSPopUpButton" key="NSToolbarItemView" id="241133432">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{28, 14}, {41, 28}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSPopUpButtonCell" key="NSCell" id="274333859">
 										<int key="NSCellFlags">-2076049856</int>
@@ -1048,9 +1044,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{399, 199}, {512, 528}}</string>
+					<string>{{529, 228}, {512, 528}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{399, 199}, {512, 528}}</string>
+					<string>{{529, 228}, {512, 528}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>

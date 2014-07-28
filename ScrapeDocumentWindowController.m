@@ -48,6 +48,8 @@ static NSArray *formatNames = nil;
 
 //--------------------------------------------------------------
 - (void)windowDidLoad {
+    [uploadSuccessOverlay setHidden:YES];
+    [uploadErrorOverlay   setHidden:YES];
     [uploadSuccessOverlay setAlphaValue:0.0];
     [uploadErrorOverlay   setAlphaValue:0.0];
 }
@@ -279,6 +281,7 @@ static NSArray *formatNames = nil;
         NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
         [overlayAnimation setDuration:1.5];
         [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+        [overlayAnimation setDelegate:self];
         [overlayAnimation startAnimation];
         [overlayAnimation release];
         
@@ -328,8 +331,15 @@ static NSArray *formatNames = nil;
     NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
     [overlayAnimation setDuration:1.5];
     [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+    [overlayAnimation setDelegate:self];
     [overlayAnimation startAnimation];
     [overlayAnimation release];
+}
+
+//--------------------------------------------------------------
+- (void)animationDidEnd:(NSAnimation *)animation {
+    [uploadSuccessOverlay setHidden:YES];
+    [uploadErrorOverlay   setHidden:YES];
 }
 
 @end

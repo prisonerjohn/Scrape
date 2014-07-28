@@ -39,5 +39,7 @@
     
 - (void)requestFinished:(ASIHTTPRequest *)request;
 - (void)requestFailed:(ASIHTTPRequest *)request;
+    
+- (void)animationDidEnd:(NSAnimation *)animation;
 
 @end
