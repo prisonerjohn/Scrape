@@ -9,8 +9,6 @@
 #import "ScrapePrefsController.h"
 #import "ScrapeAppDelegate.h"
 #import "sCLoginItemsManager.h"
-#import <Growl/Growl.h>
-
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
@@ -60,7 +58,7 @@ NSString *KeychainPassword = nil;
     } else {
         [showInMenuBarSwitch setState:[defaults boolForKey:ScrapeEnableMenuBarIconKey]];
     }
-    [showGrowlNotificationsSwitch   setState:[defaults boolForKey:ScrapeShowGrowlNotificationsKey]];
+    [showUserNotificationsSwitch setState:[defaults boolForKey:ScrapeShowUserNotificationsKey]];
     
     [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
     [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
@@ -132,10 +130,10 @@ NSString *KeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setShowGrowlNotifications:(id)sender {
+- (IBAction)setShowUserNotifications:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
-               forKey:ScrapeShowGrowlNotificationsKey];
+               forKey:ScrapeShowUserNotificationsKey];
     [defaults synchronize];
 }
 

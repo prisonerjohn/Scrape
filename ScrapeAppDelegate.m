@@ -16,7 +16,7 @@ NSString *ScrapeHasLaunchedBeforeKey        = @"Has Launched Before";
 NSString *ScrapeLastLaunchVersionKey        = @"Last Launch Version";
 NSString *ScrapeEnableDockIconKey           = @"Enable Dock Icon";
 NSString *ScrapeEnableMenuBarIconKey        = @"Enable Menu Bar Icon";
-NSString *ScrapeShowGrowlNotificationsKey   = @"Show Growl Notifications";
+NSString *ScrapeShowUserNotificationsKey    = @"Show User Notifications";
 
 NSString *ScrapeDestroyDataOnReleaseKey     = @"Destroy Data On Release";
 NSString *ScrapeAutomaticToggleKey          = @"Do Automatic Scrapes";
@@ -26,6 +26,11 @@ NSString *ScrapeAutomaticSettingsChangedKey = @"Automatic Settings Changed";
 
 NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+@interface ScrapeAppDelegate () <NSUserNotificationCenterDelegate>
+
+@end
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
@@ -48,7 +53,7 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     [defaultValues setObject:[NSNumber numberWithBool:YES]
                       forKey:ScrapeEnableMenuBarIconKey];
     [defaultValues setObject:[NSNumber numberWithBool:YES]
-                      forKey:ScrapeShowGrowlNotificationsKey];
+                      forKey:ScrapeShowUserNotificationsKey];
     
     [defaultValues setObject:[NSNumber numberWithBool:NO]
                       forKey:ScrapeDestroyDataOnReleaseKey];
@@ -95,15 +100,9 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // init Growl
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *growlPath = [[bundle privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
-	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
-    if (growlBundle && [growlBundle load]) {
-        NSLog(@"Growl loaded");
-        [GrowlApplicationBridge setGrowlDelegate:self];
-    }
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 }
 
 //--------------------------------------------------------------
@@ -196,14 +195,11 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     [[NSDocumentController sharedDocumentController] newDocument:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
-        [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
-                                    description:@"A new data Scrape has been generated"
-                               notificationName:@"New Auto"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:@"FRONT"];
+    if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"New Scrape";
+        notification.informativeText = @"A new data Scrape has been generated.";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     }
     
     if ([defaults boolForKey:ScrapeAutomaticToggleKey] == YES) {
@@ -222,14 +218,11 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     [[NSDocumentController sharedDocumentController] newDocument:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
-        [GrowlApplicationBridge notifyWithTitle:@"New Scrape"
-                                    description:@"A new data Scrape has been generated"
-                               notificationName:@"New Manual"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:nil];
+    if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"New Scrape";
+        notification.informativeText = @"A new data Scrape has been generated.";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     }
 }
 
@@ -259,24 +252,6 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)growlNotificationWasClicked:(id)clickContext {
-    if ([(NSString *)clickContext compare:@"FRONT"] == NSOrderedSame) {
-        // bring Scrape to front
-        [NSApp activateIgnoringOtherApps:YES];
-    } else {
-        NSRange textRange = [(NSString *)clickContext rangeOfString:@"http"];
-        if (textRange.location == NSNotFound) {
-            // assume we received a file path and reveal it in the Finder
-            [[NSWorkspace sharedWorkspace] selectFile:(NSString *)clickContext 
-                             inFileViewerRootedAtPath:@""];
-        } else {
-            // assume we received a URL and open it
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:clickContext]];
-        }
-    }
-}
-
-//--------------------------------------------------------------
 - (void)dealloc {
     // release the 2 images we loaded into memory
     [idleImage release];
@@ -288,6 +263,38 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
+}
+
+#pragma mark - NSUserNotificationCenter Delegate Methods
+
+//--------------------------------------------------------------
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
+     shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
+}
+
+//--------------------------------------------------------------
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center
+       didActivateNotification:(NSUserNotification *)notification
+{
+    NSString *url = [notification.userInfo objectForKey:@"url"];
+    if (url == nil) {
+        // bring Scrape to front
+        [NSApp activateIgnoringOtherApps:YES];
+    }
+    else {
+        NSRange textRange = [url rangeOfString:@"http"];
+        if (textRange.location == NSNotFound) {
+            // assume we received a file path and reveal it in the Finder
+            [[NSWorkspace sharedWorkspace] selectFile:url
+                             inFileViewerRootedAtPath:@""];
+        }
+        else {
+            // assume we received a URL and open it
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        }
+    }
 }
 
 @end

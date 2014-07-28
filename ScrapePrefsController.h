@@ -25,7 +25,7 @@ extern NSString *KeychainPassword;
     IBOutlet NSButton           *startAtLoginSwitch;
     IBOutlet NSButton           *showInDockSwitch;
     IBOutlet NSButton           *showInMenuBarSwitch;
-    IBOutlet NSButton           *showGrowlNotificationsSwitch;
+    IBOutlet NSButton           *showUserNotificationsSwitch;
     
     IBOutlet NSTextField        *usernameInput;
     IBOutlet NSSecureTextField  *passwordInput;
@@ -38,7 +38,7 @@ extern NSString *KeychainPassword;
 - (IBAction)setStartAtLogin:(id)sender;
 - (IBAction)setShowInDock:(id)sender;
 - (IBAction)setShowInMenuBar:(id)sender;
-- (IBAction)setShowGrowlNotifications:(id)sender;
+- (IBAction)setShowUserNotifications:(id)sender;
 
 - (IBAction)setAutomaticToggle:(id)sender;
 - (IBAction)setAutomaticMinFromStepper:(id)sender;

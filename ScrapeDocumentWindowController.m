@@ -9,8 +9,6 @@
 #import "ScrapeDocumentWindowController.h"
 #import "ScrapeAppDelegate.h"
 #import "ScrapePrefsController.h"
-#import <Growl/Growl.h>
-
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
@@ -148,14 +146,12 @@ static NSArray *formatNames = nil;
         [tiffData writeToFile:[savePanel filename] atomically:YES];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
-            [GrowlApplicationBridge notifyWithTitle:@"Image Saved!"
-                                        description:nil
-                                   notificationName:@"Save"
-                                           iconData:nil
-                                           priority:0
-                                           isSticky:NO
-                                       clickContext:[[savePanel URL] path]];
+        if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
+            notification.title = @"Image Saved!";
+            notification.soundName = NSUserNotificationDefaultSoundName;
+            notification.userInfo = @{@"url": [[savePanel URL] path]};            
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
         }
     }
     

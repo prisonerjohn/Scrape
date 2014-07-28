@@ -7,15 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Growl/Growl.h>
-
 
 extern NSString *ScrapeHasLaunchedBeforeKey;
 extern NSString *ScrapeLastLaunchVersionKey;
 
 extern NSString *ScrapeEnableDockIconKey;
 extern NSString *ScrapeEnableMenuBarIconKey;
-extern NSString *ScrapeShowGrowlNotificationsKey;
+extern NSString *ScrapeShowUserNotificationsKey;
 
 extern NSString *ScrapeDestroyDataOnReleaseKey;
 extern NSString *ScrapeAutomaticSettingsChangedKey;
@@ -27,12 +25,10 @@ extern NSString *SiteRoot;
 
 @class ScrapePrefsController;
 
-
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-@interface ScrapeAppDelegate : NSObject <GrowlApplicationBridgeDelegate> {
-#else
-@interface ScrapeAppDelegate : NSObject <GrowlApplicationBridgeDelegate, NSApplicationDelegate> {
-#endif
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+@interface ScrapeAppDelegate : NSObject <NSApplicationDelegate>
+{
     IBOutlet NSMenu *statusMenu;
     
     NSStatusItem    *statusItem;
