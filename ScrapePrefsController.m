@@ -26,7 +26,8 @@ NSString *ScrapeKeychainPassword = nil;
 @implementation ScrapePrefsController
 
 //--------------------------------------------------------------
-- (id)init {
+- (id)init
+{
     self = [super initWithWindowNibName:@"Preferences"];
     if (self) {
         [self loadWindow];
@@ -36,7 +37,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     NSLog(@"Loading Preferences");
     
     // hide status labels
@@ -97,18 +99,21 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (void)dealloc {
+- (void)dealloc
+{
     [super dealloc];
 }
 
 //--------------------------------------------------------------
-- (IBAction)setStartAtLogin:(id)sender {
+- (IBAction)setStartAtLogin:(id)sender
+{
     [sCLoginItemsManager setStartAtLogin:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]] 
                                  enabled:[sender state]];
 }
 
 //--------------------------------------------------------------
-- (IBAction)setShowInDock:(id)sender {
+- (IBAction)setShowInDock:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeEnableDockIconKey];
@@ -124,7 +129,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setShowInMenuBar:(id)sender {
+- (IBAction)setShowInMenuBar:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeEnableMenuBarIconKey];
@@ -132,7 +138,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setShowUserNotifications:(id)sender {
+- (IBAction)setShowUserNotifications:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeShowUserNotificationsKey];
@@ -140,7 +147,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setAutomaticToggle:(id)sender {
+- (IBAction)setAutomaticToggle:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeAutomaticToggleKey];
@@ -156,7 +164,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setAutomaticMinFromStepper:(id)sender {
+- (IBAction)setAutomaticMinFromStepper:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:[sender intValue]
                   forKey:ScrapeAutomaticMinKey];
@@ -172,7 +181,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
          
 //--------------------------------------------------------------
-- (IBAction)setAutomaticMinFromTextField:(id)sender {
+- (IBAction)setAutomaticMinFromTextField:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:[sender intValue]
                   forKey:ScrapeAutomaticMinKey];
@@ -188,7 +198,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setAutomaticMaxFromStepper:(id)sender {
+- (IBAction)setAutomaticMaxFromStepper:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:[sender intValue]
                   forKey:ScrapeAutomaticMaxKey];
@@ -204,7 +215,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setAutomaticMaxFromTextField:(id)sender {
+- (IBAction)setAutomaticMaxFromTextField:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:[sender intValue]
                   forKey:ScrapeAutomaticMaxKey];
@@ -220,7 +232,8 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)setDestroyData:(id)sender {
+- (IBAction)setDestroyData:(id)sender
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:[sender state]
                forKey:ScrapeDestroyDataOnReleaseKey];
@@ -266,7 +279,8 @@ NSString *ScrapeKeychainPassword = nil;
                       [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
                   }
                   
-              } else {
+              }
+              else {
                   NSLog(@"Error logging in");
                   [successLabel setHidden:YES];
                   [errorLabel   setHidden:NO];
@@ -286,12 +300,14 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-+ (void)setLoggedIn:(BOOL)val {
++ (void)setLoggedIn:(BOOL)val
+{
     loggedIn = val;
 }
 
 //--------------------------------------------------------------
-+ (BOOL)isLoggedIn {
++ (BOOL)isLoggedIn
+{
     return loggedIn;
 }
 
