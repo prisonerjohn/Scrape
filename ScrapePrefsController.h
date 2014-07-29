@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString *KeychainUsername;
-extern NSString *KeychainPassword;
+extern NSString *ScrapeKeychainUsername;
+extern NSString *ScrapeKeychainPassword;
 
 //--------------------------------------------------------------
 @interface ScrapePrefsController : NSWindowController

@@ -14,8 +14,8 @@
 //--------------------------------------------------------------
 static BOOL loggedIn = NO;
 
-NSString *KeychainUsername = nil;
-NSString *KeychainPassword = nil;
+NSString *ScrapeKeychainUsername = nil;
+NSString *ScrapeKeychainPassword = nil;
 
 //--------------------------------------------------------------
 @implementation ScrapePrefsController
@@ -245,8 +245,8 @@ NSString *KeychainPassword = nil;
 //                  [request saveCredentialsToKeychain:credentials];
                   
                   // save the keychain values in static variables for easy access
-                  KeychainUsername = [usernameInput stringValue];
-                  KeychainPassword = [passwordInput stringValue];
+                  ScrapeKeychainUsername = [usernameInput stringValue];
+                  ScrapeKeychainPassword = [passwordInput stringValue];
                   
                   [ScrapePrefsController setLoggedIn:YES];
                   
