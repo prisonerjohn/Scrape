@@ -28,7 +28,6 @@
 		273A032111853F520083A35E /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 273A031E11853F520083A35E /* refresh.png */; };
 		273A032211853F520083A35E /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 273A031F11853F520083A35E /* save.png */; };
 		273A032311853F520083A35E /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 273A032011853F520083A35E /* upload.png */; };
-		2749466E113AA77500CF9438 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2749466D113AA77500CF9438 /* OpenGL.framework */; };
 		27494677113AA7F300CF9438 /* idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 27494675113AA7F300CF9438 /* idle.png */; };
 		27494678113AA7F300CF9438 /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 27494676113AA7F300CF9438 /* select.png */; };
 		27494681113AA8C100CF9438 /* ScrapeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */; };
@@ -78,7 +77,6 @@
 		273A031F11853F520083A35E /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = SOURCE_ROOT; };
 		273A032011853F520083A35E /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload.png; sourceTree = SOURCE_ROOT; };
 		27494666113AA70A00CF9438 /* ScrapeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeGLView.h; sourceTree = SOURCE_ROOT; };
-		2749466D113AA77500CF9438 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		27494675113AA7F300CF9438 /* idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idle.png; sourceTree = SOURCE_ROOT; };
 		27494676113AA7F300CF9438 /* select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select.png; sourceTree = SOURCE_ROOT; };
 		2749467F113AA8C100CF9438 /* ScrapeAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeAppDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -498,6 +496,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx;
@@ -510,6 +509,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PREBINDING = NO;
 				SDKROOT = macosx;
 			};

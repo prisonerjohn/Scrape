@@ -125,25 +125,20 @@ static NSArray *formatNames = nil;
     
     image = [[NSImage alloc] initWithSize:size];
 
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-    [image setFlipped:YES];
-    [image lockFocus];
-#else
     [image lockFocusFlipped:YES];
-#endif
     [bitmap drawInRect:NSMakeRect(0, 0, size.width, size.height)];
     [image unlockFocus];
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setTitle:@"Save Image As:"];
-    [savePanel setRequiredFileType:@"tiff"];
+    [savePanel setAllowedFileTypes:@[@"tiff"]];
     [savePanel setExtensionHidden:NO];
     
     [savePanel setNameFieldStringValue:[[self makeFilename] stringByAppendingString:@".tiff"]];
     
     if ([savePanel runModal] == NSFileHandlingPanelOKButton) {
         NSData *tiffData = [image TIFFRepresentation];
-        [tiffData writeToFile:[savePanel filename] atomically:YES];
+        [tiffData writeToURL:[savePanel URL] atomically:YES];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
@@ -191,12 +186,7 @@ static NSArray *formatNames = nil;
     
     image = [[NSImage alloc] initWithSize:size];
     
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-    [image setFlipped:YES];
-    [image lockFocus];
-#else
     [image lockFocusFlipped:YES];
-#endif
     [bitmap drawInRect:NSMakeRect(0, 0, size.width, size.height)];
     [image unlockFocus];
     

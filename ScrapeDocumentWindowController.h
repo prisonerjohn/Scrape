@@ -10,12 +10,8 @@
 #import "ScrapeGLView.h"
 #import "ASIFormDataRequest.h"
 
-
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-@interface ScrapeDocumentWindowController : NSWindowController {
-#else
-@interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate> {
-#endif
+@interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate, NSAnimationDelegate>
+{
     IBOutlet NSPopUpButton          *uploadButton;
     IBOutlet NSPopUpButton          *formatDropDown;
     IBOutlet ScrapeGLView           *glView;
