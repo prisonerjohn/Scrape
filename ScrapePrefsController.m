@@ -3,7 +3,7 @@
 //  Scrape
 //
 //  Created by Elie Zananiri on 10-03-12.
-//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
 #import "ScrapePrefsController.h"
@@ -11,14 +11,11 @@
 #import "sCLoginItemsManager.h"
 
 //--------------------------------------------------------------
-//--------------------------------------------------------------
 static BOOL loggedIn = NO;
 
 NSString *KeychainUsername = nil;
 NSString *KeychainPassword = nil;
 
-
-//--------------------------------------------------------------
 //--------------------------------------------------------------
 @implementation ScrapePrefsController
 
@@ -50,7 +47,7 @@ NSString *KeychainPassword = nil;
     
     // set other saved preferences
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [showInDockSwitch               setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
+    [showInDockSwitch setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
     if ([showInDockSwitch state] == NSOffState) {
         // if the dock icon is hidden, force the menu bar icon
         [showInMenuBarSwitch setState:NSOnState];
@@ -98,11 +95,6 @@ NSString *KeychainPassword = nil;
 - (IBAction)setStartAtLogin:(id)sender {
     [sCLoginItemsManager setStartAtLogin:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]] 
                                  enabled:[sender state]];
-//    if ([sender state] == NSOnState) {
-//        [sCLoginItemsManager enableLoginItemForAppPath:[[NSBundle mainBundle] bundlePath]];
-//    } else {
-//        [sCLoginItemsManager disableLoginItemForAppPath:[[NSBundle mainBundle] bundlePath]];
-//    }
 }
 
 //--------------------------------------------------------------
@@ -239,7 +231,8 @@ NSString *KeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)signupForScrape:(id)sender {
+- (IBAction)signupForScrape:(id)sender
+{
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"register.php"]]];
 }
 

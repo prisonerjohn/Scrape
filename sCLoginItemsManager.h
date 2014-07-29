@@ -3,7 +3,7 @@
 //  Scrape
 //
 //  Created by Elie Zananiri on 10-04-27.
-//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

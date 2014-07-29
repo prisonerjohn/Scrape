@@ -3,12 +3,11 @@
 //  Documents
 //
 //  Created by Elie Zananiri on 10-02-27.
-//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
 #import "ScrapeAppDelegate.h"
 #import "ScrapePrefsController.h"
-
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
@@ -37,7 +36,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 @implementation ScrapeAppDelegate
 
 //--------------------------------------------------------------
-+ (void)initialize {
++ (void)initialize
+{
     // initialize random seed
     srand(time(NULL));
     
@@ -71,7 +71,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (id)init {
+- (id)init
+{
     self = [super init];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -83,7 +84,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)showDockIcon {
+- (void)showDockIcon
+{
     // CocoaDev magic: http://www.cocoadev.com/index.pl?TransformProcessType
     ProcessSerialNumber psn = { 0, kCurrentProcess }; 
     OSStatus returnCode = TransformProcessType(&psn, kProcessTransformToForegroundApplication);
@@ -94,7 +96,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
         SetFrontProcess(&psnx);
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         SetFrontProcess(&psn);	
-    } else {
+    }
+    else {
         NSLog(@"Could not bring the application to front. Error %d", returnCode);
     }
 }
@@ -106,12 +109,14 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
     return NO;
 }
 
 //--------------------------------------------------------------
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     NSBundle *bundle = [NSBundle mainBundle];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -161,7 +166,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)scheduleAutomaticScrape {
+- (void)scheduleAutomaticScrape
+{
     // make a random time interval based on user preferences
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     int min = [defaults integerForKey:ScrapeAutomaticMinKey];
@@ -175,7 +181,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)updateTimer:(NSNotification *)notification {
+- (void)updateTimer:(NSNotification *)notification
+{
     // cancel the last scheduled automatic scrape
     [NSObject cancelPreviousPerformRequestsWithTarget:self
                                              selector:@selector(newAutoScrape)
@@ -189,7 +196,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)newAutoScrape {
+- (void)newAutoScrape
+{
     NSLog(@"Automatic scrape");
     
     [[NSDocumentController sharedDocumentController] newDocument:self];
@@ -209,8 +217,9 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (IBAction)newManualScrape:(id)sender {
-    NSLog(@"Scrape");
+- (IBAction)newManualScrape:(id)sender
+{
+    NSLog(@"Manual scrape");
     
     // bring app to front
     [NSApp activateIgnoringOtherApps:YES];
@@ -227,7 +236,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (IBAction)showAboutWindow:(id)sender {
+- (IBAction)showAboutWindow:(id)sender
+{
     // bring application to front
     [NSApp activateIgnoringOtherApps:YES];
     
@@ -235,7 +245,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (IBAction)showPrefsWindow:(id)sender {
+- (IBAction)showPrefsWindow:(id)sender
+{
     // bring application to front
     [NSApp activateIgnoringOtherApps:YES];
     
@@ -243,7 +254,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (IBAction)launchScrapeWebsite:(id)sender {
+- (IBAction)launchScrapeWebsite:(id)sender
+{
     if ([ScrapePrefsController isLoggedIn] == YES) {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"home.php"]]];
     } else {

@@ -3,11 +3,12 @@
 //  Scrape
 //
 //  Created by Elie Zananiri on 10-02-27.
-//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 
+//--------------------------------------------------------------
 extern NSString *ScrapeHasLaunchedBeforeKey;
 extern NSString *ScrapeLastLaunchVersionKey;
 
@@ -23,9 +24,9 @@ extern NSString *ScrapeAutomaticMaxKey;
 
 extern NSString *SiteRoot;
 
+//--------------------------------------------------------------
 @class ScrapePrefsController;
 
-//--------------------------------------------------------------
 //--------------------------------------------------------------
 @interface ScrapeAppDelegate : NSObject <NSApplicationDelegate>
 {
@@ -35,7 +36,7 @@ extern NSString *SiteRoot;
     NSImage         *idleImage;
     NSImage         *selectImage;
     
-    ScrapePrefsController   *prefsController;
+    ScrapePrefsController *prefsController;
 }
     
 - (void)showDockIcon;

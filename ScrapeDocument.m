@@ -3,7 +3,7 @@
 //  Scrape
 //
 //  Created by Elie Zananiri on 10-02-28.
-//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
 #import "ScrapeDocument.h"

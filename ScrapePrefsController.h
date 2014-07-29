@@ -3,7 +3,7 @@
 //  Scrape
 //
 //  Created by Elie Zananiri on 10-03-12.
-//  Copyright 2010 silentlyCrashing::net. All rights reserved.
+//  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -13,8 +13,9 @@
 extern NSString *KeychainUsername;
 extern NSString *KeychainPassword;
 
-
-@interface ScrapePrefsController : NSWindowController {
+//--------------------------------------------------------------
+@interface ScrapePrefsController : NSWindowController
+{
     IBOutlet NSButton           *automaticSwitch;
     IBOutlet NSStepper          *automaticMinStepper;
     IBOutlet NSStepper          *automaticMaxStepper;
