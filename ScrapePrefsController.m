@@ -7,12 +7,17 @@
 //
 
 #import "ScrapePrefsController.h"
+
+#import "AFNetworking.h"
+#import "SSKeychain.h"
+
 #import "ScrapeAppDelegate.h"
 #import "sCLoginItemsManager.h"
-#import "AFNetworking.h"
 
 //--------------------------------------------------------------
 static BOOL loggedIn = NO;
+
+NSString *const kScrapeKeychainService = @"Scrape";
 
 NSString *ScrapeKeychainUsername = nil;
 NSString *ScrapeKeychainPassword = nil;
@@ -70,22 +75,25 @@ NSString *ScrapeKeychainPassword = nil;
     [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
     
     // try to load the credentials from the keychain
-    // @TODO: Load credentials from the keychain
-//    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"verify.php"]];
-//    NSURLCredential *authenticationCredentials = [ASIHTTPRequest savedCredentialsForHost:[url host] port:[[url port] intValue] protocol:[url scheme] realm:nil];
-//    if (authenticationCredentials) {
-//        KeychainUsername = [authenticationCredentials user];
-//        KeychainPassword = [authenticationCredentials password];
-//        
-//        if (KeychainUsername && KeychainPassword) {
-//            NSLog(@"Successfully retrieved credentials from keychain");
-//            // update input fields
-//            [usernameInput setStringValue:KeychainUsername];
-//            [passwordInput setStringValue:KeychainPassword];
-//            // try logging in
-//            [self loginToScrape:nil];
-//        }
-//    }
+    NSArray *credentials = [SSKeychain accountsForService:kScrapeKeychainService];
+    if (credentials && credentials.count) {
+        NSString *username = [[credentials objectAtIndex:0] objectForKey:@"acct"];
+        NSString *password = [SSKeychain passwordForService:kScrapeKeychainService
+                                                    account:username];
+        if (username && password) {
+            NSLog(@"Successfully retrieved credentials from keychain");
+            
+            ScrapeKeychainUsername = username;
+            ScrapeKeychainPassword = password;
+            
+            // update input fields
+            [usernameInput setStringValue:ScrapeKeychainUsername];
+            [passwordInput setStringValue:ScrapeKeychainPassword];
+            
+            // try logging in
+            [self loginToScrape:nil];
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -236,13 +244,14 @@ NSString *ScrapeKeychainPassword = nil;
                   [errorLabel   setHidden:YES];
                   
                   // add the saved username and password to the keychain
-                  NSMutableDictionary *credentials = [[[NSMutableDictionary alloc] init] autorelease];
-                  [credentials setObject:[usernameInput stringValue]
-                                  forKey:(NSString *)kCFHTTPAuthenticationUsername];
-                  [credentials setObject:[passwordInput stringValue]
-                                  forKey:(NSString *)kCFHTTPAuthenticationPassword];
-                  // @TODO: Save credentials to keychain.
-//                  [request saveCredentialsToKeychain:credentials];
+                  NSError *error = nil;
+                 [SSKeychain setPassword:[passwordInput stringValue]
+                              forService:@"Scrape"
+                                 account:[usernameInput stringValue]
+                                   error:&error];
+                  if (error) {
+                      NSLog(@"Error saving credentials to keychain: %@", [error localizedDescription]);
+                  }
                   
                   // save the keychain values in static variables for easy access
                   ScrapeKeychainUsername = [usernameInput stringValue];

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *const kScrapeKeychainService;
+
 extern NSString *ScrapeKeychainUsername;
 extern NSString *ScrapeKeychainPassword;
 
