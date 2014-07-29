@@ -243,16 +243,15 @@ NSString *ScrapeKeychainPassword = nil;
 //--------------------------------------------------------------
 - (IBAction)loginToScrape:(id)sender
 {
-    // @TODO: Set request header @"User-Agent" to @"Scrape-User-Agent-1.0"
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"username": [usernameInput stringValue],
                                  @"password": [passwordInput stringValue]};
     [manager POST:[SiteRoot stringByAppendingString:@"verify.php"]
        parameters:parameters
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSString *responseString = [operation responseString];
-              if ([responseString compare:@"OK"] == NSOrderedSame) {
-                  NSLog(@"Successfully logged in");
+              NSString *resultString = [responseObject objectForKey:@"res"];
+              if ([resultString compare:@"OK"] == NSOrderedSame) {
+                  NSLog(@"Successfully logged in!");
                   [successLabel setHidden:NO];
                   [errorLabel   setHidden:YES];
                   
