@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ASIFormDataRequest.h"
-
 
 extern NSString *KeychainUsername;
 extern NSString *KeychainPassword;
@@ -51,9 +49,6 @@ extern NSString *KeychainPassword;
 
 - (IBAction)loginToScrape:(id)sender;
 - (IBAction)signupForScrape:(id)sender;
-
-- (void)requestFinished:(ASIHTTPRequest *)request;
-- (void)requestFailed:(ASIHTTPRequest *)request;
 
 + (void)setLoggedIn:(BOOL)val;
 + (BOOL)isLoggedIn;
