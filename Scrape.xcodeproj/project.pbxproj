@@ -37,19 +37,12 @@
 		2787620F11876964007B6D88 /* sCLoginItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2787620E11876964007B6D88 /* sCLoginItemsManager.m */; };
 		27911BE1113ADB440062742A /* Scrape-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27911BE0113ADB440062742A /* Scrape-Icon.icns */; };
 		27C68088113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */; };
-		27DBCF9911501F7200D448D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DBCF9811501F7200D448D5 /* SystemConfiguration.framework */; };
-		27DBCF9D11501F8C00D448D5 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DBCF9C11501F8C00D448D5 /* libz.1.2.3.dylib */; };
-		27DBCF9F11501F9900D448D5 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DBCF9E11501F9900D448D5 /* CoreServices.framework */; };
-		27DBCFC61150207400D448D5 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFBC1150207400D448D5 /* ASIFormDataRequest.m */; };
-		27DBCFC71150207400D448D5 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFBE1150207400D448D5 /* ASIHTTPRequest.m */; };
-		27DBCFC81150207400D448D5 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC11150207400D448D5 /* ASIInputStream.m */; };
-		27DBCFC91150207400D448D5 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC31150207400D448D5 /* ASINetworkQueue.m */; };
-		27DBCFCA1150207400D448D5 /* ASINSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */; };
 		27DF3269115D153600DCF1C1 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3267115D153600DCF1C1 /* error.png */; };
 		27DF326A115D153600DCF1C1 /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3268115D153600DCF1C1 /* success.png */; };
 		27F87D17115D479300FB2391 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F87D16115D479300FB2391 /* Sparkle.framework */; };
 		27F87D2F115D47F900FB2391 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 27F87D16115D479300FB2391 /* Sparkle.framework */; };
 		27F87D35115D4A0E00FB2391 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 27F87D34115D4A0E00FB2391 /* dsa_pub.pem */; };
+		2814613CD60247878592852D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD3E3EE79A8741809166E562 /* libPods.a */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* ScrapeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* ScrapeDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -71,6 +64,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02B4F560FAB74B2C9E737828 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -96,20 +90,6 @@
 		27911BE0113ADB440062742A /* Scrape-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Scrape-Icon.icns"; sourceTree = "<group>"; };
 		27C68086113AC5AC0004A3D7 /* ScrapeDocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrapeDocumentWindowController.h; sourceTree = "<group>"; };
 		27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrapeDocumentWindowController.m; sourceTree = "<group>"; };
-		27DBCF9811501F7200D448D5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		27DBCF9C11501F8C00D448D5 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		27DBCF9E11501F9900D448D5 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		27DBCFBB1150207400D448D5 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIFormDataRequest.h; path = lib/ASIHTTPRequest/Classes/ASIFormDataRequest.h; sourceTree = SOURCE_ROOT; };
-		27DBCFBC1150207400D448D5 /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIFormDataRequest.m; path = lib/ASIHTTPRequest/Classes/ASIFormDataRequest.m; sourceTree = SOURCE_ROOT; };
-		27DBCFBD1150207400D448D5 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequest.h; path = lib/ASIHTTPRequest/Classes/ASIHTTPRequest.h; sourceTree = SOURCE_ROOT; };
-		27DBCFBE1150207400D448D5 /* ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIHTTPRequest.m; path = lib/ASIHTTPRequest/Classes/ASIHTTPRequest.m; sourceTree = SOURCE_ROOT; };
-		27DBCFBF1150207400D448D5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = lib/ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
-		27DBCFC01150207400D448D5 /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIInputStream.h; path = lib/ASIHTTPRequest/Classes/ASIInputStream.h; sourceTree = SOURCE_ROOT; };
-		27DBCFC11150207400D448D5 /* ASIInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIInputStream.m; path = lib/ASIHTTPRequest/Classes/ASIInputStream.m; sourceTree = SOURCE_ROOT; };
-		27DBCFC21150207400D448D5 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASINetworkQueue.h; path = lib/ASIHTTPRequest/Classes/ASINetworkQueue.h; sourceTree = SOURCE_ROOT; };
-		27DBCFC31150207400D448D5 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASINetworkQueue.m; path = lib/ASIHTTPRequest/Classes/ASINetworkQueue.m; sourceTree = SOURCE_ROOT; };
-		27DBCFC41150207400D448D5 /* ASINSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASINSStringAdditions.h; path = lib/ASIHTTPRequest/Classes/ASINSStringAdditions.h; sourceTree = SOURCE_ROOT; };
-		27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASINSStringAdditions.m; path = lib/ASIHTTPRequest/Classes/ASINSStringAdditions.m; sourceTree = SOURCE_ROOT; };
 		27DF3267115D153600DCF1C1 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = SOURCE_ROOT; };
 		27DF3268115D153600DCF1C1 /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = SOURCE_ROOT; };
 		27F87D16115D479300FB2391 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -122,6 +102,7 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Scrape-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Scrape-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Scrape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scrape.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD3E3EE79A8741809166E562 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,11 +111,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
-				2749466E113AA77500CF9438 /* OpenGL.framework in Frameworks */,
-				27DBCF9911501F7200D448D5 /* SystemConfiguration.framework in Frameworks */,
-				27DBCF9D11501F8C00D448D5 /* libz.1.2.3.dylib in Frameworks */,
-				27DBCF9F11501F9900D448D5 /* CoreServices.framework in Frameworks */,
 				27F87D17115D479300FB2391 /* Sparkle.framework in Frameworks */,
+				2814613CD60247878592852D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,10 +124,6 @@
 			children = (
 				27F87D16115D479300FB2391 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
-				2749466D113AA77500CF9438 /* OpenGL.framework */,
-				27DBCF9811501F7200D448D5 /* SystemConfiguration.framework */,
-				27DBCF9C11501F8C00D448D5 /* libz.1.2.3.dylib */,
-				27DBCF9E11501F9900D448D5 /* CoreServices.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -196,24 +170,6 @@
 			name = silentlyCrashing;
 			sourceTree = "<group>";
 		};
-		27DBCFAF1150203100D448D5 /* ASIHTTPRequest */ = {
-			isa = PBXGroup;
-			children = (
-				27DBCFBB1150207400D448D5 /* ASIFormDataRequest.h */,
-				27DBCFBC1150207400D448D5 /* ASIFormDataRequest.m */,
-				27DBCFBD1150207400D448D5 /* ASIHTTPRequest.h */,
-				27DBCFBE1150207400D448D5 /* ASIHTTPRequest.m */,
-				27DBCFBF1150207400D448D5 /* ASIHTTPRequestConfig.h */,
-				27DBCFC01150207400D448D5 /* ASIInputStream.h */,
-				27DBCFC11150207400D448D5 /* ASIInputStream.m */,
-				27DBCFC21150207400D448D5 /* ASINetworkQueue.h */,
-				27DBCFC31150207400D448D5 /* ASINetworkQueue.m */,
-				27DBCFC41150207400D448D5 /* ASINSStringAdditions.h */,
-				27DBCFC51150207400D448D5 /* ASINSStringAdditions.m */,
-			);
-			name = ASIHTTPRequest;
-			sourceTree = "<group>";
-		};
 		2A37F4AAFDCFA73011CA2CEA /* Scrape */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +179,7 @@
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
+				02B4F560FAB74B2C9E737828 /* Pods.xcconfig */,
 			);
 			name = Scrape;
 			sourceTree = "<group>";
@@ -231,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				2787620B1187693C007B6D88 /* silentlyCrashing */,
-				27DBCFAF1150203100D448D5 /* ASIHTTPRequest */,
 				2749467F113AA8C100CF9438 /* ScrapeAppDelegate.h */,
 				27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */,
 				2A37F4AEFDCFA73011CA2CEA /* ScrapeDocument.h */,
@@ -275,6 +231,7 @@
 			children = (
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+				BD3E3EE79A8741809166E562 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -286,10 +243,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Scrape" */;
 			buildPhases = (
+				FD93673496ED441C98B64E73 /* Check Pods Manifest.lock */,
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				278C29391152BB410055F5F8 /* CopyFiles */,
+				74AB85688DED4346A856279D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -365,6 +324,36 @@
 			shellPath = /bin/bash;
 			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nBUILD=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nDOWNLOAD_BASE_URL=\"http://github.com/downloads/prisonerjohn/Scrape\"\nRELEASENOTES_URL=\"http://www.silentlycrashing.net/scrape/notes.php#v$VERSION\"\"b$BUILD\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME\"_\"v$VERSION\"\"b$BUILD.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key for Scrape\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nditto -ck --keepParent \"$PROJECT_NAME.app\" \"$ARCHIVE_FILENAME\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(LC_TIME=en_US date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION (build $BUILD)</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$BUILD\"\n\t\t\t\tsparkle:shortVersionString=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
 		};
+		74AB85688DED4346A856279D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD93673496ED441C98B64E73 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -378,11 +367,6 @@
 				27C68088113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m in Sources */,
 				27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */,
 				271CF036114AE11F0050A2A0 /* ScrapePrefsController.m in Sources */,
-				27DBCFC61150207400D448D5 /* ASIFormDataRequest.m in Sources */,
-				27DBCFC71150207400D448D5 /* ASIHTTPRequest.m in Sources */,
-				27DBCFC81150207400D448D5 /* ASIInputStream.m in Sources */,
-				27DBCFC91150207400D448D5 /* ASINetworkQueue.m in Sources */,
-				27DBCFCA1150207400D448D5 /* ASINSStringAdditions.m in Sources */,
 				2787620F11876964007B6D88 /* sCLoginItemsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +440,7 @@
 		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02B4F560FAB74B2C9E737828 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -483,6 +468,7 @@
 		};
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02B4F560FAB74B2C9E737828 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
