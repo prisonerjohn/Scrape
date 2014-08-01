@@ -8,19 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ScrapeGLView.h"
-#import "ASIFormDataRequest.h"
+#import "AFNetworking.h"
 
+//--------------------------------------------------------------
 @interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate, NSAnimationDelegate>
 {
-    IBOutlet NSPopUpButton          *uploadButton;
-    IBOutlet NSPopUpButton          *formatDropDown;
-    IBOutlet ScrapeGLView           *glView;
-    IBOutlet NSProgressIndicator    *uploadProgressIndicator;
-    IBOutlet NSImageView            *uploadSuccessOverlay;
-    IBOutlet NSImageView            *uploadErrorOverlay;
+    IBOutlet NSPopUpButton *uploadButton;
+    IBOutlet NSPopUpButton *formatDropDown;
+    IBOutlet ScrapeGLView *glView;
+    IBOutlet NSProgressIndicator *uploadProgressIndicator;
+    IBOutlet NSImageView *uploadSuccessOverlay;
+    IBOutlet NSImageView *uploadErrorOverlay;
     
     NSDate *scrapeDate;
-    BOOL    uploading;
+    BOOL uploading;
 }
 
 - (NSString *)makeFilename;
@@ -32,10 +33,7 @@
 - (IBAction)doUploadOnly:(id)sender;
 - (IBAction)doUploadAndPost:(id)sender;
 - (void)doUpload:(BOOL)andPost;
-    
-- (void)requestFinished:(ASIHTTPRequest *)request;
-- (void)requestFailed:(ASIHTTPRequest *)request;
-    
+
 - (void)animationDidEnd:(NSAnimation *)animation;
 
 @end

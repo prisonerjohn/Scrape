@@ -11,7 +11,6 @@
 #import "ScrapePrefsController.h"
 
 //--------------------------------------------------------------
-//--------------------------------------------------------------
 // STATIC CONSTANTS
 static const GLint formats[] = {
     GL_RGB, 
@@ -23,7 +22,6 @@ static const GLint formats[] = {
 };
 
 
-//--------------------------------------------------------------
 //--------------------------------------------------------------
 @implementation ScrapeDocumentWindowController
 
@@ -206,120 +204,106 @@ static NSArray *formatNames = nil;
     
     // upload both representations to the server
     NSLog(@"Uploading with keychain credentials");
-    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"upload.php"]];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addRequestHeader:@"User-Agent" value:@"Scrape-User-Agent-1.0"];
-    [request setPostValue:((andPost == YES)? @"1":@"0")
-                   forKey:@"post"];
-    [request setPostValue:KeychainUsername
-                   forKey:@"username"];
-    [request setPostValue:KeychainPassword
-                   forKey:@"password"];
-    [request setPostValue:[self makeFilename]
-                   forKey:@"filename"];
-    [request setData:tiffData 
-        withFileName:[[self makeFilename] stringByAppendingString:@".tiff"] 
-      andContentType:@"image/tiff" 
-              forKey:@"tiffData"]; 
-    [request setData:pngData 
-        withFileName:[[self makeFilename] stringByAppendingString:@".png"] 
-      andContentType:@"image/png" 
-              forKey:@"pngData"];
-    [request setDelegate:self];
-    [request setUploadProgressDelegate:uploadProgressIndicator];
-    [request startAsynchronous];
+//    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"upload.php"]];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"post": ((andPost == YES)? @"1":@"0"),
+                                 @"username": ScrapeKeychainUsername,
+                                 @"password": ScrapeKeychainPassword,
+                                 @"filename": [self makeFilename]};
+    [manager POST:[SiteRoot stringByAppendingString:@"upload.php"]
+       parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+           [formData appendPartWithFileData:tiffData
+                                       name:@"tiffData"
+                                   fileName:[[self makeFilename] stringByAppendingString:@".tiff"]
+                                   mimeType:@"image/tiff"];
+           [formData appendPartWithFileData:pngData
+                                       name:@"pngData"
+                                   fileName:[[self makeFilename] stringByAppendingString:@".png"]
+                                   mimeType:@"image/png"];
+       }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              uploading = NO;
+              [uploadProgressIndicator setDoubleValue:0];
+              [uploadButton setEnabled:YES];
+              
+              NSString *responseString = [operation responseString];
+              NSRange textRange = [responseString rangeOfString:@"ERROR"];
+              if (textRange.location == NSNotFound) {
+                  NSLog(@"Successfully uploaded");
+                  
+                  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                  if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+                      NSUserNotification *notification = [[NSUserNotification alloc] init];
+                      notification.title = @"Upload Complete!";
+                      notification.informativeText = @"Your data has been uploaded to the Scrape server";
+                      notification.userInfo = @{@"url": responseString};
+                      [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+                  }
+                  
+                  // display the success overlay
+                  [uploadSuccessOverlay setHidden:NO];
+                  NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
+                  [animParams setObject:uploadSuccessOverlay
+                                 forKey:NSViewAnimationTargetKey];
+                  [animParams setObject:NSViewAnimationFadeInEffect
+                                 forKey:NSViewAnimationEffectKey];
+                  NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
+                  [overlayAnimation setDuration:1.5];
+                  [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+                  [overlayAnimation setDelegate:self];
+                  [overlayAnimation startAnimation];
+                  [overlayAnimation release];
+                  
+              } else {
+                  // @TODO: Call the failure block.
+//                  [self requestFailed:request];
+              }
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSString *responseString = [operation responseString];
+              NSLog(@"Error uploading: %@", [error localizedDescription]);
+              
+              NSString *descString;
+              NSRange textRange = [responseString rangeOfString:@"Duplicate"];
+              if (textRange.location == NSNotFound) {
+                  descString = @"There was an error uploading your data to the Scrape server";
+              } else {
+                  descString = @"You have already uploaded this scrape to the server";
+              }
+              
+              uploading = NO;
+              [uploadProgressIndicator setDoubleValue:0];
+              [uploadButton setEnabled:YES];
+              
+              NSLog(@"%@", [error localizedDescription]);
+              
+              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+              if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+                  NSUserNotification *notification = [[NSUserNotification alloc] init];
+                  notification.title = @"Upload Error";
+                  notification.informativeText = descString;
+                  notification.soundName = NSUserNotificationDefaultSoundName;
+                  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+              }
+              
+              // display the error overlay
+              [uploadErrorOverlay setHidden:NO];
+              NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
+              [animParams setObject:uploadErrorOverlay
+                             forKey:NSViewAnimationTargetKey];
+              [animParams setObject:NSViewAnimationFadeInEffect
+                             forKey:NSViewAnimationEffectKey];
+              NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
+              [overlayAnimation setDuration:1.5];
+              [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+              [overlayAnimation setDelegate:self];
+              [overlayAnimation startAnimation];
+              [overlayAnimation release];
+          }];
     
     uploading = YES;
     [uploadProgressIndicator setDoubleValue:0];
     [uploadButton setEnabled:NO];
-}
-
-//--------------------------------------------------------------
-- (void)requestFinished:(ASIHTTPRequest *)request {
-    uploading = NO;
-    [uploadProgressIndicator setDoubleValue:0];
-    [uploadButton setEnabled:YES];
-    
-    NSString *responseString = [request responseString];
-    NSRange textRange = [responseString rangeOfString:@"ERROR"];
-    if (textRange.location == NSNotFound) {
-        NSLog(@"Successfully uploaded");
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
-            // display a Growl notification
-            [GrowlApplicationBridge notifyWithTitle:@"Upload Complete!"
-                                        description:@"Your data has been uploaded to the Scrape server"
-                                   notificationName:@"Upload Success"
-                                           iconData:nil
-                                           priority:0
-                                           isSticky:NO
-                                       clickContext:responseString];
-        }
-        
-        // display the success overlay 
-        [uploadSuccessOverlay setHidden:NO];
-        NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
-        [animParams setObject:uploadSuccessOverlay 
-                       forKey:NSViewAnimationTargetKey];
-        [animParams setObject:NSViewAnimationFadeInEffect 
-                       forKey:NSViewAnimationEffectKey];
-        NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
-        [overlayAnimation setDuration:1.5];
-        [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
-        [overlayAnimation setDelegate:self];
-        [overlayAnimation startAnimation];
-        [overlayAnimation release];
-        
-    } else {
-        [self requestFailed:request];
-    }
-}
-
-//--------------------------------------------------------------
-- (void)requestFailed:(ASIHTTPRequest *)request {
-    NSString *responseString = [request responseString];
-    NSLog(@"Error uploading: %@", responseString);
-    
-    NSString *descString;
-    NSRange textRange = [responseString rangeOfString:@"Duplicate"];
-    if (textRange.location == NSNotFound) {
-        descString = @"There was an error uploading your data to the Scrape server";
-    } else {
-        descString = @"You have already uploaded this scrape to the server";
-    }
-    
-    uploading = NO;
-    [uploadProgressIndicator setDoubleValue:0];
-    [uploadButton setEnabled:YES];
-    
-    NSLog(@"%@", [[request error] localizedDescription]);
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:ScrapeShowGrowlNotificationsKey] == YES) {
-        // display a Growl notification
-        [GrowlApplicationBridge notifyWithTitle:@"Upload Error"
-                                    description:descString
-                               notificationName:@"Upload Fail"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:nil];
-    }
-    
-    // display the error overlay
-    [uploadErrorOverlay setHidden:NO];
-    NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
-    [animParams setObject:uploadErrorOverlay 
-                   forKey:NSViewAnimationTargetKey];
-    [animParams setObject:NSViewAnimationFadeInEffect 
-                   forKey:NSViewAnimationEffectKey];
-    NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
-    [overlayAnimation setDuration:1.5];
-    [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
-    [overlayAnimation setDelegate:self];
-    [overlayAnimation startAnimation];
-    [overlayAnimation release];
 }
 
 //--------------------------------------------------------------
