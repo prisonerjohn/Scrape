@@ -6,8 +6,6 @@
 //  Copyright 2010-2014 silentlyCrashing::net. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 //--------------------------------------------------------------
 extern NSString *ScrapeHasLaunchedBeforeKey;
 extern NSString *ScrapeLastLaunchVersionKey;

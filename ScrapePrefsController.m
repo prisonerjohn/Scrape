@@ -9,10 +9,9 @@
 #import "ScrapePrefsController.h"
 
 #import "AFNetworking.h"
-#import "SSKeychain.h"
-
 #import "ScrapeAppDelegate.h"
 #import "sCLoginItemsManager.h"
+#import "SSKeychain.h"
 
 //--------------------------------------------------------------
 static BOOL loggedIn = NO;
@@ -39,7 +38,7 @@ NSString *ScrapeKeychainPassword = nil;
 //--------------------------------------------------------------
 - (void)awakeFromNib
 {
-    NSLog(@"Loading Preferences");
+    NSLog(@"Loading preferences.");
     
     // hide status labels
     [successLabel setHidden:YES];
@@ -83,7 +82,7 @@ NSString *ScrapeKeychainPassword = nil;
         NSString *password = [SSKeychain passwordForService:kScrapeKeychainService
                                                     account:username];
         if (username && password) {
-            NSLog(@"Successfully retrieved credentials from keychain");
+            NSLog(@"Successfully retrieved credentials from keychain!");
             
             ScrapeKeychainUsername = username;
             ScrapeKeychainPassword = password;
@@ -280,7 +279,7 @@ NSString *ScrapeKeychainPassword = nil;
                   
               }
               else {
-                  NSLog(@"Error logging in");
+                  NSLog(@"Error logging in: %@", resultString);
                   [successLabel setHidden:YES];
                   [errorLabel   setHidden:NO];
                   
@@ -288,7 +287,7 @@ NSString *ScrapeKeychainPassword = nil;
               }
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"%@", [error localizedDescription]);
+              NSLog(@"Error logging in: %@", [error localizedDescription]);
           }];
 }
 
