@@ -122,7 +122,7 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
     
     if ([defaults boolForKey:ScrapeEnableMenuBarIconKey] == YES || [defaults boolForKey:ScrapeEnableDockIconKey] == NO) {
         // create the status bar item
-        statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
+        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
         idleImage   = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"idle" 
                                                                                ofType:@"png"]];
         selectImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"select" 
@@ -264,17 +264,9 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 }
 
 //--------------------------------------------------------------
-- (void)dealloc {
-    // release the 2 images we loaded into memory
-    [idleImage release];
-    [selectImage release];
-    
-    // release the prefs window
-    [prefsController release];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super dealloc];
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];    
 }
 
 #pragma mark - NSUserNotificationCenter Delegate Methods

@@ -33,7 +33,7 @@
 		27494681113AA8C100CF9438 /* ScrapeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27494680113AA8C100CF9438 /* ScrapeAppDelegate.m */; };
 		27759E6D114496F60063C4A9 /* ScrapeGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27759E6C114496F60063C4A9 /* ScrapeGLView.mm */; };
 		277BCE6F11736E05007ADCE2 /* destroy.png in Resources */ = {isa = PBXBuildFile; fileRef = 277BCE6E11736E05007ADCE2 /* destroy.png */; };
-		2787620F11876964007B6D88 /* sCLoginItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2787620E11876964007B6D88 /* sCLoginItemsManager.m */; };
+		2787620F11876964007B6D88 /* sCLoginItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2787620E11876964007B6D88 /* sCLoginItemsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		27911BE1113ADB440062742A /* Scrape-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27911BE0113ADB440062742A /* Scrape-Icon.icns */; };
 		27C68088113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C68087113AC5AC0004A3D7 /* ScrapeDocumentWindowController.m */; };
 		27DF3269115D153600DCF1C1 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 27DF3267115D153600DCF1C1 /* error.png */; };
@@ -455,6 +455,7 @@
 			baseConfigurationReference = 02B4F560FAB74B2C9E737828 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 52;
@@ -483,6 +484,7 @@
 			baseConfigurationReference = 02B4F560FAB74B2C9E737828 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 52;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

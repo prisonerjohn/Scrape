@@ -22,7 +22,6 @@
 //--------------------------------------------------------------
 - (void)makeWindowControllers {
     ScrapeDocumentWindowController *winController = [[ScrapeDocumentWindowController alloc] init];
-    [winController autorelease];
     [self addWindowController:winController];
 }
 

@@ -21,7 +21,7 @@ static const GLint formats[] = {
     GL_DEPTH_COMPONENT
 };
 
-
+//--------------------------------------------------------------
 //--------------------------------------------------------------
 @implementation ScrapeDocumentWindowController
 
@@ -31,7 +31,7 @@ static NSArray *formatNames = nil;
 + (void)initialize
 {
     if (!formatNames) {
-        formatNames = [[NSArray arrayWithObjects:@".rgb", @".r3g3b2", @".rgba", @".lum", @".luma", @".depth", nil] retain];
+        formatNames = [NSArray arrayWithObjects:@".rgb", @".r3g3b2", @".rgba", @".lum", @".luma", @".depth", nil];
     }
 }
 
@@ -56,17 +56,10 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (void)dealloc
-{
-    [scrapeDate release];
-    [super dealloc];
-}
-
-//--------------------------------------------------------------
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
 {
-    scrapeDate = [[NSDate date] retain];
-    NSDateFormatter *inputFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    scrapeDate = [NSDate date];
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
     [inputFormatter setDateFormat:@"yyyy-MM-dd 'at' HH:mm:ss"];
     NSString *title = @"Scrape ";
     title = [title stringByAppendingString:[inputFormatter stringFromDate:scrapeDate]];
@@ -89,7 +82,7 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (NSString *)makeFilename
 {
-    NSDateFormatter *inputFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
     [inputFormatter setDateFormat:@".yyyyMMdd.HHmmss"];
     NSString *name = @"scrape";
     name = [name stringByAppendingString:[inputFormatter stringFromDate:scrapeDate]];
@@ -101,7 +94,6 @@ static NSArray *formatNames = nil;
 - (IBAction)doRefresh:(id)sender
 {
     NSLog(@"Refreshing");
-    if (scrapeDate) [scrapeDate release];
     [[self window] setTitle:[self windowTitleForDocumentDisplayName:nil]];
     [glView refresh];
 }
@@ -161,8 +153,6 @@ static NSArray *formatNames = nil;
         }
     }
     
-    [bitmap release];
-    [image release];
 }
 
 //--------------------------------------------------------------
@@ -213,10 +203,7 @@ static NSArray *formatNames = nil;
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:tiffData];
     NSData *pngData = [imageRep representationUsingType:NSPNGFileType properties:dictionary];
-    [imageRep release];
     
-    [bitmap release];
-    [image release];
     
     // upload both representations to the server
     NSLog(@"Uploading with keychain credentials");
@@ -267,7 +254,6 @@ static NSArray *formatNames = nil;
                   [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
                   [overlayAnimation setDelegate:self];
                   [overlayAnimation startAnimation];
-                  [overlayAnimation release];
                   
               } else {
                   // @TODO: Call the failure block.
@@ -313,7 +299,6 @@ static NSArray *formatNames = nil;
               [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
               [overlayAnimation setDelegate:self];
               [overlayAnimation startAnimation];
-              [overlayAnimation release];
           }];
     
     uploading = YES;

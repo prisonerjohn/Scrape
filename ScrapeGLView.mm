@@ -47,24 +47,24 @@ static NSBitmapImageRep *destroyData;
     [destroyImage lockFocus];
     destroyData = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0.0, 0.0, imgSize.width, imgSize.height)];
     [destroyImage unlockFocus];
-    
-    [destroyImage release];
 }
 
 //--------------------------------------------------------------
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     texFormat  = GL_RGB;
     texHandle  = 0;
 }
 
 //--------------------------------------------------------------
-- (void)dealloc {
+- (void)dealloc
+{
     glDeleteTextures(1, &texHandle);
-    [super dealloc];
 }
 
 //--------------------------------------------------------------
-- (void)refresh {
+- (void)refresh
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:ScrapeDestroyDataOnReleaseKey] == YES) {
         // destroy the current texture data before moving over to the next one

@@ -98,12 +98,6 @@ NSString *ScrapeKeychainPassword = nil;
 }
 
 //--------------------------------------------------------------
-- (void)dealloc
-{
-    [super dealloc];
-}
-
-//--------------------------------------------------------------
 - (IBAction)setStartAtLogin:(id)sender
 {
     [sCLoginItemsManager setStartAtLogin:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]] 
