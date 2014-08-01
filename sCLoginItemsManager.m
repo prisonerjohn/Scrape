@@ -8,12 +8,13 @@
 
 #import "sCLoginItemsManager.h"
 
-
+//--------------------------------------------------------------
 // based on: http://stackoverflow.com/questions/815063?tab=votes#tab-top
 @implementation sCLoginItemsManager
 
 //--------------------------------------------------------------
-+ (BOOL)willStartAtLogin:(NSURL *)itemURL {
++ (BOOL)willStartAtLogin:(NSURL *)itemURL
+{
     Boolean foundIt = false;
     LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     if (loginItems) {
@@ -40,7 +41,8 @@
 
 //--------------------------------------------------------------
 + (void)setStartAtLogin:(NSURL *)itemURL 
-                enabled:(BOOL)enabled {
+                enabled:(BOOL)enabled
+{
     LSSharedFileListItemRef existingItem = NULL;
     
     LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
@@ -68,7 +70,8 @@
             LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst,
                                           NULL, NULL, (CFURLRef)itemURL, NULL, NULL);
             
-        } else if (!enabled && (existingItem != NULL))
+        }
+        else if (!enabled && (existingItem != NULL))
             LSSharedFileListItemRemove(loginItems, existingItem);
         
         CFRelease(loginItems);

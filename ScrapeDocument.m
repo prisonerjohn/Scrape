@@ -9,18 +9,19 @@
 #import "ScrapeDocument.h"
 #import "ScrapeDocumentWindowController.h"
 
-
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 @implementation ScrapeDocument
 
 //--------------------------------------------------------------
-- (void)windowControllerDidLoadNib:(NSWindowController *)aController {
+- (void)windowControllerDidLoadNib:(NSWindowController *)aController
+{
     [super windowControllerDidLoadNib:aController];
 }
 
 //--------------------------------------------------------------
-- (void)makeWindowControllers {
+- (void)makeWindowControllers
+{
     ScrapeDocumentWindowController *winController = [[ScrapeDocumentWindowController alloc] init];
     [self addWindowController:winController];
 }

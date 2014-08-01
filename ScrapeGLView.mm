@@ -38,7 +38,8 @@ static const GLfloat verts[] = {
 static NSBitmapImageRep *destroyData;
 
 //--------------------------------------------------------------
-+ (void)initialize {
++ (void)initialize
+{
     NSBundle *bundle = [NSBundle mainBundle];
     NSImage *destroyImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"destroy" 
                                                                                      ofType:@"png"]];
@@ -76,14 +77,16 @@ static NSBitmapImageRep *destroyData;
 }
 
 //--------------------------------------------------------------
-- (void)setFormat:(GLint)format {
+- (void)setFormat:(GLint)format
+{
     texFormat = format;
     [self allocateData];
     [self display];   
 }
 
 //--------------------------------------------------------------
-- (void)allocateData {
+- (void)allocateData
+{
     NSLog(@"Allocating data");
     
     // alloc
@@ -100,7 +103,8 @@ static NSBitmapImageRep *destroyData;
 }
 
 //--------------------------------------------------------------
-- (void)drawRect:(NSRect)bounds {
+- (void)drawRect:(NSRect)bounds
+{
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -129,7 +133,8 @@ static NSBitmapImageRep *destroyData;
 }
 
 //--------------------------------------------------------------
-- (void)destroyCurrentData {
+- (void)destroyCurrentData
+{
     if (texHandle == 0) {
         // texture handle is null, ignore it
         return;
