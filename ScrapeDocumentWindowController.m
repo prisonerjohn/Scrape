@@ -28,14 +28,16 @@ static const GLint formats[] = {
 static NSArray *formatNames = nil;
 
 //--------------------------------------------------------------
-+ (void)initialize {
++ (void)initialize
+{
     if (!formatNames) {
         formatNames = [[NSArray arrayWithObjects:@".rgb", @".r3g3b2", @".rgba", @".lum", @".luma", @".depth", nil] retain];
     }
 }
 
 //--------------------------------------------------------------
-- (id)init {
+- (id)init
+{
     self = [super initWithWindowNibName:@"ScrapeDocument"];
     uploading = NO;
     
@@ -43,7 +45,10 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (void)windowDidLoad {
+- (void)windowDidLoad
+{
+    [super windowDidLoad];
+    
     [uploadSuccessOverlay setHidden:YES];
     [uploadErrorOverlay   setHidden:YES];
     [uploadSuccessOverlay setAlphaValue:0.0];
@@ -51,13 +56,15 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (void)dealloc {
+- (void)dealloc
+{
     [scrapeDate release];
     [super dealloc];
 }
 
 //--------------------------------------------------------------
-- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
+{
     scrapeDate = [[NSDate date] retain];
     NSDateFormatter *inputFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [inputFormatter setDateFormat:@"yyyy-MM-dd 'at' HH:mm:ss"];
@@ -68,17 +75,20 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
+- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem
+{
     if ([ScrapePrefsController isLoggedIn] == NO || uploading == YES) {
         [uploadButton setEnabled:NO];
-    } else {
+    }
+    else {
         [uploadButton setEnabled:YES];
     }
     return YES;
 }
 
 //--------------------------------------------------------------
-- (NSString *)makeFilename {
+- (NSString *)makeFilename
+{
     NSDateFormatter *inputFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [inputFormatter setDateFormat:@".yyyyMMdd.HHmmss"];
     NSString *name = @"scrape";
@@ -88,7 +98,8 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)doRefresh:(id)sender {
+- (IBAction)doRefresh:(id)sender
+{
     NSLog(@"Refreshing");
     if (scrapeDate) [scrapeDate release];
     [[self window] setTitle:[self windowTitleForDocumentDisplayName:nil]];
@@ -96,13 +107,15 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)doChangeFormat:(id)sender {
+- (IBAction)doChangeFormat:(id)sender
+{
     NSLog(@"Changing format to %@", [formatDropDown titleOfSelectedItem]);
     [glView setFormat:formats[[formatDropDown indexOfSelectedItem]]];
 }
 
 //--------------------------------------------------------------
-- (IBAction)doSave:(id)sender {
+- (IBAction)doSave:(id)sender
+{
     NSLog(@"Saving image");
     
     unsigned char* planes[1];
@@ -153,17 +166,20 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (IBAction)doUploadOnly:(id)sender {
+- (IBAction)doUploadOnly:(id)sender
+{
     [self doUpload:NO];
 }
 
 //--------------------------------------------------------------
-- (IBAction)doUploadAndPost:(id)sender {
+- (IBAction)doUploadAndPost:(id)sender
+{
     [self doUpload:YES];
 }
 
 //--------------------------------------------------------------
-- (void)doUpload:(BOOL)andPost {
+- (void)doUpload:(BOOL)andPost
+{
     NSLog(@"Uploading image");
     
     unsigned char* planes[1];
@@ -204,7 +220,6 @@ static NSArray *formatNames = nil;
     
     // upload both representations to the server
     NSLog(@"Uploading with keychain credentials");
-//    NSURL *url = [NSURL URLWithString:[SiteRoot stringByAppendingString:@"upload.php"]];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"post": ((andPost == YES)? @"1":@"0"),
                                  @"username": ScrapeKeychainUsername,
@@ -307,7 +322,8 @@ static NSArray *formatNames = nil;
 }
 
 //--------------------------------------------------------------
-- (void)animationDidEnd:(NSAnimation *)animation {
+- (void)animationDidEnd:(NSAnimation *)animation
+{
     [uploadSuccessOverlay setHidden:YES];
     [uploadErrorOverlay   setHidden:YES];
 }
