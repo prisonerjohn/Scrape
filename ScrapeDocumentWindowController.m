@@ -214,6 +214,47 @@ static NSArray *formatNames = nil;
     NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:tiffData];
     NSData *pngData = [imageRep representationUsingType:NSPNGFileType properties:dictionary];
     
+    // set up a reusable failure block
+    void (^failureBlock)(AFHTTPRequestOperation *, NSError *) = ^void(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *responseString = [operation responseString];
+        NSLog(@"Error uploading: %@", [error localizedDescription]);
+        
+        NSString *descString;
+        NSRange textRange = [responseString rangeOfString:@"Duplicate"];
+        if (textRange.location == NSNotFound) {
+            descString = @"There was an error uploading your data to the Scrape server";
+        } else {
+            descString = @"You have already uploaded this scrape to the server";
+        }
+        
+        bUploading = NO;
+        [_uploadProgressIndicator setDoubleValue:0];
+        [_uploadButton setEnabled:YES];
+        
+        NSLog(@"%@", [error localizedDescription]);
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
+            notification.title = @"Upload Error";
+            notification.informativeText = descString;
+            notification.soundName = @"Basso";
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        }
+        
+        // display the error overlay
+        [_uploadErrorImageView setHidden:NO];
+        NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
+        [animParams setObject:_uploadErrorImageView
+                       forKey:NSViewAnimationTargetKey];
+        [animParams setObject:NSViewAnimationFadeInEffect
+                       forKey:NSViewAnimationEffectKey];
+        NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
+        [overlayAnimation setDuration:1.5];
+        [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+        [overlayAnimation setDelegate:self];
+        [overlayAnimation startAnimation];
+    };
     
     // upload both representations to the server
     NSLog(@"Uploading with keychain credentials");
@@ -264,53 +305,13 @@ static NSArray *formatNames = nil;
                   [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
                   [overlayAnimation setDelegate:self];
                   [overlayAnimation startAnimation];
-                  
               }
               else {
-                  // @TODO: Call the failure block.
-//                  [self requestFailed:request];
+                  // @TODO: Make an NSError to pass over.
+                  failureBlock(operation, nil);
               }
           }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSString *responseString = [operation responseString];
-              NSLog(@"Error uploading: %@", [error localizedDescription]);
-              
-              NSString *descString;
-              NSRange textRange = [responseString rangeOfString:@"Duplicate"];
-              if (textRange.location == NSNotFound) {
-                  descString = @"There was an error uploading your data to the Scrape server";
-              } else {
-                  descString = @"You have already uploaded this scrape to the server";
-              }
-              
-              bUploading = NO;
-              [_uploadProgressIndicator setDoubleValue:0];
-              [_uploadButton setEnabled:YES];
-              
-              NSLog(@"%@", [error localizedDescription]);
-              
-              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-              if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
-                  NSUserNotification *notification = [[NSUserNotification alloc] init];
-                  notification.title = @"Upload Error";
-                  notification.informativeText = descString;
-                  notification.soundName = @"Basso";
-                  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-              }
-              
-              // display the error overlay
-              [_uploadErrorImageView setHidden:NO];
-              NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
-              [animParams setObject:_uploadErrorImageView
-                             forKey:NSViewAnimationTargetKey];
-              [animParams setObject:NSViewAnimationFadeInEffect
-                             forKey:NSViewAnimationEffectKey];
-              NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
-              [overlayAnimation setDuration:1.5];
-              [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
-              [overlayAnimation setDelegate:self];
-              [overlayAnimation startAnimation];
-          }];
+          failure:failureBlock];
     
     bUploading = YES;
     [_uploadProgressIndicator setDoubleValue:0];
