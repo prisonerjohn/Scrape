@@ -28,14 +28,14 @@ extern NSString *SiteRoot;
 //--------------------------------------------------------------
 @interface ScrapeAppDelegate : NSObject <NSApplicationDelegate>
 {
-    IBOutlet NSMenu *statusMenu;
-    
     NSStatusItem    *statusItem;
     NSImage         *idleImage;
     NSImage         *selectImage;
     
     ScrapePrefsController *prefsController;
 }
+
+@property (weak) IBOutlet NSMenu *statusMenu;
     
 - (void)showDockIcon;
     

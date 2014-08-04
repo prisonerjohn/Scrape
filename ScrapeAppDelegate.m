@@ -133,7 +133,7 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
         [statusItem setHighlightMode:YES];
         [statusItem setToolTip:@"Scrape"];
         
-        [statusItem setMenu:statusMenu];
+        [statusItem setMenu:_statusMenu];
     }
     
     // create the preferences window
