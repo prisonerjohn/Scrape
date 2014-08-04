@@ -7,22 +7,22 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ScrapePrefsController">
             <connections>
-                <outlet property="automaticMaxLabel" destination="111" id="142"/>
-                <outlet property="automaticMaxStepper" destination="110" id="143"/>
-                <outlet property="automaticMinLabel" destination="108" id="144"/>
-                <outlet property="automaticMinStepper" destination="107" id="145"/>
-                <outlet property="automaticSwitch" destination="113" id="146"/>
-                <outlet property="destroyDataSwitch" destination="224" id="227"/>
-                <outlet property="errorLabel" destination="149" id="151"/>
-                <outlet property="loginButton" destination="132" id="152"/>
-                <outlet property="passwordInput" destination="129" id="153"/>
-                <outlet property="showInDockSwitch" destination="238" id="272"/>
-                <outlet property="showInMenuBarSwitch" destination="257" id="271"/>
-                <outlet property="showUserNotificationsSwitch" destination="260" id="1s3-Zx-46S"/>
-                <outlet property="signupButton" destination="140" id="154"/>
-                <outlet property="startAtLoginSwitch" destination="263" id="270"/>
-                <outlet property="successLabel" destination="147" id="155"/>
-                <outlet property="usernameInput" destination="128" id="156"/>
+                <outlet property="autoScrapeMaxStepper" destination="110" id="G9H-vy-Bpo"/>
+                <outlet property="autoScrapeMaxTextField" destination="111" id="HWt-Nm-tOq"/>
+                <outlet property="autoScrapeMinStepper" destination="107" id="dme-sO-dbL"/>
+                <outlet property="autoScrapeMinTextField" destination="108" id="JmC-qH-vjn"/>
+                <outlet property="autoScrapeToggle" destination="113" id="oBu-Tn-fzo"/>
+                <outlet property="destroyDataToggle" destination="224" id="fXc-jE-iLd"/>
+                <outlet property="errorLabel" destination="149" id="Rva-eu-qGk"/>
+                <outlet property="loginButton" destination="132" id="Sxt-vK-COT"/>
+                <outlet property="passwordTextField" destination="129" id="8Nn-x5-mRy"/>
+                <outlet property="showInDockToggle" destination="238" id="w3w-se-VDn"/>
+                <outlet property="showInMenuBarToggle" destination="257" id="UvC-B6-rV1"/>
+                <outlet property="showUserNotificationsToggle" destination="260" id="Tr2-u9-9ca"/>
+                <outlet property="signUpButton" destination="140" id="gug-oE-fJR"/>
+                <outlet property="startAtLoginToggle" destination="263" id="nxD-57-e9V"/>
+                <outlet property="successLabel" destination="147" id="1gH-tO-pxA"/>
+                <outlet property="usernameTextField" destination="128" id="YJP-R2-TL9"/>
                 <outlet property="window" destination="36" id="71"/>
             </connections>
         </customObject>

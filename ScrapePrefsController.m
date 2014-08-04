@@ -41,39 +41,39 @@ NSString *ScrapeKeychainPassword = nil;
     NSLog(@"Loading preferences.");
     
     // hide status labels
-    [successLabel setHidden:YES];
-    [errorLabel   setHidden:YES];
+    [_successLabel setHidden:YES];
+    [_errorLabel   setHidden:YES];
     
     // set login item preference
     //if ([sCLoginItemsManager loginItemExistsForAppPath:[[NSBundle mainBundle] bundlePath]]) {
     if ([sCLoginItemsManager willStartAtLogin:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]] == YES) {
-        [startAtLoginSwitch setState:NSOnState];
+        [_startAtLoginToggle setState:NSOnState];
     } else {
-        [startAtLoginSwitch setState:NSOffState];
+        [_startAtLoginToggle setState:NSOffState];
     }
     
     // set other saved preferences
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [showInDockSwitch setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
-    if ([showInDockSwitch state] == NSOffState) {
+    [_showInDockToggle setState:[defaults boolForKey:ScrapeEnableDockIconKey]];
+    if ([_showInDockToggle state] == NSOffState) {
         // if the dock icon is hidden, force the menu bar icon
-        [showInMenuBarSwitch setState:NSOnState];
-        [showInMenuBarSwitch setEnabled:NO];
+        [_showInMenuBarToggle setState:NSOnState];
+        [_showInMenuBarToggle setEnabled:NO];
     } else {
-        [showInMenuBarSwitch setState:[defaults boolForKey:ScrapeEnableMenuBarIconKey]];
+        [_showInMenuBarToggle setState:[defaults boolForKey:ScrapeEnableMenuBarIconKey]];
     }
-    [showUserNotificationsSwitch setState:[defaults boolForKey:ScrapeShowUserNotificationsKey]];
+    [_showUserNotificationsToggle setState:[defaults boolForKey:ScrapeShowUserNotificationsKey]];
     
-    [automaticSwitch     setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
-    [automaticMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
-    [automaticMinStepper setEnabled:[automaticSwitch state]];
-    [automaticMaxStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
-    [automaticMaxStepper setEnabled:[automaticSwitch state]];
-    [automaticMinLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
-    [automaticMinLabel   setEnabled:[automaticSwitch state]];
-    [automaticMaxLabel   setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
-    [automaticMaxLabel   setEnabled:[automaticSwitch state]];
-    [destroyDataSwitch   setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
+    [_autoScrapeToggle setState:[defaults boolForKey:ScrapeAutomaticToggleKey]];
+    [_autoScrapeMinStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
+    [_autoScrapeMinStepper setEnabled:[_autoScrapeToggle state]];
+    [_autoScrapeMaxStepper setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
+    [_autoScrapeMaxStepper setEnabled:[_autoScrapeToggle state]];
+    [_autoScrapeMinTextField setIntegerValue:[defaults integerForKey:ScrapeAutomaticMinKey]];
+    [_autoScrapeMinTextField setEnabled:[_autoScrapeToggle state]];
+    [_autoScrapeMaxTextField setIntegerValue:[defaults integerForKey:ScrapeAutomaticMaxKey]];
+    [_autoScrapeMaxTextField setEnabled:[_autoScrapeToggle state]];
+    [_destroyDataToggle setState:[defaults boolForKey:ScrapeDestroyDataOnReleaseKey]];
     
     // try to load the credentials from the keychain
     NSArray *credentials = [SSKeychain accountsForService:kScrapeKeychainService];
@@ -88,8 +88,8 @@ NSString *ScrapeKeychainPassword = nil;
             ScrapeKeychainPassword = password;
             
             // update input fields
-            [usernameInput setStringValue:ScrapeKeychainUsername];
-            [passwordInput setStringValue:ScrapeKeychainPassword];
+            [_usernameTextField setStringValue:ScrapeKeychainUsername];
+            [_passwordTextField setStringValue:ScrapeKeychainPassword];
             
             // try logging in
             [self loginToScrape:nil];
@@ -114,10 +114,10 @@ NSString *ScrapeKeychainPassword = nil;
     
     if ([sender state] == NSOffState) {
         // if the dock icon is hidden, force the menu bar icon
-        [showInMenuBarSwitch setState:NSOnState];
-        [showInMenuBarSwitch setEnabled:NO];
+        [_showInMenuBarToggle setState:NSOnState];
+        [_showInMenuBarToggle setEnabled:NO];
     } else {
-        [showInMenuBarSwitch setEnabled:YES];
+        [_showInMenuBarToggle setEnabled:YES];
     }
 }
 
@@ -147,10 +147,10 @@ NSString *ScrapeKeychainPassword = nil;
                forKey:ScrapeAutomaticToggleKey];
     [defaults synchronize];
     
-    [automaticMinLabel   setEnabled:[sender state]];
-    [automaticMaxLabel   setEnabled:[sender state]];
-    [automaticMinStepper setEnabled:[sender state]];
-    [automaticMaxStepper setEnabled:[sender state]];
+    [_autoScrapeMinTextField setEnabled:[sender state]];
+    [_autoScrapeMaxTextField setEnabled:[sender state]];
+    [_autoScrapeMinStepper setEnabled:[sender state]];
+    [_autoScrapeMaxStepper setEnabled:[sender state]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
@@ -164,10 +164,10 @@ NSString *ScrapeKeychainPassword = nil;
                   forKey:ScrapeAutomaticMinKey];
     [defaults synchronize];
     
-    [automaticMinLabel setIntValue:[sender intValue]];
+    [_autoScrapeMinTextField setIntValue:[sender intValue]];
     
-    [automaticMaxStepper setMinValue:([sender intValue] + 1)];
-    [[automaticMaxLabel formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
+    [_autoScrapeMaxStepper setMinValue:([sender intValue] + 1)];
+    [[_autoScrapeMaxTextField formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
@@ -181,10 +181,10 @@ NSString *ScrapeKeychainPassword = nil;
                   forKey:ScrapeAutomaticMinKey];
     [defaults synchronize];
     
-    [automaticMinStepper setIntValue:[sender intValue]];
+    [_autoScrapeMinStepper setIntValue:[sender intValue]];
     
-    [automaticMaxStepper setMinValue:([sender intValue] + 1)];
-    [[automaticMaxLabel formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
+    [_autoScrapeMaxStepper setMinValue:([sender intValue] + 1)];
+    [[_autoScrapeMaxTextField formatter] setMinimum:[NSNumber numberWithInt:([sender intValue] + 1)]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
@@ -198,10 +198,10 @@ NSString *ScrapeKeychainPassword = nil;
                   forKey:ScrapeAutomaticMaxKey];
     [defaults synchronize];
     
-    [automaticMaxLabel setIntValue:[sender intValue]];
+    [_autoScrapeMaxTextField setIntValue:[sender intValue]];
     
-    [automaticMinStepper setMaxValue:([sender intValue] - 1)];
-    [[automaticMinLabel formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
+    [_autoScrapeMinStepper setMaxValue:([sender intValue] - 1)];
+    [[_autoScrapeMinTextField formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
@@ -215,10 +215,10 @@ NSString *ScrapeKeychainPassword = nil;
                   forKey:ScrapeAutomaticMaxKey];
     [defaults synchronize];
     
-    [automaticMaxStepper setIntValue:[sender intValue]];
+    [_autoScrapeMaxStepper setIntValue:[sender intValue]];
     
-    [automaticMinStepper setMaxValue:([sender intValue] - 1)];
-    [[automaticMinLabel formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
+    [_autoScrapeMinStepper setMaxValue:([sender intValue] - 1)];
+    [[_autoScrapeMinTextField formatter] setMaximum:[NSNumber numberWithInt:([sender intValue] - 1)]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ScrapeAutomaticSettingsChangedKey 
                                                         object:self];
@@ -237,30 +237,30 @@ NSString *ScrapeKeychainPassword = nil;
 - (IBAction)loginToScrape:(id)sender
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"username": [usernameInput stringValue],
-                                 @"password": [passwordInput stringValue]};
+    NSDictionary *parameters = @{@"username": [_usernameTextField stringValue],
+                                 @"password": [_passwordTextField stringValue]};
     [manager POST:[SiteRoot stringByAppendingString:@"verify.php"]
        parameters:parameters
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSString *resultString = [responseObject objectForKey:@"res"];
               if ([resultString compare:@"OK"] == NSOrderedSame) {
                   NSLog(@"Successfully logged in!");
-                  [successLabel setHidden:NO];
-                  [errorLabel   setHidden:YES];
+                  [_successLabel setHidden:NO];
+                  [_errorLabel   setHidden:YES];
                   
                   // add the saved username and password to the keychain
                   NSError *error = nil;
-                 [SSKeychain setPassword:[passwordInput stringValue]
+                 [SSKeychain setPassword:[_passwordTextField stringValue]
                               forService:@"Scrape"
-                                 account:[usernameInput stringValue]
+                                 account:[_usernameTextField stringValue]
                                    error:&error];
                   if (error) {
                       NSLog(@"Error saving credentials to keychain: %@", [error localizedDescription]);
                   }
                   
                   // save the keychain values in static variables for easy access
-                  ScrapeKeychainUsername = [usernameInput stringValue];
-                  ScrapeKeychainPassword = [passwordInput stringValue];
+                  ScrapeKeychainUsername = [_usernameTextField stringValue];
+                  ScrapeKeychainPassword = [_passwordTextField stringValue];
                   
                   [ScrapePrefsController setLoggedIn:YES];
                   
@@ -274,8 +274,8 @@ NSString *ScrapeKeychainPassword = nil;
               }
               else {
                   NSLog(@"Error logging in: %@", resultString);
-                  [successLabel setHidden:YES];
-                  [errorLabel   setHidden:NO];
+                  [_successLabel setHidden:YES];
+                  [_errorLabel   setHidden:NO];
                   
                   [ScrapePrefsController setLoggedIn:NO];
               }
