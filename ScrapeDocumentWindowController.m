@@ -23,6 +23,16 @@ static const GLint formats[] = {
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+@interface ScrapeDocumentWindowController ()
+{
+    NSDate *scrapeDate;
+    BOOL bUploading;
+}
+
+@end
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 @implementation ScrapeDocumentWindowController
 
 static NSArray *formatNames = nil;
@@ -39,7 +49,7 @@ static NSArray *formatNames = nil;
 - (id)init
 {
     self = [super initWithWindowNibName:@"ScrapeDocument"];
-    uploading = NO;
+    bUploading = NO;
     
     return self;
 }
@@ -49,10 +59,10 @@ static NSArray *formatNames = nil;
 {
     [super windowDidLoad];
     
-    [uploadSuccessOverlay setHidden:YES];
-    [uploadErrorOverlay   setHidden:YES];
-    [uploadSuccessOverlay setAlphaValue:0.0];
-    [uploadErrorOverlay   setAlphaValue:0.0];
+    [_uploadSuccessImageView setHidden:YES];
+    [_uploadSuccessImageView setAlphaValue:0.0];
+    [_uploadErrorImageView setHidden:YES];
+    [_uploadErrorImageView setAlphaValue:0.0];
 }
 
 //--------------------------------------------------------------
@@ -70,11 +80,11 @@ static NSArray *formatNames = nil;
 //--------------------------------------------------------------
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem
 {
-    if ([ScrapePrefsController isLoggedIn] == NO || uploading == YES) {
-        [uploadButton setEnabled:NO];
+    if ([ScrapePrefsController isLoggedIn] == NO || bUploading == YES) {
+        [_uploadButton setEnabled:NO];
     }
     else {
-        [uploadButton setEnabled:YES];
+        [_uploadButton setEnabled:YES];
     }
     return YES;
 }
@@ -86,7 +96,7 @@ static NSArray *formatNames = nil;
     [inputFormatter setDateFormat:@".yyyyMMdd.HHmmss"];
     NSString *name = @"scrape";
     name = [name stringByAppendingString:[inputFormatter stringFromDate:scrapeDate]];
-    name = [name stringByAppendingString:[formatNames objectAtIndex:[formatDropDown indexOfSelectedItem]]];
+    name = [name stringByAppendingString:[formatNames objectAtIndex:[_formatButton indexOfSelectedItem]]];
     return name;
 }
 
@@ -95,14 +105,14 @@ static NSArray *formatNames = nil;
 {
     NSLog(@"Refreshing");
     [[self window] setTitle:[self windowTitleForDocumentDisplayName:nil]];
-    [glView refresh];
+    [_glView refresh];
 }
 
 //--------------------------------------------------------------
 - (IBAction)doChangeFormat:(id)sender
 {
-    NSLog(@"Changing format to %@", [formatDropDown titleOfSelectedItem]);
-    [glView setFormat:formats[[formatDropDown indexOfSelectedItem]]];
+    NSLog(@"Changing format to %@", [_formatButton titleOfSelectedItem]);
+    [_glView setFormat:formats[[_formatButton indexOfSelectedItem]]];
 }
 
 //--------------------------------------------------------------
@@ -115,7 +125,7 @@ static NSArray *formatNames = nil;
     NSBitmapImageRep *bitmap;
     NSImage *image;
     
-    size = [glView bounds].size;
+    size = [_glView bounds].size;
     NSMutableData *buffer = [NSMutableData dataWithLength:size.width*size.height*4];
     glReadBuffer(GL_BACK);
     glReadPixels(0, 0, size.width, size.height, GL_RGBA, GL_UNSIGNED_BYTE, [buffer mutableBytes]);
@@ -177,7 +187,7 @@ static NSArray *formatNames = nil;
     NSBitmapImageRep *bitmap;
     NSImage *image;
     
-    size = [glView bounds].size;
+    size = [_glView bounds].size;
     NSMutableData *buffer = [NSMutableData dataWithLength:size.width*size.height*4];
     glReadBuffer(GL_BACK);
     glReadPixels(0, 0, size.width, size.height, GL_RGBA, GL_UNSIGNED_BYTE, [buffer mutableBytes]);
@@ -224,9 +234,9 @@ static NSArray *formatNames = nil;
                                    mimeType:@"image/png"];
        }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              uploading = NO;
-              [uploadProgressIndicator setDoubleValue:0];
-              [uploadButton setEnabled:YES];
+              bUploading = NO;
+              [_uploadProgressIndicator setDoubleValue:0];
+              [_uploadButton setEnabled:YES];
               
               NSString *responseString = [operation responseString];
               NSRange textRange = [responseString rangeOfString:@"ERROR"];
@@ -243,9 +253,9 @@ static NSArray *formatNames = nil;
                   }
                   
                   // display the success overlay
-                  [uploadSuccessOverlay setHidden:NO];
+                  [_uploadSuccessImageView setHidden:NO];
                   NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
-                  [animParams setObject:uploadSuccessOverlay
+                  [animParams setObject:_uploadSuccessImageView
                                  forKey:NSViewAnimationTargetKey];
                   [animParams setObject:NSViewAnimationFadeInEffect
                                  forKey:NSViewAnimationEffectKey];
@@ -255,7 +265,8 @@ static NSArray *formatNames = nil;
                   [overlayAnimation setDelegate:self];
                   [overlayAnimation startAnimation];
                   
-              } else {
+              }
+              else {
                   // @TODO: Call the failure block.
 //                  [self requestFailed:request];
               }
@@ -272,9 +283,9 @@ static NSArray *formatNames = nil;
                   descString = @"You have already uploaded this scrape to the server";
               }
               
-              uploading = NO;
-              [uploadProgressIndicator setDoubleValue:0];
-              [uploadButton setEnabled:YES];
+              bUploading = NO;
+              [_uploadProgressIndicator setDoubleValue:0];
+              [_uploadButton setEnabled:YES];
               
               NSLog(@"%@", [error localizedDescription]);
               
@@ -288,9 +299,9 @@ static NSArray *formatNames = nil;
               }
               
               // display the error overlay
-              [uploadErrorOverlay setHidden:NO];
+              [_uploadErrorImageView setHidden:NO];
               NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
-              [animParams setObject:uploadErrorOverlay
+              [animParams setObject:_uploadErrorImageView
                              forKey:NSViewAnimationTargetKey];
               [animParams setObject:NSViewAnimationFadeInEffect
                              forKey:NSViewAnimationEffectKey];
@@ -301,16 +312,16 @@ static NSArray *formatNames = nil;
               [overlayAnimation startAnimation];
           }];
     
-    uploading = YES;
-    [uploadProgressIndicator setDoubleValue:0];
-    [uploadButton setEnabled:NO];
+    bUploading = YES;
+    [_uploadProgressIndicator setDoubleValue:0];
+    [_uploadButton setEnabled:NO];
 }
 
 //--------------------------------------------------------------
 - (void)animationDidEnd:(NSAnimation *)animation
 {
-    [uploadSuccessOverlay setHidden:YES];
-    [uploadErrorOverlay   setHidden:YES];
+    [_uploadSuccessImageView setHidden:YES];
+    [_uploadErrorImageView setHidden:YES];
 }
 
 @end

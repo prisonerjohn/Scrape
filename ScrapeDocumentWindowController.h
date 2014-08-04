@@ -12,17 +12,14 @@
 
 //--------------------------------------------------------------
 @interface ScrapeDocumentWindowController : NSWindowController <NSToolbarDelegate, NSAnimationDelegate>
-{
-    IBOutlet NSPopUpButton *uploadButton;
-    IBOutlet NSPopUpButton *formatDropDown;
-    IBOutlet ScrapeGLView *glView;
-    IBOutlet NSProgressIndicator *uploadProgressIndicator;
-    IBOutlet NSImageView *uploadSuccessOverlay;
-    IBOutlet NSImageView *uploadErrorOverlay;
-    
-    NSDate *scrapeDate;
-    BOOL uploading;
-}
+
+@property (weak) IBOutlet NSPopUpButton *formatButton;
+@property (weak) IBOutlet NSPopUpButton *uploadButton;
+
+@property (weak) IBOutlet ScrapeGLView *glView;
+@property (weak) IBOutlet NSProgressIndicator *uploadProgressIndicator;
+@property (weak) IBOutlet NSImageView *uploadErrorImageView;
+@property (weak) IBOutlet NSImageView *uploadSuccessImageView;
 
 - (NSString *)makeFilename;
 
