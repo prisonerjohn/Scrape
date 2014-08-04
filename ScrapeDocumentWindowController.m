@@ -294,7 +294,7 @@ static NSArray *formatNames = nil;
                   NSUserNotification *notification = [[NSUserNotification alloc] init];
                   notification.title = @"Upload Error";
                   notification.informativeText = descString;
-                  notification.soundName = NSUserNotificationDefaultSoundName;
+                  notification.soundName = @"Basso";
                   [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
               }
               
