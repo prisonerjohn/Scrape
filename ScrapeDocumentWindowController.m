@@ -263,56 +263,61 @@ static NSArray *formatNames = nil;
                                  @"username": ScrapeKeychainUsername,
                                  @"password": ScrapeKeychainPassword,
                                  @"filename": [self makeFilename]};
-    [manager POST:[SiteRoot stringByAppendingString:@"upload.php"]
-       parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-           [formData appendPartWithFileData:tiffData
-                                       name:@"tiffData"
-                                   fileName:[[self makeFilename] stringByAppendingString:@".tiff"]
-                                   mimeType:@"image/tiff"];
-           [formData appendPartWithFileData:pngData
-                                       name:@"pngData"
-                                   fileName:[[self makeFilename] stringByAppendingString:@".png"]
-                                   mimeType:@"image/png"];
-       }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              bUploading = NO;
-              [_uploadProgressIndicator setDoubleValue:0];
-              [_uploadButton setEnabled:YES];
-              
-              NSString *resultString = [responseObject objectForKey:@"res"];
-              if ([resultString compare:@"OK"] == NSOrderedSame) {
-                  NSLog(@"Successfully uploaded");
-                  
-                  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                  if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
-                      NSUserNotification *notification = [[NSUserNotification alloc] init];
-                      notification.title = @"Upload Complete!";
-                      notification.informativeText = @"Your data has been uploaded to the Scrape server";
-                      notification.userInfo = @{@"url": [responseObject objectForKey:@"url"]};
-                      [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-                  }
-                  
-                  // display the success overlay
-                  [_uploadSuccessImageView setHidden:NO];
-                  NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
-                  [animParams setObject:_uploadSuccessImageView
-                                 forKey:NSViewAnimationTargetKey];
-                  [animParams setObject:NSViewAnimationFadeInEffect
-                                 forKey:NSViewAnimationEffectKey];
-                  NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
-                  [overlayAnimation setDuration:1.5];
-                  [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
-                  [overlayAnimation setDelegate:self];
-                  [overlayAnimation startAnimation];
-              }
-              else {
-                  NSError *error = [NSError errorWithDomain:kScrapeKeychainService
-                                                       code:kCFURLErrorCannotCreateFile
-                                                   userInfo:@{NSLocalizedDescriptionKey: resultString}];
-                  failureBlock(operation, error);
-              }
-          }
-          failure:failureBlock];
+    AFHTTPRequestOperation *operation = [manager POST:[SiteRoot stringByAppendingString:@"upload.php"]
+                                           parameters:parameters
+                            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                [formData appendPartWithFileData:tiffData
+                                                            name:@"tiffData"
+                                                        fileName:[[self makeFilename] stringByAppendingString:@".tiff"]
+                                                        mimeType:@"image/tiff"];
+                                [formData appendPartWithFileData:pngData
+                                                            name:@"pngData"
+                                                        fileName:[[self makeFilename] stringByAppendingString:@".png"]
+                                                        mimeType:@"image/png"];
+                            }
+                                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                  bUploading = NO;
+                                                  [_uploadProgressIndicator setDoubleValue:0];
+                                                  [_uploadButton setEnabled:YES];
+                                                  
+                                                  NSString *resultString = [responseObject objectForKey:@"res"];
+                                                  if ([resultString compare:@"OK"] == NSOrderedSame) {
+                                                      NSLog(@"Successfully uploaded");
+                                                      
+                                                      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                                      if ([defaults boolForKey:ScrapeShowUserNotificationsKey] == YES) {
+                                                          NSUserNotification *notification = [[NSUserNotification alloc] init];
+                                                          notification.title = @"Upload Complete!";
+                                                          notification.informativeText = @"Your data has been uploaded to the Scrape server";
+                                                          notification.userInfo = @{@"url": [responseObject objectForKey:@"url"]};
+                                                          [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+                                                      }
+                                                      
+                                                      // display the success overlay
+                                                      [_uploadSuccessImageView setHidden:NO];
+                                                      NSMutableDictionary *animParams = [NSMutableDictionary dictionaryWithCapacity:2];
+                                                      [animParams setObject:_uploadSuccessImageView
+                                                                     forKey:NSViewAnimationTargetKey];
+                                                      [animParams setObject:NSViewAnimationFadeInEffect
+                                                                     forKey:NSViewAnimationEffectKey];
+                                                      NSAnimation *overlayAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:animParams, nil]];
+                                                      [overlayAnimation setDuration:1.5];
+                                                      [overlayAnimation setAnimationCurve:NSAnimationEaseOut];
+                                                      [overlayAnimation setDelegate:self];
+                                                      [overlayAnimation startAnimation];
+                                                  }
+                                                  else {
+                                                      NSError *error = [NSError errorWithDomain:kScrapeKeychainService
+                                                                                           code:kCFURLErrorCannotCreateFile
+                                                                                       userInfo:@{NSLocalizedDescriptionKey: resultString}];
+                                                      failureBlock(operation, error);
+                                                  }
+                                              }
+                                              failure:failureBlock];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+        [_uploadProgressIndicator setDoubleValue:percentDone];
+    }];
     
     bUploading = YES;
     [_uploadProgressIndicator setDoubleValue:0];
