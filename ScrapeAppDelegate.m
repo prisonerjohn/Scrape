@@ -258,7 +258,8 @@ NSString *SiteRoot = @"http://www.silentlycrashing.net/scrape/";
 {
     if ([ScrapePrefsController isLoggedIn] == YES) {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"home.php"]]];
-    } else {
+    }
+    else {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[SiteRoot stringByAppendingString:@"index.php"]]];
     }
 }
