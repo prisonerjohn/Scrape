@@ -115,7 +115,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="149">
-                                    <rect key="frame" x="243" y="44" width="218" height="17"/>
+                                    <rect key="frame" x="244" y="44" width="216" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="There was an error logging you in" id="150">
                                         <font key="font" metaFont="system"/>

@@ -275,7 +275,8 @@ NSString *ScrapeKeychainPassword = nil;
               else {
                   NSLog(@"Error logging in: %@", resultString);
                   [_successLabel setHidden:YES];
-                  [_errorLabel   setHidden:NO];
+                  [_errorLabel setStringValue:resultString];
+                  [_errorLabel setHidden:NO];
                   
                   [ScrapePrefsController setLoggedIn:NO];
               }
