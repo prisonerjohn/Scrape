@@ -279,9 +279,8 @@ static NSArray *formatNames = nil;
               [_uploadProgressIndicator setDoubleValue:0];
               [_uploadButton setEnabled:YES];
               
-              NSString *responseString = [operation responseString];
-              NSRange textRange = [responseString rangeOfString:@"ERROR"];
-              if (textRange.location == NSNotFound) {
+              NSString *resultString = [responseObject objectForKey:@"res"];
+              if ([resultString compare:@"OK"] == NSOrderedSame) {
                   NSLog(@"Successfully uploaded");
                   
                   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -289,7 +288,7 @@ static NSArray *formatNames = nil;
                       NSUserNotification *notification = [[NSUserNotification alloc] init];
                       notification.title = @"Upload Complete!";
                       notification.informativeText = @"Your data has been uploaded to the Scrape server";
-                      notification.userInfo = @{@"url": responseString};
+                      notification.userInfo = @{@"url": [responseObject objectForKey:@"url"]};
                       [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
                   }
                   
@@ -307,8 +306,10 @@ static NSArray *formatNames = nil;
                   [overlayAnimation startAnimation];
               }
               else {
-                  // @TODO: Make an NSError to pass over.
-                  failureBlock(operation, nil);
+                  NSError *error = [NSError errorWithDomain:kScrapeKeychainService
+                                                       code:kCFURLErrorCannotCreateFile
+                                                   userInfo:@{NSLocalizedDescriptionKey: resultString}];
+                  failureBlock(operation, error);
               }
           }
           failure:failureBlock];
